@@ -21,9 +21,9 @@ program
 const number_of_instances = parseInt(program.instances);
 const number_of_repo_iterations = parseInt(program.repos);
 const number_of_mentions_per_workitem_per_repo = parseInt(program.mentions);
-const sample_work_items_to_mention = 'sampleWorkItemsToMention.json';
-const fake_work_items_to_mention = 'fakeWorkItemsToMention.json';
-const v1_inboxes = 'inboxes.json';
+const sample_work_items_to_mention = '../config/sampleWorkItemsToMention.json';
+const fake_work_items_to_mention = '../config/fakeWorkItemsToMention.json';
+const v1_inboxes = '../config/inboxes.json';
 const readFile = Promise.promisify(fs.readFile);
 
 let client = new CSApiClient(program.url);

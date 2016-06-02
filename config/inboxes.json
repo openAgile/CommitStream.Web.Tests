@@ -1,0 +1,10 @@
+[{
+  "inboxId": "",
+  "family": "GitHub",
+  "name": "",
+  "_links": {
+    "add-commit": {
+      "href": "http://localhost:6565/api/709d5fb0-2112-4386-adcd-9d16249a4f09/inboxes/85a64461-c3bf-4755-860d-3c35d7116d39/commits?apiKey=2af9aa02-17ae-44e3-95a0-3fca9a25683a"
+    }
+  }
+}]
