@@ -6,29 +6,15 @@ import R from 'ramda';
 import Promise from 'bluebird';
 import fs from 'fs';
 
-program
-  .version('0.0.0')
-  .option('-u, --url [url]', 'The base URL for the CommitStream Service API, default: http://localhost:6565/api', 'http://localhost:6565/api')
-  .option('-i, --instances [number]', 'Number of instances to create, default: 1', 1)
-  .option('-r, --repos [number]', 'Number of repos creation iterations to run (creates one repo per family type during each iteration), default 1', 1)
-  .option('-m, --mentions [number]', 'Number of times to post a commit with each mention (one story, 5 tasks, 5 tests in each group of workitems), default 1', 1)
-  .option('-d, --debug', 'Show results of each commit, not just summary information')
-  .option('-j, --json', 'Log only the JSON output with all the query URLs needed for the performance client')
-  .option('-s, --sample', 'Create the commits with sample data that exists in the PR builds', 0)
-  .option('--repourl [repourl]', 'Specifies the repository url that is going to be used in the commits')
-  .parse(process.argv);
-
-const number_of_instances = parseInt(program.instances);
-const number_of_repo_iterations = parseInt(program.repos);
-const number_of_mentions_per_workitem_per_repo = parseInt(program.mentions);
 const sample_work_items_to_mention = '../config/sampleWorkItemsToMention.json';
-const fake_work_items_to_mention = '../config/fakeWorkItemsToMention.json';
 const v1_inboxes = '../config/inboxes.json';
 const readFile = Promise.promisify(fs.readFile);
-
-let client = new CSApiClient(program.url);
-
-if (!program.json) console.log(`Operating against this CommitStream Service API: ${client.baseUrl}`);
+let number_of_instances;
+let number_of_repo_iterations;
+let number_of_mentions_per_workitem_per_repo;
+let fake_work_items_to_mention;
+let client;
+let options;
 
 let getFromJsonFile = async(fileName) => {
   let fileContent = await readFile(fileName, "utf8");
@@ -40,15 +26,9 @@ let createMessage = (mention, inbox) => {
 }
 
 let createCommit = async(message, inbox) => {
-  let commitAddResponse = await inbox.commitCreate(message, program.repourl);
-  if (program.debug) {
+  let commitAddResponse = await inbox.commitCreate(message, options.repourl);
+  if (options.debug) {
     console.log(commitAddResponse.message);
-  }
-}
-
-let fromZeroTo = async(top, fun) => {
-  for (let i = 0; i < top; i++) {
-    await fun(i);
   }
 }
 
@@ -58,7 +38,7 @@ let createInstanceAndDigest = async(iteration) => {
     description: `Digest for ${iteration}`
   });
 
-  if (!program.json) {
+  if (!options.json) {
     console.log(`The digest: ${digest._links['teamroom-view'].href}&apiKey=${client.apiKey}`);
     console.log(`#${iteration}: Populating instance ${client.instanceId} (apiKey = ${client.apiKey})`);
   }
@@ -107,7 +87,7 @@ let createFakeCommits = async dto => {
       let workItemsGroup = workItemsToMention[inboxNum % 4];
       let comma = (iteration === 0 && inboxNum === 0) ? '' : ',';
       inboxNum++;
-      if (!program.json) {
+      if (!options.json) {
         console.log(`Adding commits to ${inbox.inboxId} of family ${inbox.family}`);
         console.log(`${inbox._links['add-commit'].href}?apiKey=${client.apiKey}`);
       } else console.log(`${comma}"${client.baseUrl}/${client.instanceId}/commits/tags/versionone/workitem?numbers=${workItemsGroup.join(',')}&apiKey=${client.apiKey}"`);
@@ -119,8 +99,20 @@ let createFakeCommits = async dto => {
       }
     });
   });
-
 }
+
+let fromZeroTo = async(top, fun) => {
+  for (let i = 0; i < top; i++) {
+    await fun(i);
+  }
+}
+
+let createInstanceWithFakeData = R.pipeP(
+  createInstanceAndDigest,
+  getInboxesToCreate,
+  createInboxes,
+  createFakeCommits
+);
 
 let mapInboxesAndStories = async(fun, inboxes) => {
   let sampleWorkItemsToMention = await getFromJsonFile(sample_work_items_to_mention);
@@ -195,29 +187,7 @@ let createMultipleTasks = async(inbox, story) => {
     let message = createMessage(`${previousTasks}`, inbox)
     await createCommit(message, inbox);
   }
-}
-
-// let create25PerAsset = async(inbox, story) => {
-//   console.log('Creating 25 commits per asset.');
-//   await fromZeroTo(25, async i => {
-//     for (let test of story.Tests) {
-//       let message = createMessage(`${test} on iteration ${i}`, inbox)
-//       await createCommit(message, inbox);
-//     }
-//
-//     for (let task of story.Tasks) {
-//       let message = createMessage(`${task} on iteration ${i}`, inbox)
-//       await createCommit(message, inbox);
-//     };
-//   });
-// }
-
-let createInstanceWithFakeData = R.pipeP(
-  createInstanceAndDigest,
-  getInboxesToCreate,
-  createInboxes,
-  createFakeCommits
-);
+};
 
 let getV1Inboxes = async() => {
   let inboxes = await getFromJsonFile(v1_inboxes);
@@ -229,31 +199,73 @@ let getV1Inboxes = async() => {
   return inboxes;
 }
 
-let run = async() => {
-  try {
-    if (program.json) console.log('[');
+let createSampleData = async() => {
+  console.log('Creating instance with sample data');
+  client = new CSApiClient(options.baseUrl);
 
-    if (program.sample) {
-      console.log('Creating instance with sample data');
-      let inboxes = await getV1Inboxes();
-      await mapInboxesAndStories(createStories, inboxes);
-      await mapInboxesAndStories(createStoriesWithTasks, inboxes);
-      await mapInboxesAndStories(createStoriesWithTests, inboxes);
-      await mapInboxesAndStories(createStoriesWithTestsAndTasks, inboxes);
-      await mapInboxesAndStories(createTasks, inboxes);
-      await mapInboxesAndStories(createTests, inboxes);
-      await mapInboxesAndStories(createMultipleTests, inboxes);
-      await mapInboxesAndStories(createMultipleTasks, inboxes);
-    } else {
-      console.log('Creating instance with fake data');
-      fromZeroTo(number_of_instances, async(instanceNumber) => {
-        await createInstanceWithFakeData(instanceNumber);
-      });
-    }
-    if (program.json) console.log(']');
-  } catch (e) {
-    console.log(e);
-  }
+  if (!options.json) console.log(`Operating against this CommitStream Service API: ${client.baseUrl}`);
+  let inboxes = await getV1Inboxes();
+  await mapInboxesAndStories(createStories, inboxes);
+  await mapInboxesAndStories(createStoriesWithTasks, inboxes);
+  await mapInboxesAndStories(createStoriesWithTests, inboxes);
+  await mapInboxesAndStories(createStoriesWithTestsAndTasks, inboxes);
+  await mapInboxesAndStories(createTasks, inboxes);
+  await mapInboxesAndStories(createTests, inboxes);
+  await mapInboxesAndStories(createMultipleTests, inboxes);
+  await mapInboxesAndStories(createMultipleTasks, inboxes);
 }
 
-run();
+let createFakeData = async() => {
+  console.log('Creating instance with fake data');
+  number_of_instances = parseInt(options.instances);
+  number_of_repo_iterations = parseInt(options.repos);
+  number_of_mentions_per_workitem_per_repo = parseInt(options.mentions);
+  fake_work_items_to_mention = '../config/fakeWorkItemsToMention.json';
+  client = new CSApiClient(options.baseUrl);
+  fromZeroTo(number_of_instances, async(instanceNumber) => {
+    await createInstanceWithFakeData(instanceNumber);
+  });
+}
+
+program
+  .version('0.0.1');
+
+program
+  .command('sample')
+  .description('Creates the commits with sample data that exists in the PR builds')
+  .option('-u, --baseUrl [baseUrl]', 'The base URL for the CommitStream Service API, default: http://localhost:6565/api', 'http://localhost:6565/api')
+  .option('--repourl [repourl]', "Specifies the repository url that is going to be used in the commits")
+  .option('-j, --json', 'Log only the JSON output with all the query URLs needed for the performance client')
+  .action(function(opt) {
+    options = opt;
+    try {
+      if (options.json) console.log('[');
+      createSampleData();
+      if (options.json) console.log(']');
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
+program
+  .command('fake')
+  .description('Creates as many instances, repositories, mentions, etc. as necessary. It does not create commits related with existing stories in VersionOne, they are just random.' )
+  .option('-u, --baseUrl [baseUrl]', 'The base URL for the CommitStream Service API, default: http://localhost:6565/api', 'http://localhost:6565/api')
+  .option('-i, --instances [number]', 'Number of instances to create, default: 1', 1)
+  .option('-r, --repos [number]', 'Number of repos creation iterations to run (creates one repo per family type during each iteration), default 1', 1)
+  .option('-m, --mentions [number]', 'Number of times to post a commit with each mention (one story, 5 tasks, 5 tests in each group of workitems), default 1', 1)
+  .option('-d, --debug', 'Show results of each commit, not just summary information')
+  .option('-j, --json', 'Log only the JSON output with all the query URLs needed for the performance client')
+  .option('--repourl [repourl]', 'Specifies the repository url that is going to be used in the commits')
+  .action(function(opt){
+    options = opt;
+    try {
+      if (options.json) console.log('[');
+      createFakeData();
+      if (options.json) console.log(']');
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
+program.parse(process.argv);
