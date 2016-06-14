@@ -49,7 +49,8 @@ let createInstanceAndDigest = async(iteration) => {
   };
 };
 
-let getInboxesToCreate = async dto => {
+//TODO: extract this into a json file
+let getInboxesToCreate = async (dto) => {
   let iteration = dto.iteration
   let inboxesToCreate = [{
     name: `GitHub Repo ${iteration}`,
@@ -68,7 +69,7 @@ let getInboxesToCreate = async dto => {
   return dto;
 }
 
-let createInboxes = async dto => {
+let createInboxes = async (dto) => {
   dto.inboxes = [];
   for (let inboxToCreate of dto.inboxesToCreate) {
     let inbox = await dto.digest.inboxCreate(inboxToCreate);
@@ -77,11 +78,11 @@ let createInboxes = async dto => {
   return dto;
 };
 
-let createFakeCommits = async dto => {
+let createFakeCommits = async (dto) => {
   let inboxNum = 0;
   let workItemsToMention = await getFromJsonFile(fake_work_items_to_mention);
 
-  fromZeroTo(number_of_repo_iterations, async iteration => {
+  fromZeroTo(number_of_repo_iterations, async (iteration) => {
     dto.inboxes.forEach(inbox => {
       let digest = dto.digest;
       let workItemsGroup = workItemsToMention[inboxNum % 4];
@@ -92,7 +93,7 @@ let createFakeCommits = async dto => {
         console.log(`${inbox._links['add-commit'].href}?apiKey=${client.apiKey}`);
       } else console.log(`${comma}"${client.baseUrl}/${client.instanceId}/commits/tags/versionone/workitem?numbers=${workItemsGroup.join(',')}&apiKey=${client.apiKey}"`);
       for (let workItem of workItemsGroup) {
-        fromZeroTo(number_of_mentions_per_workitem_per_repo, async mentionNum => {
+        fromZeroTo(number_of_mentions_per_workitem_per_repo, async (mentionNum) => {
           let message = `${workItem} mention # ${mentionNum} on ${iteration} in  ${inbox.inboxId} of family = ${inbox.family}`;
           await createCommit(message, inbox);
         });
@@ -151,7 +152,7 @@ let createStoriesWithTestsAndTasks = async(inbox, story) => {
     mention += task + ' ';
   }
   //26 so we pass the 25 mentions total
-  await fromZeroTo(26, async i => {
+  await fromZeroTo(26, async (i) => {
     let message = createMessage(`${mention} ${i}`, inbox)
     await createCommit(message, inbox);
   });
