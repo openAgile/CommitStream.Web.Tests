@@ -41,7 +41,7 @@ while working on the scripts so the files are transpiled as soon as you save cha
 
 ####create-demo-data.js:####
 ```
-	node create-demo-data.js --help
+node create-demo-data.js --help
 ``` 
 
 This script allows to quickly create commits in CommitStream with some variations. It has 2 main commands ***fake*** and ***sample***. Each command run with default options values that can be overwritten. In order to see those options run:

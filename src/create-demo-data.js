@@ -250,10 +250,10 @@ program
 
 program
   .command('fake')
-  .description('Creates as many instances, repositories, mentions, etc. as necessary. It does not create commits related with existing stories in VersionOne, they are just random.' )
+  .description('Creates as many instances, repositories, mentions, etc. as wanted. It does not create commits related with existing stories in VersionOne, they are just random.' )
   .option('-u, --baseUrl [baseUrl]', 'The base URL for the CommitStream Service API, default: http://localhost:6565/api', 'http://localhost:6565/api')
   .option('-i, --instances [number]', 'Number of instances to create, default: 1', 1)
-  .option('-r, --repos [number]', 'Number of repos creation iterations to run (creates one repo per family type during each iteration), default 1', 1)
+  .option('-r, --repos [number]', 'Number of repos creation iterations to run (creates one repo per VCS system during each iteration), default 1', 1)
   .option('-m, --mentions [number]', 'Number of times to post a commit with each mention (one story, 5 tasks, 5 tests in each group of workitems), default 1', 1)
   .option('-d, --debug', 'Show results of each commit, not just summary information')
   .option('-j, --json', 'Log only the JSON output with all the query URLs needed for the performance client')
