@@ -49,7 +49,11 @@ let postToLink = (client, halResponse, linkName, data, extraHeaders) => {
   return rp(postOptions(link, data, extraHeaders));
 }
 
-let post = (client, path, data) => rp(postOptions(client.href(path), data));
+let post = (client, path, data) => {
+  console.log(client.baseUrl);
+  console.log(client.href(path));
+  return rp(postOptions(client.href(path), data));
+};
 
 let get = (client, uri, alreadyAbsolute) => {
   uri = alreadyAbsolute ? uri : client.href(uri);
