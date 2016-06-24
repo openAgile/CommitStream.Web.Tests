@@ -262,6 +262,7 @@ program
     options = opt;
     try {
       if (options.json) console.log('[');
+      console.log('baseUrl: ' + options.baseUrl);
       createFakeData();
       if (options.json) console.log(']');
     } catch (e) {
