@@ -1,7 +1,7 @@
 'use strict';
 
 import program from 'commander';
-import CSApiClient from './lib/cs-api-client';
+import CSApiClient from './dependencies/cs-api-client';
 import R from 'ramda';
 import Promise from 'bluebird';
 import fs from 'fs';

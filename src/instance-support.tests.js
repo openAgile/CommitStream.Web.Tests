@@ -4,7 +4,7 @@ var chai = require('chai'),
   sinonChai = require('sinon-chai'),
   _ = require('underscore'),
   rp = require('request-promise'),
-  base = require('./lib/base');
+  base = require('./dependencies/base');
 
 base.enableLogging(true);
 _.extend(global, base);

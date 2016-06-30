@@ -4,7 +4,7 @@
   "name": "",
   "_links": {
     "add-commit": {
-      "href": "http://localhost:6565/api/709d5fb0-2112-4386-adcd-9d16249a4f09/inboxes/85a64461-c3bf-4755-860d-3c35d7116d39/commits?apiKey=2af9aa02-17ae-44e3-95a0-3fca9a25683a"
+      "href": "https://v1-cs-test.azurewebsites.net/api/81976d5f-bbc1-40b5-a4b1-6f402333d4b6/inboxes/ce9695bb-2041-4a3a-a42f-8865a335bc16/commits?apiKey=4500594d-df39-4121-b52a-c3b4133f2fe1"
     }
   }
 }]

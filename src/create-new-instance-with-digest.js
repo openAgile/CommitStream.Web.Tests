@@ -1,5 +1,5 @@
 import program from 'commander';
-import CSApiClient from './lib/cs-api-client';
+import CSApiClient from './dependencies/cs-api-client';
 
 program
   .version('0.0.0')
