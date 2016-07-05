@@ -250,10 +250,10 @@ describe('api/:instanceId/digests/:digestId/commits?apiKey after POST', function
         var cleanedBody = JSON.parse(res.body);
         cleanedBody.commits = _.map(cleanedBody.commits, function(value, key, list) {
          return _.omit(value, 'timeFormatted', 'commitDate');
-       })
+       });
 
        cleanedBody = JSON.stringify(cleanedBody);
-       cleanedBody.should.equal("{\"commits\":[{\"author\":\"shawnmarie\",\"sha1Partial\":\"b42c28\",\"action\":\"committed\",\"message\":\"S-11111 Updated Happy Path Validations!\",\"commitHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo/commit/b42c285e1506edac965g92573a2121700fc92f8b\",\"repo\":\"kunzimariano/CommitService.DemoRepo\",\"branch\":\"master\",\"branchHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo/tree/master\",\"repoHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo\"},{\"author\":\"kunzimariano\",\"sha1Partial\":\"d31d17\",\"action\":\"committed\",\"message\":\"S-11111 Modified UI validations!\",\"commitHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a\",\"repo\":\"kunzimariano/CommitService.DemoRepo\",\"branch\":\"master\",\"branchHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo/tree/master\",\"repoHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo\"},{\"author\":\"laureanoremedi\",\"sha1Partial\":\"d31d17\",\"action\":\"committed\",\"message\":\"S-11111 initial Commit to backend functionality!\",\"commitHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a\",\"repo\":\"kunzimariano/CommitService.DemoRepo\",\"branch\":\"master\",\"branchHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo/tree/master\",\"repoHref\":\"https://github.com/kunzimariano/CommitService.DemoRepo\"}]}");
+       cleanedBody.should.equal(JSON.stringify(expectedCommits));
         done();
       });
     }, 3000);
@@ -705,6 +705,33 @@ describe('api/inboxes/:uuid GET', function() {
   });
 
 });
+
+var expectedCommits = {
+  "commits": [{
+    "author": "kunzimariano",
+    "sha1Partial": "d31d17",
+    "family": "GitHub",
+    "action": "committed",
+    "message": "S-11111 Modified UI validations!",
+    "commitHref": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
+    "repo": "kunzimariano/CommitService.DemoRepo",
+    "branch": "master",
+    "branchHref": "https://github.com/kunzimariano/CommitService.DemoRepo/tree/master",
+    "repoHref": "https://github.com/kunzimariano/CommitService.DemoRepo"
+  }, {    
+    "author": "laureanoremedi",
+    "sha1Partial": "d31d17",
+    "family": "GitHub",
+    "action": "committed",
+    "message": "S-11111 initial Commit to backend functionality!",
+    "commitHref": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
+    "repo": "kunzimariano/CommitService.DemoRepo",
+    "branch": "master",
+    "branchHref": "https://github.com/kunzimariano/CommitService.DemoRepo/tree/master",
+    "repoHref": "https://github.com/kunzimariano/CommitService.DemoRepo"
+  }],
+  "_links": {}
+};
 
 var commitInbox1 = {
   "ref": "refs/heads/master",
