@@ -1,3 +1,5 @@
+'use strict';
+
 var chai = require('chai'),
   should = chai.should(),
   sinon = require('sinon'),
@@ -10,131 +12,32 @@ var chai = require('chai'),
 chai.use(sinonChai);
 chai.config.includeStack = true;
 
+let baseUrl = process.env.baseUrl;
+//TODO: remove this
+baseUrl = 'http://localhost:6565';
 
-var commitInbox1 = {
-  "ref": "refs/heads/master",
-  "commits": [{
-    "id": "d31d174f0495feaf876e92573a2121700fd81e7a",
-    "distinct": true,
-    "message": "S-11111 initial Commit to backend functionality!",
-    "timestamp": "2014-10-03T15:57:14-03:00",
-    "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
-    "author": {
-      "name": "laureanoremedi",
-      "email": "laureanoremedi@gmail.com",
-      "username": "laureanoremedi"
-    },
-    "committer": {
-      "name": "laureanoremedi",
-      "email": "laureanoremedi@gmail.com",
-      "username": "laureanoremedi"
-    },
-    "added": [],
-    "removed": [],
-    "modified": ["README.md"]
-  }],
-  "repository": {
-    "id": 23355501,
-    "name": "CommitService.DemoRepo"
-  }
-};
+let apiKey;
+let instanceId;
+let urlToCreateDigest;
+let digestId;
+let urlToCreateInbox;
 
-var commitInbox2 = {
-  "ref": "refs/heads/master",
-  "commits": [{
-    "id": "d31d174f0495feaf876e92573a2121700fd81e7a",
-    "distinct": true,
-    "message": "S-11111 Modified UI validations!",
-    "timestamp": "2014-10-03T15:57:14-03:00",
-    "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
-    "author": {
-      "name": "kunzimariano",
-      "email": "kunzi.mariano@gmail.com",
-      "username": "kunzimariano"
-    },
-    "committer": {
-      "name": "kunzimariano",
-      "email": "kunzi.mariano@gmail.com",
-      "username": "kunzimariano"
-    },
-    "added": [],
-    "removed": [],
-    "modified": ["README.md"]
-  }],
-  "repository": {
-    "id": 23355501,
-    "name": "CommitService.DemoRepo"
-  }
-};
+let inbox1Id;
+let urlToPushCommitToInbox1;
+let urlToGetInbox1Info;
 
-var commitInbox2WithOutMention = {
-  "ref": "refs/heads/master",
-  "commits": [{
-    "id": "d31d174f0495feaf876e92573a2121700fd81e7a",
-    "distinct": true,
-    "message": "Actualize Documentation",
-    "timestamp": "2014-10-03T15:57:14-03:00",
-    "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
-    "author": {
-      "name": "matiasHeffel",
-      "email": "matiasheffel@gmail.com",
-      "username": "kunzimariano"
-    },
-    "committer": {
-      "name": "matiasHeffel",
-      "email": "matiasHeffel@gmail.com",
-      "username": "matiasHeffel"
-    },
-    "added": [],
-    "removed": [],
-    "modified": ["README.md"]
-  }],
-  "repository": {
-    "id": 23355501,
-    "name": "CommitService.DemoRepo"
-  }
-};
+let inbox2Id;
+let urlToPushCommitToInbox2;
+let urlToGetInbox2Info;
 
-var commitInboxA = {
-  "ref": "refs/heads/master",
-  "commits": [{
-    "id": "b42c285e1506edac965g92573a2121700fc92f8b",
-    "distinct": true,
-    "message": "S-11111 Updated Happy Path Validations!",
-    "timestamp": "2014-10-03T15:57:14-03:00",
-    "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/b42c285e1506edac965g92573a2121700fc92f8b",
-    "author": {
-      "name": "shawnmarie",
-      "email": "shawn.abbott@versionone.com",
-      "username": "shawnmarie"
-    },
-    "committer": {
-      "name": "shawnmarie",
-      "email": "shawn.abbott@versionone.com",
-      "username": "shawnmarie"
-    },
-    "added": [],
-    "removed": [],
-    "modified": ["README.md"]
-  }],
-  "repository": {
-    "id": 23355501,
-    "name": "CommitService.DemoRepo"
-  }
-};
+let digestIdA;
+let urlToCreateInboxA;
+let urlToPushCommitToInboxA;
 
-var digestId = undefined;
-var digestIdA = undefined;
-var urlToCreateInbox = undefined;
-var urlToCreateInboxA = undefined;
-var urlToPushCommitToInbox1 = undefined;
-var urlToGetInbox1Info = undefined;
-var urlToPushCommitToInbox2 = undefined;
-var urlToPushCommitToInboxA = undefined;
 
 describe('you need a digest to associate to the inboxes that will be created', function() {
 
-  /* TODO update this for instanceId support 
+  /* TODO update this for instanceId support
   it('should return error message with 401 Unauthorized response when request is made without a key.', function(done) {
     request({
       //TODO: should this uri be api/digests?
@@ -167,9 +70,31 @@ describe('you need a digest to associate to the inboxes that will be created', f
     })
   });
   */
-  it('create the digest', function(done) {
+
+  it('creates the instance', function(done) {
     request({
-      uri: "http://localhost:6565/api/digests?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
+      uri: baseUrl + "/api/instances",
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: ''
+    }, function(err, res, body) {
+      should.not.exist(err);
+      instanceId = JSON.parse(body).instanceId;
+      apiKey = JSON.parse(body).apiKey;
+      urlToCreateDigest = JSON.parse(body)._links['digest-create'].href;
+
+      should.exist(instanceId);
+      should.exist(apiKey);
+      should.exist(urlToCreateDigest);
+      done();
+    });
+  });
+
+  it('creates the digest', function(done) {
+    request({
+      uri: urlToCreateDigest + '?apiKey=' + apiKey,
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -179,16 +104,18 @@ describe('you need a digest to associate to the inboxes that will be created', f
       })
     }, function(err, res, body) {
       should.not.exist(err);
-      var digestIdCreated = JSON.parse(body).digestId;
+      digestId = JSON.parse(body).digestId;
       urlToCreateInbox = JSON.parse(body)._links['inbox-create'].href;
-      digestIdCreated.should.exist;
-      digestId = digestIdCreated;
+
+      should.exist(digestId);
+      should.exist(urlToCreateInbox);
       done();
     });
   });
-  it('create the inbox and associate to the digest created', function(done) {
+
+  it('creates the inbox', function(done) {
     request({
-      uri: urlToCreateInbox + "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
+      uri: urlToCreateInbox + '?apiKey=' + apiKey,
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -200,17 +127,19 @@ describe('you need a digest to associate to the inboxes that will be created', f
       })
     }, function(err, res, body) {
       should.not.exist(err);
-      var inboxIdCreated = JSON.parse(body).inboxId;
+      inbox1Id = JSON.parse(body).inboxId;
       urlToPushCommitToInbox1 = JSON.parse(body)._links['add-commit'].href;
-      urlToGetInbox1Info = JSON.parse(body)._links['self'].href;
+      urlToGetInbox1Info = JSON.parse(body)._links.self.href;
 
-      inboxIdCreated.should.exist;
+      should.exist(inbox1Id);
+      should.exist(urlToPushCommitToInbox1);
+      should.exist(urlToGetInbox1Info);
       done();
     });
   });
-  it('create a different inbox and associate to the same digest created', function(done) {
+  it('creates another inbox in the same digest', function(done) {
     request({
-      uri: urlToCreateInbox + "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
+      uri: urlToCreateInbox + '?apiKey=' + apiKey,
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -222,66 +151,11 @@ describe('you need a digest to associate to the inboxes that will be created', f
       })
     }, function(err, res, body) {
       should.not.exist(err);
-      var inboxIdCreated = JSON.parse(body).inboxId;
+      inbox2Id = JSON.parse(body).inboxId;
       urlToPushCommitToInbox2 = JSON.parse(body)._links['add-commit'].href;
-      inboxIdCreated.should.exist;
-      done();
-    });
-  });
-});
 
-describe('need a second digest for same workitem', function() {
-  it('create a second new digest.', function(done) {
-    request({
-      uri: "http://localhost:6565/api/digests?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        description: "Digest A"
-      })
-    }, function(err, res, body) {
-      should.not.exist(err);
-      var digestIdCreated = JSON.parse(body).digestId;
-      urlToCreateInboxA = JSON.parse(body)._links['inbox-create'].href;
-      digestIdCreated.should.exist;
-      digestIdA = digestIdCreated;
-      done();
-    });
-  });
-
-  it('create inbox and associate it to the second digest.', function(done) {
-    request({
-      uri: urlToCreateInboxA + "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        name: "Inbox A",
-        digestId: digestIdA,
-        family: "GitHub"
-      })
-    }, function(err, res, body) {
-      should.not.exist(err);
-      var inboxIdCreated = JSON.parse(body).inboxId;
-      urlToPushCommitToInboxA = JSON.parse(body)._links['add-commit'].href;
-      inboxIdCreated.should.exist;
-      done();
-    });
-  });
-});
-
-describe('api/query before POST', function() {
-  it('should return empty commits when request is made with correct key and workitem, but no data yet exists in the system.', function(done) {
-    request({
-      uri: "http://localhost:6565/api/query?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7&digestId=" + digestId + "&workitem=S-11111",
-      method: "GET"
-    }, function(err, res, body) {
-      should.not.exist(err);
-      res.statusCode.should.equal(200);
-      res.body.should.equal('{"commits":[],"_links":{}}');
+      should.exist(inbox2Id);
+      should.exist(urlToPushCommitToInbox2);
       done();
     });
   });
@@ -290,7 +164,7 @@ describe('api/query before POST', function() {
 describe('api/inboxes', function() {
   it('the first inbox should accept a valid payload and return a 201 OK response.', function(done) {
     request({
-      uri: urlToPushCommitToInbox1 + "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
+      uri: urlToPushCommitToInbox1 + '?apiKey=' + apiKey,
       method: "POST",
       headers: {
         "x-github-event": "push",
@@ -300,13 +174,13 @@ describe('api/inboxes', function() {
     }, function(err, res, body) {
       should.not.exist(err);
       res.statusCode.should.equal(201);
-      JSON.parse(res.body).message.should.equal('Your push event has been queued to be added to CommitStream.')
+      JSON.parse(res.body).message.should.equal('The commits have been added to the CommitStream inbox.');
       done();
     });
   });
   it('The second inbox should accept a valid payload and return a 201 OK response.', function(done) {
     request({
-      uri: urlToPushCommitToInbox2 + "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
+      uri: urlToPushCommitToInbox2 + '?apiKey=' + apiKey,
       method: "POST",
       headers: {
         "x-github-event": "push",
@@ -316,13 +190,13 @@ describe('api/inboxes', function() {
     }, function(err, res, body) {
       should.not.exist(err);
       res.statusCode.should.equal(201);
-      JSON.parse(res.body).message.should.equal('Your push event has been queued to be added to CommitStream.')
+      JSON.parse(res.body).message.should.equal('The commits have been added to the CommitStream inbox.');
       done();
     });
   });
   it('The secound inbox should accept a valid payload with no mention of a workitem and return a 201 OK response.', function(done) {
     request({
-      uri: urlToPushCommitToInbox2 + "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
+      uri: urlToPushCommitToInbox2 + '?apiKey=' + apiKey,
       method: "POST",
       headers: {
         "x-github-event": "push",
@@ -332,66 +206,37 @@ describe('api/inboxes', function() {
     }, function(err, res, body) {
       should.not.exist(err);
       res.statusCode.should.equal(201);
-      JSON.parse(res.body).message.should.equal('Your push event has been queued to be added to CommitStream.')
-      done();
-    });
-  });
-  it('The third inbox should accept a valid payload and return a 201 OK response.', function(done) {
-    request({
-      uri: urlToPushCommitToInboxA + "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
-      method: "POST",
-      headers: {
-        "x-github-event": "push",
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(commitInboxA)
-    }, function(err, res, body) {
-      should.not.exist(err);
-      res.statusCode.should.equal(201);
-      JSON.parse(res.body).message.should.equal('Your push event has been queued to be added to CommitStream.')
+      JSON.parse(res.body).message.should.equal('The commits have been added to the CommitStream inbox.')
       done();
     });
   });
 });
 
-describe('api/query after POST', function() {
-  it('should return 3 commits when request is made with ALL parameter as workitem.', function(done) {
+describe('api/:instanceId/digests/:digestId/commits?apiKey after POST', function() {
+  it('should return 3 commits.', function(done) {
+    let digestCommitsUrl = baseUrl + '/api/' + instanceId + '/digests/' +
+      digestId + '/commits?apiKey=' + apiKey;
+
     request({
-      uri: "http://localhost:6565/api/query?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7&digestId=" + digestId + "&workitem=all",
+      uri: digestCommitsUrl,
       method: "GET"
     }, function(err, res, body) {
       should.not.exist(err);
       res.statusCode.should.equal(200);
       JSON.parse(res.body).commits.length.should.equal(3);
       done();
-    })
+    });
   });
-
-  // it('should accept a valid payload and returns 2 commits for a specified digestId and a specified workitem.', function(done) {
-  //   // console.log();
-  //   // console.log('digestId:');
-  //   // console.log(digestId);
-  //   // console.log();
-  //   // console.log('digestIdA:')
-  //   // console.log(digestIdA);
-  //   // console.log("http://localhost:6565/api/query?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7&digestId=" + digestId + "&workitem=S-11111");
-  //   request({
-  //     uri: "http://localhost:6565/api/query?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7&digestId=" + digestId + "&workitem=S-11111",
-  //     method: "GET"
-  //   }, function(err, res, body) {
-  //     should.not.exist(err);
-  //     res.statusCode.should.equal(200);
-  //     JSON.parse(res.body).commits.length.should.equal(2);
-  //     done();
-  //   })
-  // });
 
   it('should accept a valid payload and return commit details for the specified workitem.', function(done) {
     this.timeout(5000);
+    let workItemCommitsUrl = baseUrl + '/api/' + instanceId +
+      '/commits/tags/versionone/workitem?numbers=S-11111&apiKey=' + apiKey;
 
+    console.log(workItemCommitsUrl);
     setTimeout(function() {
       request({
-        uri: "http://localhost:6565/api/query?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7&workitem=S-11111",
+        uri: workItemCommitsUrl,
         method: "GET"
       }, function(err, res, body) {
         should.not.exist(err);
@@ -695,12 +540,12 @@ describe('api/digests/<digestId>/inboxes', function() {
 
 describe('api/digests GET', function() {
   var key = "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7";
-  
+
   before(function(done) {
     request({
       uri: "http://localhost:2113/streams/digests",
       headers: {
-        'Authorization': 'Basic YWRtaW46Y2hhbmdlaXQ=',        
+        'Authorization': 'Basic YWRtaW46Y2hhbmdlaXQ=',
       },
       method: 'DELETE'
     }, function(err, res) {
@@ -860,3 +705,115 @@ describe('api/inboxes/:uuid GET', function() {
   });
 
 });
+
+var commitInbox1 = {
+  "ref": "refs/heads/master",
+  "commits": [{
+    "id": "d31d174f0495feaf876e92573a2121700fd81e7a",
+    "distinct": true,
+    "message": "S-11111 initial Commit to backend functionality!",
+    "timestamp": "2014-10-03T15:57:14-03:00",
+    "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
+    "author": {
+      "name": "laureanoremedi",
+      "email": "laureanoremedi@gmail.com",
+      "username": "laureanoremedi"
+    },
+    "committer": {
+      "name": "laureanoremedi",
+      "email": "laureanoremedi@gmail.com",
+      "username": "laureanoremedi"
+    },
+    "added": [],
+    "removed": [],
+    "modified": ["README.md"]
+  }],
+  "repository": {
+    "id": 23355501,
+    "name": "CommitService.DemoRepo"
+  }
+};
+
+var commitInbox2 = {
+  "ref": "refs/heads/master",
+  "commits": [{
+    "id": "d31d174f0495feaf876e92573a2121700fd81e7a",
+    "distinct": true,
+    "message": "S-11111 Modified UI validations!",
+    "timestamp": "2014-10-03T15:57:14-03:00",
+    "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
+    "author": {
+      "name": "kunzimariano",
+      "email": "kunzi.mariano@gmail.com",
+      "username": "kunzimariano"
+    },
+    "committer": {
+      "name": "kunzimariano",
+      "email": "kunzi.mariano@gmail.com",
+      "username": "kunzimariano"
+    },
+    "added": [],
+    "removed": [],
+    "modified": ["README.md"]
+  }],
+  "repository": {
+    "id": 23355501,
+    "name": "CommitService.DemoRepo"
+  }
+};
+
+var commitInbox2WithOutMention = {
+  "ref": "refs/heads/master",
+  "commits": [{
+    "id": "d31d174f0495feaf876e92573a2121700fd81e7a",
+    "distinct": true,
+    "message": "Actualize Documentation",
+    "timestamp": "2014-10-03T15:57:14-03:00",
+    "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
+    "author": {
+      "name": "matiasHeffel",
+      "email": "matiasheffel@gmail.com",
+      "username": "kunzimariano"
+    },
+    "committer": {
+      "name": "matiasHeffel",
+      "email": "matiasHeffel@gmail.com",
+      "username": "matiasHeffel"
+    },
+    "added": [],
+    "removed": [],
+    "modified": ["README.md"]
+  }],
+  "repository": {
+    "id": 23355501,
+    "name": "CommitService.DemoRepo"
+  }
+};
+
+var commitInboxA = {
+  "ref": "refs/heads/master",
+  "commits": [{
+    "id": "b42c285e1506edac965g92573a2121700fc92f8b",
+    "distinct": true,
+    "message": "S-11111 Updated Happy Path Validations!",
+    "timestamp": "2014-10-03T15:57:14-03:00",
+    "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/b42c285e1506edac965g92573a2121700fc92f8b",
+    "author": {
+      "name": "shawnmarie",
+      "email": "shawn.abbott@versionone.com",
+      "username": "shawnmarie"
+    },
+    "committer": {
+      "name": "shawnmarie",
+      "email": "shawn.abbott@versionone.com",
+      "username": "shawnmarie"
+    },
+    "added": [],
+    "removed": [],
+    "modified": ["README.md"]
+  }],
+  "repository": {
+    "id": 23355501,
+    "name": "CommitService.DemoRepo"
+  }
+};

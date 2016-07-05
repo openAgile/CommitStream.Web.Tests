@@ -2,7 +2,8 @@
   "scripts": {
     "build": "./node_modules/.bin/babel src -d lib",
     "create-fake": "node lib/create-demo-data.js fake",
-    "happy": "mocha --ui exports -R spec --colors lib/happy-path-end-to-end.js"
+    "create-sample": "node lib/create-demo-data.js sample",
+    "happy": "mocha -u exports -R spec --colors lib/happy-path-end-to-end.js"
   },
   "dependencies": {
     "bluebird": "^3.3.4",
