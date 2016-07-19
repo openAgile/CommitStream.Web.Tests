@@ -14,7 +14,7 @@ chai.config.includeStack = true;
 
 let baseUrl = process.env.baseUrl;
 //TODO: remove this
-baseUrl = 'http://localhost:6565';
+baseUrl = 'https://v1-cs-test.azurewebsites.net';
 
 let apiKey;
 let instanceId;
@@ -37,7 +37,7 @@ let urlToPushCommitToInboxA;
 
 describe('you need a digest to associate to the inboxes that will be created', function() {
 
-  /* TODO update this for instanceId support
+  /* TODO update this for instanceId support and move to sad path tests
   it('should return error message with 401 Unauthorized response when request is made without a key.', function(done) {
     request({
       //TODO: should this uri be api/digests?
@@ -253,15 +253,18 @@ describe('api/:instanceId/digests/:digestId/commits?apiKey after POST', function
        });
 
        cleanedBody = JSON.stringify(cleanedBody);
-       cleanedBody.should.equal(JSON.stringify(expectedCommits));
+       cleanedBody.should.equal(JSON.stringify(expectedCommits));0
         done();
       });
     }, 3000);
   });
 
   it('should return empty commits when request is made with correct key but incorrect workitem.', function(done) {
+    let workItemCommitsUrl = baseUrl + '/api/' + instanceId + 
+      '/commits/tags/versionone/workitem?numbers=1111&apiKey=' + apiKey;
+      console.log(workItemCommitsUrl);
     request({
-      uri: "http://localhost:6565/api/query?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7&workitem=11111",
+      uri: workItemCommitsUrl,
       method: "GET"
     }, function(err, res, body) {
       should.not.exist(err);
@@ -272,8 +275,10 @@ describe('api/:instanceId/digests/:digestId/commits?apiKey after POST', function
   });
 
   it('should return error message when request is made with correct key but no workitem.', function(done) {
+    let workItemCommitsUrl = baseUrl + '/api/' + instanceId + 
+      '/commits/tags/versionone/workitem?numbers=&apiKey=' + apiKey;
     request({
-      uri: "http://localhost:6565/api/query?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7",
+      uri: workItemCommitsUrl,
       method: "GET"
     }, function(err, res, body) {
       should.not.exist(err);
@@ -284,162 +289,29 @@ describe('api/:instanceId/digests/:digestId/commits?apiKey after POST', function
   });
 });
 
-describe('ACL settings', function() {
-
-  function getAuthHeader(username, password) {
-    return 'Basic ' + new Buffer(username + ':' + password).toString('base64');
-  }
-
-  var es = new EventStore({
-    baseUrl: 'http://localhost:2113',
-    username: 'admin',
-    password: 'changeit'
-  });
-  var opt;
-  before(function() {
-    opt = {
-      url: 'http://localhost:2113/streams/some-stream',
-      headers: {
-        'Accept': 'application/json'
-      }
-    }
-  })
-
-  it('should create a new stream before changing the ACL settings.', function(done) {
-    var e = [{
-      eventId: uuid(),
-      eventType: 'some-event',
-      data: {
-        fooKey: 'fooValue'
-      }
-    }];
-
-    es.streams.post({
-      name: 'some-stream',
-      events: JSON.stringify(e)
-    }, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(201);
-      done();
-    });
-  });
-
-  it('should be able to read the just created stream without the auth header.', function(done) {
-    request.get(opt, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(200);
-      done();
-    });
-  });
-
-  it('should get a 201 after changing the ACL settings.', function(done) {
-    var aclOptions = {
-      "$userStreamAcl": {
-        "$r": "$admins",
-        "$w": "$admins",
-        "$d": "$admins",
-        "$mr": "$admins",
-        "$mw": "$admins"
-      },
-      "$systemStreamAcl": {
-        "$r": "$admins",
-        "$w": "$admins",
-        "$d": "$admins",
-        "$mr": "$admins",
-        "$mw": "$admins"
-      }
-    };
-
-    var settingsOpt = {
-      url: 'http://localhost:2113/streams/$settings',
-      headers: {
-        'Authorization': 'Basic YWRtaW46Y2hhbmdlaXQ=',
-        'ES-EventType': 'SettingsUpdated',
-        'ES-EventId': uuid(),
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(aclOptions)
-    }
-
-    request.post(settingsOpt, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(201);
-      done();
-    });
-  });
-
-  it('should not be able to read the just created stream without the auth header.', function(done) {
-    request.get(opt, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(401);
-      done();
-    });
-  });
-
-  it('should be able to read the just created stream with the auth header.', function(done) {
-    opt.headers.Authorization = getAuthHeader('admin', 'changeit');
-    request.get(opt, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(200);
-      done();
-    });
-  });
-
-  it('should return 401 when attempting to login with correct user but no password.', function(done) {
-    opt.headers.Authorization = getAuthHeader('admin', '');
-    request.get(opt, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(401);
-      done();
-    });
-  });
-
-  it('should return 503 when attempting to login with no user but correct password.', function(done) {
-    opt.headers.Authorization = getAuthHeader('', 'changeit');
-    request.get(opt, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(503);
-      done();
-    });
-  });
-
-  it('should return 401 when attempting to login with correct user and incorrect password.', function(done) {
-    opt.headers.Authorization = getAuthHeader('admin', 'changenothing');
-    request.get(opt, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(401);
-      done();
-    });
-  });
-
-  it('should return 503 when attempting to login with incorrect user and correct password.', function(done) {
-    opt.headers.Authorization = getAuthHeader('fakeuser', 'changeit');
-    request.get(opt, function(error, response) {
-      should.not.exist(error);
-      response.statusCode.should.equal(503);
-      done();
-    });
-  });
-});
+// describe('ACL settings', function() {
+//placeholder
+// });
 
 describe('api/digests/<digestId>/inboxes', function() {
 
-  var key = "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7";
-  var digestIdCreated;
-  var inboxesToCreate = ["Inbox 11", "Inbox 22"];
-  var inboxMap = {};
+  //var key = "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7";
+  let digestIdCreated;
+  let inboxesToCreate = ["Inbox 11", "Inbox 22"];
+  let inboxMap = {};
+  let inboxesUrl = baseUrl + '/api/digests' + digestId + '/inboxes&apiKey=' + apiKey;
 
   function getExpectedResponse(digestId, inboxMap) {
     return {
       "_links": {
         "self": {
-          "href": "http://localhost:6565/api/digests/" + digestId + "/inboxes",
+          "href": baseUrl + "/api/digests/" + digestId + "/inboxes",
         },
         "digest": {
-          "href": "http://localhost:6565/api/digests/" + digestId
+          "href": baseUrl + "/api/digests/" + digestId
         },
         "inbox-create": {
-          "href": "http://localhost:6565/api/inboxes",
+          "href": baseUrl + "/api/inboxes",
           "method": "POST",
           "title": "Endpoint for creating an inbox for a repository on digest " + digestId + "."
         }
@@ -453,10 +325,10 @@ describe('api/digests/<digestId>/inboxes', function() {
         "inboxes": [{
           "_links": {
             "self": {
-              "href": "http://localhost:6565/api/inboxes/" + inboxMap['Inbox 11']
+              "href": baseUrl + "/api/inboxes/" + inboxMap['Inbox 11']
             },
             "inbox-commits": {
-              "href": "http://localhost:6565/api/inboxes/" + inboxMap['Inbox 11'] + "/commits",
+              "href": baseUrl + "/api/inboxes/" + inboxMap['Inbox 11'] + "/commits",
               "method": "POST"
             }
           },
@@ -466,10 +338,10 @@ describe('api/digests/<digestId>/inboxes', function() {
         }, {
           "_links": {
             "self": {
-              "href": "http://localhost:6565/api/inboxes/" + inboxMap['Inbox 22']
+              "href": baseUrl + "/api/inboxes/" + inboxMap['Inbox 22']
             },
             "inbox-commits": {
-              "href": "http://localhost:6565/api/inboxes/" + inboxMap['Inbox 22'] + "/commits",
+              "href": baseUrl + "/api/inboxes/" + inboxMap['Inbox 22'] + "/commits",
               "method": "POST"
             }
           },
@@ -483,7 +355,7 @@ describe('api/digests/<digestId>/inboxes', function() {
 
   before(function(done) {
     request({
-      uri: "http://localhost:6565/api/digests" + key,
+      uri: baseUrl + "/api/digests&apiKey=" + apiKey,
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -498,7 +370,7 @@ describe('api/digests/<digestId>/inboxes', function() {
 
       inboxesToCreate.forEach(function(inbox) {
         request({
-          uri: urlToCreateInbox + key,
+          uri: urlToCreateInbox + "&apiKey=" + apiKey,
           method: "POST",
           headers: {
             "content-type": "application/json"
@@ -519,7 +391,7 @@ describe('api/digests/<digestId>/inboxes', function() {
   it('should return the expected response body.', function(done) {
     setTimeout(function() {
       request.get({
-          uri: "http://localhost:6565/api/digests/" + digestIdCreated + "/inboxes" + key,
+          uri: baseUrl + "/api/digests/" + digestIdCreated + "/inboxes&apiKey=" + apiKey,
           method: "POST",
           headers: {
             "content-type": "application/json"
@@ -581,17 +453,17 @@ describe('api/digests GET', function() {
   });
 
   describe('when 3 digests are available: ', function() {
-    var key = "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7";
+    //var key = "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7";
     var digestMap = {};
     var digestsToCreate = ['First Digest', 'Second Digest', 'Third Digest'];
-  var commitStreamdigestsUrl = "http://localhost:6565/api/digests";
+  var commitStreamdigestsUrl = baseUrl + "/api/digests";
   var eventStoreDigestsStreamUrl = "http://localhost:2113/streams/digests";
 
     function getExpectedResponse(digestMap) {
        return {
         "_links": {
           "self": {
-            "href": "http://localhost:6565/api/digests",
+            "href": baseUrl + "/api/digests",
           }
         },
         "count": 3,
@@ -599,7 +471,7 @@ describe('api/digests GET', function() {
           "digests": [{
             "_links": {
               "self": {
-                "href": "http://localhost:6565/api/digests/" + digestMap['Third Digest']
+                "href": baseUrl + "/api/digests/" + digestMap['Third Digest']
               }
             },
             "digestId": digestMap['Third Digest'],
@@ -607,7 +479,7 @@ describe('api/digests GET', function() {
           }, {
             "_links": {
               "self": {
-                "href": "http://localhost:6565/api/digests/" + digestMap['Second Digest']
+                "href": baseUrl + "/api/digests/" + digestMap['Second Digest']
               }
             },
             "digestId": digestMap['Second Digest'],
@@ -615,14 +487,14 @@ describe('api/digests GET', function() {
           }, {
             "_links": {
               "self": {
-                "href": "http://localhost:6565/api/digests/" + digestMap['First Digest']
+                "href": baseUrl + "/api/digests/" + digestMap['First Digest']
               }
             },
             "digestId": digestMap['First Digest'],
             "description": "First Digest"
           }]
         }
-      }
+      };
     }
 
 
@@ -657,7 +529,7 @@ describe('api/digests GET', function() {
 
     it('should return a response body with 3 digests, when 3 are available.', function(done) {
       request.get({
-        uri: commitStreamdigestsUrl + key,
+        uri: commitStreamdigestsUrl + "&apiKey=" + apiKey,
         method: "GET",
         headers: {
           "content-type": "application/json"
@@ -673,18 +545,18 @@ describe('api/digests GET', function() {
 });
 
 describe('api/inboxes/:uuid GET', function() {
-  var key = undefined;
-  var expected = undefined;
+  //var key = undefined;
+  //var expected = undefined;
 
   before(function() {
-    key = "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7";
+    //key = "?key=32527e4a-e5ac-46f5-9bad-2c9b7d607bd7";
     expected = {
       "_links": {
         "self": {
           "href": urlToGetInbox1Info
         },
         "digest-parent": {
-          "href": "http:\/\/localhost:6565\/api\/digests\/" + digestId
+          "href": baseUrl + "/api/digests/" + digestId
         }
       },
       "family": "GitHub",
@@ -695,7 +567,7 @@ describe('api/inboxes/:uuid GET', function() {
   it('it should return the expected response body', function(done) {
 
     request.get({
-      uri: urlToGetInbox1Info + key,
+      uri: urlToGetInbox1Info + "&apiKey=" + apiKey,
       method: "GET"
     }, function(err, res) {
       var actual = JSON.parse(res.body);

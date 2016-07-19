@@ -16,7 +16,7 @@
             "id": "b42c285e1506edac965g92573a2121700fc92f8b",
             "distinct": true,
             "message": "S-11111 Hey all this stuff broke today, what's wrong?",
-            "timestamp": "2016-10-07T15:57:14-03:00",
+            "timestamp": "2014-10-03T15:57:14-03:00",
             "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/b42c285e1506edac965g92573a2121700fc92f8b",
             "author": {
               "name": "marieshawn",
@@ -43,7 +43,7 @@
             "id": "b42c285e1506edac965g92573a2121700fc92f8b",
             "distinct": true,
             "message": "S-11111 Updated Happy Path Validations!",
-            "timestamp": "2016-12-07T15:57:14-03:00",
+            "timestamp": "2014-10-03T15:57:14-03:00",
             "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/b42c285e1506edac965g92573a2121700fc92f8b",
             "author": {
               "name": "shawnmarie",
