@@ -83,6 +83,12 @@ let families = {
   },
   VsoGit : {
     commitAdd: (client, inbox, message='VsoGit commit', repoUrl = 'https://github.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl,  'VsoGit')
+  },
+  SVN : {
+    commitAdd: (client, inbox, message='SVN commit', repoUrl = 'https://github.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl,  'SVN', {'CS-SVN-Event': 'Commit Event'})
+  },
+  GitSwarm : {
+    commitAdd: (client, inbox, message='GitSwarm commit', repoUrl = 'https://github.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl,  'GitSwarm', {'x-gitlab-event': 'Push Hook', 'x-gitswarm-event': 'Push Hook'})
   }
 };
 

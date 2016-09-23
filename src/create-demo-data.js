@@ -64,6 +64,12 @@ let getInboxesToCreate = async (dto) => {
   }, {
     name: `VsoGit Repo ${iteration}`,
     family: 'VsoGit'
+  }, {
+    name: `SVN Repo ${iteration}`,
+    family: 'SVN'
+  }, {
+    name: `GitSwarm Repo ${iteration}`,
+    family: 'GitSwarm'
   }];
   dto.inboxesToCreate = inboxesToCreate;
   return dto;
