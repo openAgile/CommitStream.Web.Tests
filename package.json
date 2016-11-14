@@ -5,9 +5,9 @@
     "create-sample": "node lib/create-demo-data.js sample",
     "happy": "mocha -u exports -R spec --colors lib/happy-path-end-to-end.js",
     "test": "ava --verbose",
-    "cs": "ava --verbose test/commitStreamGlobalUI.js",
-    "cu": "ava --verbose test/commitStreamCustomUI.js",
-    "ca": "ava --verbose test/commitStreamAPI.js"
+    "cs": "ava --verbose src/tests/commitStreamGlobalUI.js",
+    "cu": "ava --verbose src/tests/commitStreamCustomUI.js",
+    "ca": "ava --verbose src/tests/commitStreamAPI.js"
   },
   "dependencies": {
     "bluebird": "^3.3.4",

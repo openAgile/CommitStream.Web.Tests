@@ -1,6 +1,6 @@
 import test from 'ava';
 import chai from 'chai';
-import BaseAPI from './lib/baseAPI';
+import BaseAPI from './dependencies/baseAPI';
 let base = new BaseAPI();
 chai.should();
 

@@ -43,19 +43,18 @@ test("Login to VersionOne-SMA Instance", t=> {
             'password>input':'admin'
         })
         .click('Login')
-        //.click('Back to Main')
-        // .click('My Home')
-        // .click('Getting Started')
-        // // .get("page-title").then(function(title) {
-        // //     console.log('Title was: ' + title);
-        // //     t.is(title, "Let's Get Started", "This test was an utter failure.")
-        // // })
-        // .click('ADMIN#1')
-        // .pause(4000)
-        // .click('DevOps')
-        // .pause(3000)
-        .url("https://www8.v1host.com/ShawnMarie_DNTD/Default.aspx?menu=CommitStreamPage&feat-nav=--a2#/")
-        //.click('CommitStream')
+        .click('My Home')
+        .click('Getting Started')
+        .get("page-title").then(function(title) {
+            console.log('Title was: ' + title);
+            t.is(title, "Let's Get Started", "This test was an utter failure.");
+            return glance
+        })
+        .click('ADMIN#1')
+        .pause(4000)
+        .click('DevOps')
+        .pause(3000)
+        .click('CommitStream')
         .pause(3000)
         .click('Disabled')
         .pause(2000)
@@ -65,11 +64,13 @@ test("Login to VersionOne-SMA Instance", t=> {
         .pause(1000)
         .get('h1#2').then(function(header) {
             console.log('Table header was: ', header);
-            t.is(header, "Active Repositories", "What value did I get then?: " + header)
+            t.is(header, "Active Repositories", "What value did I get then?: " + header);
+            return glance
         })
         .get('genericTest>input').then(function(gitHubUrl) {
             console.log("GitHub URL is: ", gitHubUrl);
             gitHubUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + gitHubUrl);
+            return glance
         })
         .click('GitLab')
         .set('inboxUrl>input', 'https://gitlab.com/shawnmarie/localFox')
@@ -77,11 +78,13 @@ test("Login to VersionOne-SMA Instance", t=> {
         .pause(2000)
         .get('h1#2').then(function(header) {
                 console.log('Table header was: ', header);
-                t.is(header, "Active Repositories", "What value did I get then?: " + header)
+                t.is(header, "Active Repositories", "What value did I get then?: " + header);
+                return glance
             })
         .get('localFox>input').then(function(gitLabUrl) {
                 console.log("GitLab URL is: ", gitLabUrl);
                 gitLabUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + gitLabUrl);
+                return glance
             })
         .click('Bitbucket')
         .set('inboxUrl>input', 'https://bitbucket.org/shawnmarie/blueTub')
@@ -89,11 +92,13 @@ test("Login to VersionOne-SMA Instance", t=> {
         .pause(2000)
         .get('h1#2').then(function(header) {
              console.log('Table header was: ', header);
-             t.is(header, "Active Repositories", "What value did I get then?: " + header)
+             t.is(header, "Active Repositories", "What value did I get then?: " + header);
+             return glance
              })
         .get('blueTub>input').then(function(bitBucketUrl) {
              console.log("Bitbucket URL is: ", bitBucketUrl);
              bitBucketUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + bitBucketUrl);
+             return glance
              })
         .click('VSTS')
         .set('inboxUrl>input', 'https://microsoft.vsogit.com/shawnmarie/microSoft')
@@ -101,11 +106,13 @@ test("Login to VersionOne-SMA Instance", t=> {
         .pause(2000)
         .get('h1#2').then(function(header) {
             console.log('Table header was: ', header);
-            t.is(header, "Active Repositories", "What value did I get then?: " + header)
+            t.is(header, "Active Repositories", "What value did I get then?: " + header);
+            return glance
             })
         .get('microSoft>input').then(function(vsoGitUrl) {
             console.log("VSTS URL is: ", vsoGitUrl);
             vsoGitUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + vsoGitUrl);
+            return glance
             })
         .click('Subversion')
         .set('inboxUrl>input', 'https://subversion.com/shawnmarie/depotNum1')
@@ -113,11 +120,13 @@ test("Login to VersionOne-SMA Instance", t=> {
         .pause(2000)
         .get('h1#2').then(function(header) {
             console.log('Table header was: ', header);
-            t.is(header, "Active Repositories", "What value did I get then?: " + header)
+            t.is(header, "Active Repositories", "What value did I get then?: " + header);
+            return glance
         })
         .get('depotNum1>input').then(function(svnRepoUrl) {
             console.log("SVN URL is: ", svnRepoUrl);
             svnRepoUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + svnRepoUrl);
+            return glance
         })
          //clean up
         .click('genericTest>iconRemove')
