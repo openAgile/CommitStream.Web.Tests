@@ -3,11 +3,14 @@
     "build": "./node_modules/.bin/babel src -d lib",
     "create-fake": "node lib/create-demo-data.js fake",
     "create-sample": "node lib/create-demo-data.js sample",
-    "happy": "mocha -u exports -R spec --colors lib/happy-path-end-to-end.js"
+    "happy": "mocha -u exports -R spec --colors lib/happy-path-end-to-end.js",
+    "test": "ava --verbose",
+    "cs": "ava --verbose test/commitStreamGlobalUI.js",
+    "cu": "ava --verbose test/commitStreamCustomUI.js",
+    "ca": "ava --verbose test/commitStreamAPI.js"
   },
   "dependencies": {
     "bluebird": "^3.3.4",
-    "chai": "^3.5.0",
     "commander": "^2.9.0",
     "eventstore-client": "openAgile/eventstore-client",
     "fs": "0.0.2",
@@ -22,13 +25,44 @@
     "uuid-v4": "^0.1.0"
   },
   "devDependencies": {
+    "ava": "^0.16.0",
+    "axios": "^0.15.2",
     "babel-cli": "^6.4.5",
+    "babel-plugin-espower": "^2.3.1",
+    "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
+    "babel-preset-stage-2": "^6.18.0",
+    "chai": "^3.5.0",
+    "glance-webdriver": "^0.6.2",
     "grunt": "^0.4.5",
     "grunt-babel": "^6.0.0",
     "grunt-contrib-watch": "^0.6.1",
-    "load-grunt-tasks": "^3.4.0"
+    "load-grunt-tasks": "^3.4.0",
+    "selenium-standalone": "^5.8.0",
+    "v1sdk": "^2.2.2"
+  },
+  "ava": {
+    "files": [
+      "src/tests/*.js"
+    ],
+    "source": [
+      "**/dependencies/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "plugins": [
+      "espower",
+      "transform-runtime"
+    ]
   }
 }
