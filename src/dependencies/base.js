@@ -55,7 +55,7 @@
       headers: {
         "Content-Type": "application/json"
       }
-    }
+    };
   }
 
   function getLink(obj, linkName) {
@@ -73,7 +73,6 @@
           console.log('TEAMROOM LINK:');
           console.log(halResponse._links['teamroom-view'].href + '&apiKey=' + getApiKey());
         }
-
       }
       if (halResponse.apiKey) apiKey = halResponse.apiKey; // Cheap n dirty
       var link = getLink(halResponse, linkName);
