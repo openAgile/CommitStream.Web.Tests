@@ -39,14 +39,14 @@ test.after.always("Cleanup", t => {
 let title;
 
 test("Login to VersionOne-SMA Instance", t=> {
-    return glance.url("https://www8.v1host.com/ShawnMarie_DNTD/")
+    return glance.url("http://www.urlhere/instancehere")
         .set("browser:size", "maximize")
         .cast({
             'username>input':'admin',
             'password>input':'admin'
         })
         .click('Login')
-        .url("https://www8.v1host.com/ShawnMarie_DNTD/Default.aspx?menu=MyHomeEnterpriseGettingStartedPage&feat-nav=-m1")
+        .url("http://www.urlhere/instancehere/Default.aspx?menu=MyHomeEnterpriseGettingStartedPage&feat-nav=-m1")
         //.click('Back to Main')
         //.click('My Home')
         //.click('Getting Started')
@@ -62,15 +62,15 @@ test("Login to VersionOne-SMA Instance", t=> {
         //.moveMouseTo('ROOMS', 10,10)
         //.pause(1000)
         // .click('Sprint Tracking')
-        .url("https://www8.v1host.com/ShawnMarie_DNTD/Default.aspx?menu=TeamRoomsPage")
+        .url("http://www.urlhere/instancehere/Default.aspx?menu=TeamRoomsPage")
         //.click('TeamRooms')
         .click('Fellowship of the Scrum')
-        .url("https://www8.v1host.com/ShawnMarie_DNTD/TeamRoom.mvc/Edit/1260")
+        .url("http://www.urlhere/instancehere/TeamRoom.mvc/Edit/1260")
         // .click('ico>admin')
         .click('CommitStream')
         .click('Custom')
          .click('GitHub')
-        .set('inboxUrl>input', 'https://github.com/shawnmarie/genericTest')
+        .set('inboxUrl>input', 'https://github.com/user/repo')
         .click("Add")
         .get('h1#2').then(function(header) {
             console.log('Table header was: ', header);
@@ -81,7 +81,7 @@ test("Login to VersionOne-SMA Instance", t=> {
             gitHubUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + gitHubUrl);
         })
         .click('GitLab')
-        .set('inboxUrl>input', 'https://gitlab.com/shawnmarie/localFox')
+        .set('inboxUrl>input', 'https://gitlab.com/user/repo')
         .click("Add")
         .pause(2000)
         .get('h1#2').then(function(header) {
@@ -93,7 +93,7 @@ test("Login to VersionOne-SMA Instance", t=> {
             gitLabUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + gitLabUrl);
         })
         .click('Bitbucket')
-        .set('inboxUrl>input', 'https://bitbucket.org/shawnmarie/blueTub')
+        .set('inboxUrl>input', 'https://bitbucket.org/user/repo')
         .click("Add")
         .pause(2000)
         .get('h1#2').then(function(header) {
@@ -105,7 +105,7 @@ test("Login to VersionOne-SMA Instance", t=> {
             bitBucketUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + bitBucketUrl);
         })
         .click('VSTS')
-        .set('inboxUrl>input', 'https://microsoft.vsogit.com/shawnmarie/microSoft')
+        .set('inboxUrl>input', 'https://microsoft.vsogit.com/user/repo')
         .click("Add")
         .pause(2000)
         .get('h1#2').then(function(header) {
@@ -117,7 +117,7 @@ test("Login to VersionOne-SMA Instance", t=> {
             vsoGitUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + vsoGitUrl);
         })
         .click('Subversion')
-        .set('inboxUrl>input', 'https://subversion.com/shawnmarie/depotNum1')
+        .set('inboxUrl>input', 'https://subversion.com/user/repo')
         .click("Add")
         .pause(2000)
         .get('h1#2').then(function(header) {
