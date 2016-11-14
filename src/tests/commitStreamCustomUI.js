@@ -42,8 +42,8 @@ test("Login to VersionOne-SMA Instance", t=> {
     return glance.url("http://www.urlhere/instancehere")
         .set("browser:size", "maximize")
         .cast({
-            'username>input':'admin',
-            'password>input':'admin'
+            'username>input':'user',
+            'password>input':'password'
         })
         .click('Login')
         .url("http://www.urlhere/instancehere/Default.aspx?menu=MyHomeEnterpriseGettingStartedPage&feat-nav=-m1")
