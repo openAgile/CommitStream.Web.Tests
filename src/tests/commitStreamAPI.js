@@ -44,7 +44,7 @@ test.serial("Can I create a digest", async t => {
 
 test.serial("Can I create an inbox for a GitHub repo?", async t => {
     let response = await base.createInbox({instanceId: instance.instanceId, apiKey: instance.apiKey, digestId: digest.digestId,
-        inboxFamily: 'GitHub', inboxName: 'GitHubGlobal', repoUrl: 'https://github.com/shawnmarie/genericTest'});
+        inboxFamily: 'GitHub', inboxName: 'GitHubGlobal', repoUrl: 'https://github.com/user/repo'});
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedInboxResult({
@@ -54,7 +54,7 @@ test.serial("Can I create an inbox for a GitHub repo?", async t => {
         inboxId: inbox.inboxId,
         inboxFamily: 'GitHub',
         inboxName: 'GitHubGlobal',
-        repoUrl: 'https://github.com/shawnmarie/genericTest'
+        repoUrl: 'https://github.com/user/repo'
     });
     JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
     gitHubInboxId = inbox.inboxId;
@@ -69,7 +69,7 @@ test.serial("Can I create an inbox for a GitHub repo?", async t => {
 
 test.serial("Can I create an inbox for a GitLab repo?", async t => {
     let response = await base.createInbox({instanceId: instance.instanceId, apiKey: instance.apiKey, digestId: digest.digestId,
-        inboxFamily: 'GitLab', inboxName: 'GitLabGlobal', repoUrl: 'https://gitlab.com/shawnmarie/theLabOne'});
+        inboxFamily: 'GitLab', inboxName: 'GitLabGlobal', repoUrl: 'https://gitlab.com/user/repo'});
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedInboxResult({
@@ -79,7 +79,7 @@ test.serial("Can I create an inbox for a GitLab repo?", async t => {
         inboxId: inbox.inboxId,
         inboxFamily: 'GitLab',
         inboxName: 'GitLabGlobal',
-        repoUrl: 'https://gitlab.com/shawnmarie/theLabOne'
+        repoUrl: 'https://gitlab.com/user/repo'
     });
     JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
     gitLabInboxId = inbox.inboxId;
@@ -87,7 +87,7 @@ test.serial("Can I create an inbox for a GitLab repo?", async t => {
 
 test.serial("Can I create an inbox for a Bitbucket repo?", async t => {
     let response = await base.createInbox({instanceId: instance.instanceId, apiKey: instance.apiKey, digestId: digest.digestId,
-        inboxFamily: 'Bitbucket', inboxName: 'BitbucketGlobal', repoUrl: 'https://bitbucket.org/shawnmarie/bigBlueBucket'});
+        inboxFamily: 'Bitbucket', inboxName: 'BitbucketGlobal', repoUrl: 'https://bitbucket.org/user/repo'});
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedInboxResult({
@@ -97,7 +97,7 @@ test.serial("Can I create an inbox for a Bitbucket repo?", async t => {
         inboxId: inbox.inboxId,
         inboxFamily: 'Bitbucket',
         inboxName: 'BitbucketGlobal',
-        repoUrl: 'https://bitbucket.org/shawnmarie/bigBlueBucket'
+        repoUrl: 'https://bitbucket.org/user/repo'
     });
     JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
     bitbucketInboxId = inbox.inboxId;
@@ -105,7 +105,7 @@ test.serial("Can I create an inbox for a Bitbucket repo?", async t => {
 
 test.serial("Can I create an inbox for a VSTS repo?", async t => {
     let response = await base.createInbox({instanceId: instance.instanceId, apiKey: instance.apiKey, digestId: digest.digestId,
-        inboxFamily: 'VsoGit', inboxName: 'VsoGitGlobal', repoUrl: 'https://vsts.com/shawnmarie/vsoGit'});
+        inboxFamily: 'VsoGit', inboxName: 'VsoGitGlobal', repoUrl: 'https://vsts.com/user/repo'});
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedInboxResult({
@@ -115,7 +115,7 @@ test.serial("Can I create an inbox for a VSTS repo?", async t => {
         inboxId: inbox.inboxId,
         inboxFamily: 'VsoGit',
         inboxName: 'VsoGitGlobal',
-        repoUrl: 'https://vsts.com/shawnmarie/vsoGit'
+        repoUrl: 'https://vsts.com/user/repo'
     });
     JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
     vsoGitInboxId = inbox.inboxId;
@@ -123,7 +123,7 @@ test.serial("Can I create an inbox for a VSTS repo?", async t => {
 
 test.serial("Can I create an inbox for a Subversion repo?", async t => {
     let response = await base.createInbox({instanceId: instance.instanceId, apiKey: instance.apiKey, digestId: digest.digestId,
-        inboxFamily: 'Svn', inboxName: 'SvnGlobal', repoUrl: 'https://subversion.com/shawnmarie/svnRepo'});
+        inboxFamily: 'Svn', inboxName: 'SvnGlobal', repoUrl: 'https://subversion.com/user/repo'});
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedSVNInboxResult({
@@ -133,7 +133,7 @@ test.serial("Can I create an inbox for a Subversion repo?", async t => {
         inboxId: inbox.inboxId,
         inboxFamily: 'Svn',
         inboxName: 'SvnGlobal',
-        repoUrl: 'https://subversion.com/shawnmarie/svnRepo'
+        repoUrl: 'https://subversion.com/user/repo'
     });
     JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
     subversionInboxId = inbox.inboxId;
@@ -141,7 +141,7 @@ test.serial("Can I create an inbox for a Subversion repo?", async t => {
 
 test.serial("Can I create an inbox for a GitSwarm repo?", async t => {
     let response = await base.createInbox({instanceId: instance.instanceId, apiKey: instance.apiKey, digestId: digest.digestId,
-        inboxFamily: 'GitSwarm', inboxName: 'GitSwarmGlobal', repoUrl: 'https://gitswarm.com/shawnmarie/swarmTheGit'});
+        inboxFamily: 'GitSwarm', inboxName: 'GitSwarmGlobal', repoUrl: 'https://gitswarm.com/user/repo'});
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedInboxResult({
@@ -151,7 +151,7 @@ test.serial("Can I create an inbox for a GitSwarm repo?", async t => {
         inboxId: inbox.inboxId,
         inboxFamily: 'GitSwarm',
         inboxName: 'GitSwarmGlobal',
-        repoUrl: 'https://gitswarm.com/shawnmarie/swarmTheGit'
+        repoUrl: 'https://gitswarm.com/user/repo'
     });
     JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
     gitSwarmInboxId = inbox.inboxId;
@@ -159,7 +159,7 @@ test.serial("Can I create an inbox for a GitSwarm repo?", async t => {
 
 test.serial("Can I create an inbox for a Perforce P4V repo?", async t => {
     let response = await base.createInbox({instanceId: instance.instanceId, apiKey: instance.apiKey, digestId: digest.digestId,
-        inboxFamily: 'P4V', inboxName: 'P4VGlobal', repoUrl: 'http://perforce.com/shawnmarie/p4VRepo'});
+        inboxFamily: 'P4V', inboxName: 'P4VGlobal', repoUrl: 'http://perforce.com/user/repo'});
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedP4VInboxResult({
@@ -169,7 +169,7 @@ test.serial("Can I create an inbox for a Perforce P4V repo?", async t => {
         inboxId: inbox.inboxId,
         inboxFamily: 'P4V',
         inboxName: 'P4VGlobal',
-        repoUrl: 'http://perforce.com/shawnmarie/p4VRepo'
+        repoUrl: 'http://perforce.com/user/repo'
     });
     JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
     perforceP4VInboxId = inbox.inboxId;
