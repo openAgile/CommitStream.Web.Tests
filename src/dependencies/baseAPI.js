@@ -5,33 +5,33 @@ var axios = require('axios');
 
 module.exports = class BaseAPI {
     constructor() {
-        this.rootRootUrl = 'https://v1-cs-test.azurewebsites.net/';
-        this.rootUrl = 'https://v1-cs-test.azurewebsites.net/api/';
+        this.rootRootUrl = 'http://CommitStreamUrlHere';
+        this.rootUrl = 'http://CommitStreamUrlHere/api/';
         this.instanceUrl = this.rootUrl + '/instances';
         this.commitData = {"ref": "refs/heads/master",
             "commits": [{
-            "id": "d31d174f0495feaf876e92573a2121700fd81e7a",
+            "id": "1234567",
             "distinct": true,
             "message": "S-04026 Testing Commit functionality!",
             "timestamp": "2014-10-03T15:57:14-03:00",
-            "url": "https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a",
+            "url": "https://repourl",
             "author": {
-                "name": "shawnmarie",
-                "email": "smaAwesome@gmail.com",
-                "username": "shawnmarie"
+                "name": "yourName",
+                "email": "you@mail.com",
+                "username": "theuser"
             },
             "committer": {
-                "name": "shawnmarie",
-                "email": "smaAwesome@gmail.com",
-                "username": "shawnmarie"
+                "name": "yourName",
+                "email": "you@mail.cm",
+                "username": "theuser"
             },
             "added": [],
             "removed": [],
             "modified": ["README.md"]
         }],
             "repository": {
-            "id": 28892501,
-                "name": "CommitService.DemoRepo"
+            "id": 246810,
+                "name": "therepo"
         }
     };
     }
@@ -73,28 +73,28 @@ module.exports = class BaseAPI {
             {
                 data: {ref: 'refs/heads/master',
                         commits: [{
-                            id: 'd31d174f0495feaf876e92573a2121700fd81e7a',
+                            id: '12345678901234',
                             distinct: true,
                             message: 'S-04026 Testing Commit functionality!',
                             timestamp: '2014-10-03T15:57:14-03:00',
-                            url: 'https://github.com/kunzimariano/CommitService.DemoRepo/commit/d31d174f0495feaf876e92573a2121700fd81e7a',
+                            url: 'https://repourl',
                             author: {
-                                name: 'shawnmarie',
-                                email: 'smaAwesome@gmail.com',
-                                username: 'shawnmarie'
+                                name: 'someuser',
+                                email: 'they@mail.com',
+                                username: 'user123'
                         },
                         committer: {
-                            name: 'shawnmarie',
-                            email: 'smaAwesome@gmail.com',
-                            username: 'shawnmarie'
+                            name: 'someuser',
+                            email: 'they@mail.com',
+                            username: 'user123'
                         },
                         added: [],
                         removed: [],
                         modified: ['README.md']
                     }],
                     repository: {
-                        id: 28892501,
-                        name: 'CommitService.DemoRepo'
+                        id: 24681024,
+                        name: 'repoName'
                     }
                 }
             },
