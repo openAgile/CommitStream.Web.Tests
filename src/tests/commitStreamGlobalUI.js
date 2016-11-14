@@ -5,7 +5,7 @@
 import Glance from "glance-webdriver";
 import test from 'ava';
 import chai from 'chai';
-import selenium from './selenium';
+import selenium from '../dependencies/selenium';
 chai.should();
 
 var glance;
