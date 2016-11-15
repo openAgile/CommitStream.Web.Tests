@@ -1,7 +1,3 @@
-/**
- * Created by sabbott on 11/8/2016.
- */
-//var Glance = require("glance-webdriver").default;
 import Glance from "glance-webdriver";
 import test from 'ava';
 import chai from 'chai';
@@ -36,20 +32,20 @@ test.after.always("Cleanup", t => {
 let title;
 
 test("Login to VersionOne-SMA Instance", t=> {
-    return glance.url("http://www.urlhere/instancehere/")
+    return glance.url("http://localhost/VersionOne/")
         .set("browser:size", "maximize")
         .cast({
-            'username>input':'user',
-            'password>input':'password'
+            'username>input':'admin',
+            'password>input':'admin'
         })
         .click('Login')
         .click('My Home')
         .click('Getting Started')
-        .get("page-title").then(function(title) {
-            console.log('Title was: ' + title);
-            t.is(title, "Let's Get Started", "This test was an utter failure.");
-            return glance
-        })
+        // .get("page-title").then(function(title) {
+        //     console.log('Title was: ' + title);
+        //     t.is(title, "Let's Get Started", "This test was an utter failure.");
+        //     return glance
+        // })
         .click('ADMIN#1')
         .pause(4000)
         .click('DevOps')
@@ -59,7 +55,7 @@ test("Login to VersionOne-SMA Instance", t=> {
         .click('Disabled')
         .pause(2000)
         .click('GitHub')
-        .set('inboxUrl>input', 'https://github.com/user/repo')
+        .set('inboxUrl>input', 'https://github.com/user/genericTest')
         .click("Add")
         .pause(1000)
         .get('h1#2').then(function(header) {
@@ -69,11 +65,11 @@ test("Login to VersionOne-SMA Instance", t=> {
         })
         .get('genericTest>input').then(function(gitHubUrl) {
             console.log("GitHub URL is: ", gitHubUrl);
-            gitHubUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + gitHubUrl);
+            gitHubUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + gitHubUrl);
             return glance
         })
         .click('GitLab')
-        .set('inboxUrl>input', 'https://gitlab.com/user/repo')
+        .set('inboxUrl>input', 'https://gitlab.com/user/localFox')
         .click("Add")
         .pause(2000)
         .get('h1#2').then(function(header) {
@@ -83,11 +79,11 @@ test("Login to VersionOne-SMA Instance", t=> {
             })
         .get('localFox>input').then(function(gitLabUrl) {
                 console.log("GitLab URL is: ", gitLabUrl);
-                gitLabUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + gitLabUrl);
+                gitLabUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + gitLabUrl);
                 return glance
             })
         .click('Bitbucket')
-        .set('inboxUrl>input', 'https://bitbucket.org/user/repo')
+        .set('inboxUrl>input', 'https://bitbucket.org/user/blueTub')
         .click("Add")
         .pause(2000)
         .get('h1#2').then(function(header) {
@@ -97,11 +93,11 @@ test("Login to VersionOne-SMA Instance", t=> {
              })
         .get('blueTub>input').then(function(bitBucketUrl) {
              console.log("Bitbucket URL is: ", bitBucketUrl);
-             bitBucketUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + bitBucketUrl);
+             bitBucketUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + bitBucketUrl);
              return glance
              })
         .click('VSTS')
-        .set('inboxUrl>input', 'https://microsoft.vsogit.com/user/repo')
+        .set('inboxUrl>input', 'https://microsoft.vsogit.com/user/microSoft')
         .click("Add")
         .pause(2000)
         .get('h1#2').then(function(header) {
@@ -111,11 +107,11 @@ test("Login to VersionOne-SMA Instance", t=> {
             })
         .get('microSoft>input').then(function(vsoGitUrl) {
             console.log("VSTS URL is: ", vsoGitUrl);
-            vsoGitUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + vsoGitUrl);
+            vsoGitUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + vsoGitUrl);
             return glance
             })
         .click('Subversion')
-        .set('inboxUrl>input', 'https://subversion.com/user/repo')
+        .set('inboxUrl>input', 'https://subversion.com/user/depotNum1')
         .click("Add")
         .pause(2000)
         .get('h1#2').then(function(header) {
@@ -125,7 +121,7 @@ test("Login to VersionOne-SMA Instance", t=> {
         })
         .get('depotNum1>input').then(function(svnRepoUrl) {
             console.log("SVN URL is: ", svnRepoUrl);
-            svnRepoUrl.should.include('https://commitstream.v1host.com/api/', "This should be an inbox URL: " + svnRepoUrl);
+            svnRepoUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + svnRepoUrl);
             return glance
         })
          //clean up
