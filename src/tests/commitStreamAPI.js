@@ -17,7 +17,10 @@ let vsoGitInboxId;
 let subversionInboxId;
 let gitSwarmInboxId;
 let perforceP4VInboxId;
-let deveoInboxId;
+let deveoGitInboxId;
+let deveoMercurialInboxId;
+let deveoSVNInboxId;
+let deveoWebdavInboxId;
 
 
 test.serial("Can I create an instance?", async t => {
@@ -62,7 +65,7 @@ test.serial("Can I create an inbox for a GitHub repo?", async t => {
 });
 
 test.serial("Can I make a commit to GitHub inbox?", async t => {
-    let response = await base.pushGitHubCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId});
+    let response = await base.pushGitHubCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -72,6 +75,18 @@ test.serial("Can I make a commit to GitHub inbox?", async t => {
     });
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
 });
+
+test.serial("Expect 400 response and error message for invalid commit payload to GitHub inbox", async t=> {
+    let response = await base.pushGitHubCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId, validPayload: false});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: gitHubInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+})
 
 test.serial("Can I create an inbox for a GitLab repo?", async t => {
     let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
@@ -253,4 +268,123 @@ test.serial("Can I make a commit to Perforce P4V inbox?", async t=> {
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
 });
 
+test.serial("Can I create an inbox for a DeveoGit repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'Deveo', inboxName: 'DeveoGitGlobal', repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoGit'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'Deveo',
+        inboxName: 'DeveoGitGlobal',
+        repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoGit'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    deveoGitInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a DeveoGit inbox?", async t=> {
+    let response = await base.pushDeveoGitCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoGitInboxId});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: deveoGitInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Can I create an inbox for a DeveoMercurial repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'Deveo', inboxName: 'DeveoMercurialGlobal', repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoMercurial'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'Deveo',
+        inboxName: 'DeveoMercurialGlobal',
+        repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoMercurial'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    deveoMercurialInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a DeveoMercurial inbox?", async t=> {
+    let response = await base.pushDeveoMercurialCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoMercurialInboxId});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: deveoMercurialInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Can I create an inbox for a DeveoSubversion repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'Deveo', inboxName: 'DeveoSubversionGlobal', repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoSubversion'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'Deveo',
+        inboxName: 'DeveoSubversionGlobal',
+        repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoSubversion'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    deveoSVNInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a DeveoSubversion inbox?", async t=> {
+    let response = await base.pushDeveoSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoSVNInboxId});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: deveoSVNInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Can I create an inbox for a DeveoWebdav repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'Deveo', inboxName: 'DeveoWebdavGlobal', repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoWebdav'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'Deveo',
+        inboxName: 'DeveoWebdavGlobal',
+        repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoWebdav'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    deveoWebdavInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a DeveoWebdav inbox?", async t=> {
+    let response = await base.pushDeveoWebdavCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoWebdavInboxId});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: deveoWebdavInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
 

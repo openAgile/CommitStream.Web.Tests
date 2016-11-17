@@ -341,6 +341,198 @@ module.exports = class BaseAPI {
             "repository":"http://perforce.com/doesNotUseUrl",
             "html_url":"PLACE BASE URL TO INSPECT YOUR REVISIONS178"
         };
+        this.commitDeveoGitData = {
+            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
+            "ref": "refs/heads/master",
+            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
+            "compare": "",
+            "forced": false,
+            "created": false,
+            "deleted": false,
+            "project": {
+                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
+                "name": "Test project",
+                "url": "https://deveo.com/example/code/diff/test"
+            },
+            "repository": {
+                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
+                "name": "website",
+                "type": "git",
+                "url": "https://deveo.com/example/code/overview/test/repositories/website",
+                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
+                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
+                "owner": {
+                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
+                    "name": "chuck",
+                    "email": "chuck@deveo.com"
+                }
+            },
+            "pusher": {
+                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
+                "name": "chuck",
+                "display_name": "Chuck Norris"
+            },
+            "commit_count": 1,
+            "commits": [{
+                "distinct": true,
+                "removed": [],
+                "message": "Update readme",
+                "added": [],
+                "timestamp": "2015-01-30T12:17:56Z",
+                "modified": ["readme"],
+                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                "author": {
+                    "name": "Chuck Norris",
+                    "email": "chuck@deveo.com"
+                },
+                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
+            }]
+        };
+        this.commitDeveoMercurialData = {
+            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
+            "ref": "refs/heads/master",
+            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
+            "compare": "",
+            "forced": false,
+            "created": false,
+            "deleted": false,
+            "project": {
+                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
+                "name": "Test project",
+                "url": "https://deveo.com/example/code/diff/test"
+            },
+            "repository": {
+                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
+                "name": "website",
+                "type": "mercurial",
+                "url": "https://deveo.com/example/code/overview/test/repositories/website",
+                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
+                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
+                "owner": {
+                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
+                    "name": "chuck",
+                    "email": "chuck@deveo.com"
+                }
+            },
+            "pusher": {
+                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
+                "name": "chuck",
+                "display_name": "Chuck Norris"
+            },
+            "commit_count": 1,
+            "commits": [{
+                "distinct": true,
+                "removed": [],
+                "message": "Update readme",
+                "added": [],
+                "timestamp": "2015-01-30T12:17:56Z",
+                "modified": ["readme"],
+                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                "author": {
+                    "name": "Chuck Norris",
+                    "email": "chuck@deveo.com"
+                },
+                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
+            }]
+        };
+        this.commitDeveoSVNData = {
+            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
+            "ref": "refs/heads/master",
+            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
+            "compare": "",
+            "forced": false,
+            "created": false,
+            "deleted": false,
+            "project": {
+                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
+                "name": "Test project",
+                "url": "https://deveo.com/example/code/diff/test"
+            },
+            "repository": {
+                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
+                "name": "website",
+                "type": "subversion",
+                "url": "https://deveo.com/example/code/overview/test/repositories/website",
+                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
+                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
+                "owner": {
+                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
+                    "name": "chuck",
+                    "email": "chuck@deveo.com"
+                }
+            },
+            "pusher": {
+                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
+                "name": "chuck",
+                "display_name": "Chuck Norris"
+            },
+            "commit_count": 1,
+            "commits": [{
+                "distinct": true,
+                "removed": [],
+                "message": "Update readme",
+                "added": [],
+                "timestamp": "2015-01-30T12:17:56Z",
+                "modified": ["readme"],
+                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                "author": {
+                    "name": "Chuck Norris",
+                    "email": "chuck@deveo.com"
+                },
+                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
+            }]
+        };
+        this.commitDeveoWebdavData = {
+            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
+            "ref": "refs/heads/master",
+            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
+            "compare": "",
+            "forced": false,
+            "created": false,
+            "deleted": false,
+            "project": {
+                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
+                "name": "Test project",
+                "url": "https://deveo.com/example/code/diff/test"
+            },
+            "repository": {
+                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
+                "name": "website",
+                "type": "webdav",
+                "url": "https://deveo.com/example/code/overview/test/repositories/website",
+                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
+                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
+                "owner": {
+                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
+                    "name": "chuck",
+                    "email": "chuck@deveo.com"
+                }
+            },
+            "pusher": {
+                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
+                "name": "chuck",
+                "display_name": "Chuck Norris"
+            },
+            "commit_count": 1,
+            "commits": [{
+                "distinct": true,
+                "removed": [],
+                "message": "Update readme",
+                "added": [],
+                "timestamp": "2015-01-30T12:17:56Z",
+                "modified": ["readme"],
+                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                "author": {
+                    "name": "Chuck Norris",
+                    "email": "chuck@deveo.com"
+                },
+                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
+            }]
+        };
+        this.commitInvalidPayloadData = {
+            "noway": "should this work"
+        };
+        this.validPayload = true;
     }
 
     createInstance() {
@@ -373,16 +565,20 @@ module.exports = class BaseAPI {
         )
     }
 
-    pushGitHubCommit({instanceId, apiKey, inboxId}) {
+    pushGitHubCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitGitHubData;
+        if(!validPayload) {
+          commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitGitHubData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-github-event': 'push'}
             })
     }
 
-    pushGitLabCommit({instanceId, apiKey, inboxId}) {
+    pushGitLabCommit({instanceId, apiKey, inboxId, valiPayload}) {
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
             this.commitGitLabData,
@@ -433,6 +629,42 @@ module.exports = class BaseAPI {
             this.commitP4VData,
             {
                 headers: {'Content-type': 'application/json', 'CS-P4V-Event': 'Commit Event'}
+            })
+    }
+
+    pushDeveoGitCommit({instanceId, apiKey, inboxId}) {
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+            this.commitDeveoGitData,
+            {
+                headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
+            })
+    }
+
+    pushDeveoMercurialCommit({instanceId, apiKey, inboxId}) {
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+            this.commitDeveoMercurialData,
+            {
+                headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
+            })
+    }
+
+    pushDeveoSVNCommit({instanceId, apiKey, inboxId}) {
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+            this.commitDeveoSVNData,
+            {
+                headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
+            })
+    }
+
+    pushDeveoWebdavCommit({instanceId, apiKey, inboxId}) {
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+            this.commitDeveoWebdavData,
+            {
+                headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
             })
     }
 
@@ -609,5 +841,13 @@ module.exports = class BaseAPI {
             },
             "message":"The commits have been added to the CommitStream inbox."
         }
+    }
+
+    expectedInvalidPayloadCommitResult({instanceId, digestId, inboxId}) {
+        return {
+            "errors": [
+                "There was an unexpected error when processing your GitHUb push event."
+            ]
+        };
     }
 }
