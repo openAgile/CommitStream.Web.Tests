@@ -41,6 +41,7 @@
     "grunt-babel": "^6.0.0",
     "grunt-contrib-watch": "^0.6.1",
     "load-grunt-tasks": "^3.4.0",
+    "lodash": "^4.17.2",
     "selenium-standalone": "^5.8.0",
     "v1sdk": "^2.2.2"
   },
