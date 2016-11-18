@@ -578,91 +578,131 @@ module.exports = class BaseAPI {
             })
     }
 
-    pushGitLabCommit({instanceId, apiKey, inboxId, valiPayload}) {
+    pushGitLabCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitGitLabData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitGitLabData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-gitlab-event': 'Push Hook'}
             })
     }
 
-    pushBitbucketCommit({instanceId, apiKey, inboxId}) {
+    pushBitbucketCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitBitbucketData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitBitbucketData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-event-key': 'repo:push'}
             })
     }
 
-    pushVSTSCommit({instanceId, apiKey, inboxId}) {
+    pushVSTSCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitVSTSData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitVSTSData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json'}
             })
     }
 
-    pushSVNCommit({instanceId, apiKey, inboxId}) {
+    pushSVNCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitSVNData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitSVNData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'CS-SVN-Event': 'Commit Event'}
             })
     }
 
-    pushGitSwarmCommit({instanceId, apiKey, inboxId}) {
+    pushGitSwarmCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitGitSwarmData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitGitSwarmData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-gitlab-event': 'Push Hook', 'X-Gitswarm-Event': 'Push Hook'}
             })
     }
 
-    pushP4VCommit({instanceId, apiKey, inboxId}) {
+    pushP4VCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitP4VData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitP4VData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'CS-P4V-Event': 'Commit Event'}
             })
     }
 
-    pushDeveoGitCommit({instanceId, apiKey, inboxId}) {
+    pushDeveoGitCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitDeveoGitData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitDeveoGitData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
             })
     }
 
-    pushDeveoMercurialCommit({instanceId, apiKey, inboxId}) {
+    pushDeveoMercurialCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitDeveoMercurialData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitDeveoMercurialData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
             })
     }
 
-    pushDeveoSVNCommit({instanceId, apiKey, inboxId}) {
+    pushDeveoSVNCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitDeveoSVNData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitDeveoSVNData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
             })
     }
 
-    pushDeveoWebdavCommit({instanceId, apiKey, inboxId}) {
+    pushDeveoWebdavCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitDeveoWebdavData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
-            this.commitDeveoWebdavData,
+            commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
             })
@@ -846,7 +886,7 @@ module.exports = class BaseAPI {
     expectedInvalidPayloadCommitResult({instanceId, digestId, inboxId}) {
         return {
             "errors": [
-                "There was an unexpected error when processing your GitHUb push event."
+                "There was an unexpected error when processing your GitHub push event."
             ]
         };
     }

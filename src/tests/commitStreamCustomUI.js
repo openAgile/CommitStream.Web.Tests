@@ -46,14 +46,14 @@ let changeInboxWebhook=(family, webhook) => {
 
 
 test("Login to VersionOne-SMA Instance", t=> {
-    return glance.url("http://localhost/VersionOne")
+    return glance.url("http://localhost/VersionOneAutomation")
         .set("browser:size", "maximize")
         .cast({
             'username>input':'admin',
             'password>input':'admin'
         })
         .click('Login')
-        .url("http://localhost/VersionOne/Default.aspx?menu=MyHomeEnterpriseGettingStartedPage&feat-nav=-m1")
+        .url("http://localhost/VersionOneAutomation/Default.aspx?menu=MyHomeEnterpriseGettingStartedPage&feat-nav=-m1")
         //.click('Back to Main')
         //.click('My Home')
         //.click('Getting Started')
@@ -69,10 +69,10 @@ test("Login to VersionOne-SMA Instance", t=> {
         //.moveMouseTo('ROOMS', 10,10)
         //.pause(1000)
         // .click('Sprint Tracking')
-        .url("http://localhost/VersionOne/Default.aspx?menu=TeamRoomsPage")
+        .url("http://localhost/VersionOneAutomation/Default.aspx?menu=TeamRoomsPage")
         //.click('TeamRooms')
         .click('Fellowship of the Scrum')
-        .url("http://localhost/VersionOne/TeamRoom.mvc/Edit/1286")
+        .url("http://localhost/VersionOneAutomation/TeamRoom.mvc/Edit/1371")
         // .click('ico>admin')
         .click('CommitStream')
         .click('Custom')
@@ -148,6 +148,51 @@ test("Login to VersionOne-SMA Instance", t=> {
             console.log("SVN URL is: ", svnRepoUrl);
             svnRepoUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + svnRepoUrl);
             changeInboxWebhook('SVN', svnRepoUrl);
+            return glance
+        })
+        .click('GitSwarm')
+        .set('inboxUrl>input', 'https://gitswarm.com/user/gitSwarmCustom')
+        .click("Add")
+        .pause(2000)
+        .get('h1#2').then(function(header) {
+            console.log('Table header was: ', header);
+            t.is(header, "Active Repositories", "What value did I get then?: " + header)
+            return glance
+        })
+        .get('gitSwarmCustom>input').then(function(gitSwarmUrl) {
+            console.log("GitSwarm URL is: ", gitSwarmUrl);
+            gitSwarmUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + gitSwarmUrl);
+            changeInboxWebhook('GitSwarm', gitSwarmUrl);
+            return glance
+        })
+        .click('Perforce P4V')
+        .set('inboxUrl>input', 'https://perforce.com:2225/user/p4VCustom')
+        .click("Add")
+        .pause(2000)
+        .get('h1#2').then(function(header) {
+            console.log('Table header was: ', header);
+            t.is(header, "Active Repositories", "What value did I get then?: " + header)
+            return glance
+        })
+        .get('p4VCustom>input').then(function(p4vUrl) {
+            console.log("P4V URL is: ", p4vUrl);
+            p4vUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + p4vUrl);
+            changeInboxWebhook('P4V', p4vUrl);
+            return glance
+        })
+        .click('Deveo')
+        .set('inboxUrl>input', 'https://app.deveo.com/versionone1/projects/smatester/repositories/smaGitCustom')
+        .click("Add")
+        .pause(2000)
+        .get('h1#2').then(function(header) {
+            console.log('Table header was: ', header);
+            t.is(header, "Active Repositories", "What value did I get then?: " + header)
+            return glance
+        })
+        .get('smaGitCustom>input').then(function(deveoUrl) {
+            console.log("Deveo URL is: ", deveoUrl);
+            deveoUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + deveoUrl);
+            changeInboxWebhook('Deveo', deveoUrl);
             return glance
         })
         //clean up

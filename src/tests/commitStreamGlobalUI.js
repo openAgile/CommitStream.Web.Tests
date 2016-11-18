@@ -43,7 +43,7 @@ let changeInboxWebhook=(family, webhook) => {
 }
 
 test("Login to VersionOne-SMA Instance", t=> {
-    return glance.url("http://localhost/VersionOne/")
+    return glance.url("http://localhost/VersionOneAutomation")
         .set("browser:size", "maximize")
         .cast({
             'username>input':'admin',
@@ -153,6 +153,36 @@ test("Login to VersionOne-SMA Instance", t=> {
             console.log("GitSwarm URL is: ", gitSwarmUrl);
             gitSwarmUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + gitSwarmUrl);
             changeInboxWebhook('GitSwarm', gitSwarmUrl);
+            return glance
+        })
+        .click('Perforce P4V')
+        .set('inboxUrl>input', 'http://perforce.com:1552/p4VGlobal')
+        .click('Add')
+        .pause(2000)
+        .get('h1#2').then(function(header) {
+            console.log('Table header was: ', header);
+            t.is(header, "Active Repositories", "What value did I get then?: " + header);
+            return glance
+        })
+        .get('p4VGlobal>input').then(function(p4vUrl) {
+            console.log("Perforce P4V URL is: ", p4vUrl);
+            p4vUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + p4vUrl);
+            changeInboxWebhook('P4V', p4vUrl);
+            return glance
+        })
+        .click('Deveo')
+        .set('inboxUrl>input', 'https://app.deveo.com/versionone1/projects/smatester/repositories/smaGit')
+        .click('Add')
+        .pause(2000)
+        .get('h1#2').then(function(header) {
+            console.log('Table header was: ', header);
+            t.is(header, "Active Repositories", "What value did I get then?: " + header);
+            return glance
+        })
+        .get('smaGit>input').then(function(deveoUrl) {
+            console.log("Perforce P4V URL is: ", deveoUrl);
+            deveoUrl.should.include('https://v1-cs-test.azurewebsites.net/api/', "This should be an inbox URL: " + deveoUrl);
+            changeInboxWebhook('Deveo', deveoUrl);
             return glance
         })
          //clean up

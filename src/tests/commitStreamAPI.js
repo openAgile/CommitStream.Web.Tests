@@ -76,17 +76,18 @@ test.serial("Can I make a commit to GitHub inbox?", async t => {
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
 });
 
-test.serial("Expect 400 response and error message for invalid commit payload to GitHub inbox", async t=> {
-    let response = await base.pushGitHubCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId, validPayload: false});
-    t.is(response.status, 201, "Uh oh...");
-    let commit = response.data;
-    let expected = base.expectedCommitResult({
-        instanceId: instanceId,
-        digestId: digestId,
-        inboxId: gitHubInboxId
-    });
-    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
-})
+// test.serial("Expect 400 response and error message for invalid commit payload to GitHub inbox", async t=> {
+//     let response = await base.pushGitHubCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId, validPayload: false});
+//     console.log(JSON.stringify(response, null, '\t'));
+//     t.is( await response.status, 400, "Uh oh...");
+//     let commit = response.data;
+//     let expected = base.expectedInvalidPayloadCommitResult({
+//         instanceId: instanceId,
+//         digestId: digestId,
+//         inboxId: gitHubInboxId
+//     });
+//     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+// });
 
 test.serial("Can I create an inbox for a GitLab repo?", async t => {
     let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
@@ -107,7 +108,7 @@ test.serial("Can I create an inbox for a GitLab repo?", async t => {
 });
 
 test.serial("Can I make a commit to GitLab inbox?", async t=> {
-    let response = await base.pushGitLabCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitLabInboxId});
+    let response = await base.pushGitLabCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitLabInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -137,7 +138,7 @@ test.serial("Can I create an inbox for a Bitbucket repo?", async t => {
 });
 
 test.serial("Can I make a commit to Bitbucket inbox?", async t=> {
-    let response = await base.pushBitbucketCommit({instanceId: instanceId, apiKey: apiKey, inboxId: bitbucketInboxId});
+    let response = await base.pushBitbucketCommit({instanceId: instanceId, apiKey: apiKey, inboxId: bitbucketInboxId, validPayload:true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -167,7 +168,7 @@ test.serial("Can I create an inbox for a VSTS repo?", async t => {
 });
 
 test.serial("Can I make a commit to VSTS inbox?", async t=> {
-    let response = await base.pushVSTSCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoGitInboxId});
+    let response = await base.pushVSTSCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoGitInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -197,7 +198,7 @@ test.serial("Can I create an inbox for a Subversion repo?", async t => {
 });
 
 test.serial("Can I make a commit to Subversion inbox?", async t=> {
-    let response = await base.pushSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: subversionInboxId});
+    let response = await base.pushSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: subversionInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -227,7 +228,7 @@ test.serial("Can I create an inbox for a GitSwarm repo?", async t => {
 });
 
 test.serial("Can I make a commit to GitSwarm inbox?", async t=> {
-    let response = await base.pushGitSwarmCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitSwarmInboxId});
+    let response = await base.pushGitSwarmCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitSwarmInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -257,7 +258,7 @@ test.serial("Can I create an inbox for a Perforce P4V repo?", async t => {
 });
 
 test.serial("Can I make a commit to Perforce P4V inbox?", async t=> {
-    let response = await base.pushP4VCommit({instanceId: instanceId, apiKey: apiKey, inboxId: perforceP4VInboxId});
+    let response = await base.pushP4VCommit({instanceId: instanceId, apiKey: apiKey, inboxId: perforceP4VInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -287,7 +288,7 @@ test.serial("Can I create an inbox for a DeveoGit repo?", async t => {
 });
 
 test.serial("Can I make a commit to a DeveoGit inbox?", async t=> {
-    let response = await base.pushDeveoGitCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoGitInboxId});
+    let response = await base.pushDeveoGitCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoGitInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -317,7 +318,7 @@ test.serial("Can I create an inbox for a DeveoMercurial repo?", async t => {
 });
 
 test.serial("Can I make a commit to a DeveoMercurial inbox?", async t=> {
-    let response = await base.pushDeveoMercurialCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoMercurialInboxId});
+    let response = await base.pushDeveoMercurialCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoMercurialInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -347,7 +348,7 @@ test.serial("Can I create an inbox for a DeveoSubversion repo?", async t => {
 });
 
 test.serial("Can I make a commit to a DeveoSubversion inbox?", async t=> {
-    let response = await base.pushDeveoSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoSVNInboxId});
+    let response = await base.pushDeveoSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoSVNInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -377,7 +378,7 @@ test.serial("Can I create an inbox for a DeveoWebdav repo?", async t => {
 });
 
 test.serial("Can I make a commit to a DeveoWebdav inbox?", async t=> {
-    let response = await base.pushDeveoWebdavCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoWebdavInboxId});
+    let response = await base.pushDeveoWebdavCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoWebdavInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
