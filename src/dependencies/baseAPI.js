@@ -569,6 +569,19 @@ module.exports = class BaseAPI {
         )
     }
 
+    pushCommitInvalidHeaders({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitGitHubData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+            commitData,
+            {
+                headers: {'Content-type': 'application/json', 'test-event': 'no'}
+            })
+    }
+
     pushGitHubCommit({instanceId, apiKey, inboxId, validPayload}) {
         let commitData = this.commitGitHubData;
         if(!validPayload) {
@@ -1023,14 +1036,30 @@ module.exports = class BaseAPI {
         };
     }
 
-    expectedInvalidPayloadCommitResult({instanceId, digestId, inboxId, vcsType, isScriptBased}) {
-        let eventType = "commit";
-        if(!isScriptBased) {
-            eventType = "push";
+    expectedInvalidPayloadCommitResult({vcsType, isScriptBased}) {
+        if(vcsType != 'VSTS') {
+            let eventType = "commit";
+            if (!isScriptBased) {
+                eventType = "push";
+            }
+            return {
+                "errors": [
+                    "There was an unexpected error when processing your " + vcsType + " " + eventType + " event."
+                ]
+            };
+        } else {
+            return {
+                "errors": [
+                    "Push event could not be processed."
+                ]
+            };
         }
+    }
+
+    expectedInvalidHeadersCommitResult() {
         return {
             "errors": [
-                "There was an unexpected error when processing your " + vcsType + " " + eventType + " event."
+                "Push event could not be processed."
             ]
         };
     }
