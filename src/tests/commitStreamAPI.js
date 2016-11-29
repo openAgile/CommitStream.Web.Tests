@@ -9,6 +9,7 @@ let instanceId;
 let apiKey;
 let digest;
 let digestId;
+let digestCommits;
 let inbox;
 let gitHubInboxId;
 let gitLabInboxId;
@@ -17,7 +18,10 @@ let vsoGitInboxId;
 let subversionInboxId;
 let gitSwarmInboxId;
 let perforceP4VInboxId;
-let deveoInboxId;
+let deveoGitInboxId;
+let deveoMercurialInboxId;
+let deveoSVNInboxId;
+let deveoWebdavInboxId;
 
 
 test.serial("Can I create an instance?", async t => {
@@ -43,6 +47,14 @@ test.serial("Can I create a digest", async t => {
     digestId = digest.digestId;
 });
 
+test.serial("Can I query digest for 0 commits?", async t => {
+    let response = await base.getDigestCommits({instanceId: instanceId, digestId: digestId, apiKey: apiKey});
+    t.is(response.status, 200, "What response status did I get?: " + response.status);
+    digestCommits = response.data;
+    let expected = base.expectedZeroDigestCommits();
+    JSON.stringify(digestCommits).should.deep.equal(JSON.stringify(expected));
+});
+
 test.serial("Can I create an inbox for a GitHub repo?", async t => {
     let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
         inboxFamily: 'GitHub', inboxName: 'GitHubGlobal', repoUrl: 'https://github.com/user/genericTest'});
@@ -62,7 +74,7 @@ test.serial("Can I create an inbox for a GitHub repo?", async t => {
 });
 
 test.serial("Can I make a commit to GitHub inbox?", async t => {
-    let response = await base.pushGitHubCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId});
+    let response = await base.pushGitHubCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -71,6 +83,35 @@ test.serial("Can I make a commit to GitHub inbox?", async t => {
         inboxId: gitHubInboxId
     });
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to GitHub inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to GitHub inbox", async t=> {
+    try {
+        await base.pushGitHubCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitHubInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'GitHub',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
 });
 
 test.serial("Can I create an inbox for a GitLab repo?", async t => {
@@ -92,7 +133,7 @@ test.serial("Can I create an inbox for a GitLab repo?", async t => {
 });
 
 test.serial("Can I make a commit to GitLab inbox?", async t=> {
-    let response = await base.pushGitLabCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitLabInboxId});
+    let response = await base.pushGitLabCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitLabInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -101,6 +142,35 @@ test.serial("Can I make a commit to GitLab inbox?", async t=> {
         inboxId: gitLabInboxId
     });
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to GitLab inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: gitLabInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to GitLab inbox", async t=> {
+    try {
+        await base.pushGitLabCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitLabInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'GitLab',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
 });
 
 test.serial("Can I create an inbox for a Bitbucket repo?", async t => {
@@ -122,7 +192,7 @@ test.serial("Can I create an inbox for a Bitbucket repo?", async t => {
 });
 
 test.serial("Can I make a commit to Bitbucket inbox?", async t=> {
-    let response = await base.pushBitbucketCommit({instanceId: instanceId, apiKey: apiKey, inboxId: bitbucketInboxId});
+    let response = await base.pushBitbucketCommit({instanceId: instanceId, apiKey: apiKey, inboxId: bitbucketInboxId, validPayload:true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -131,6 +201,35 @@ test.serial("Can I make a commit to Bitbucket inbox?", async t=> {
         inboxId: bitbucketInboxId
     });
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to Bitbucket inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: bitbucketInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to Bitbucket inbox", async t=> {
+    try {
+        await base.pushBitbucketCommit({instanceId: instanceId, apiKey: apiKey, inboxId: bitbucketInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'Bitbucket',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
 });
 
 test.serial("Can I create an inbox for a VSTS repo?", async t => {
@@ -152,7 +251,7 @@ test.serial("Can I create an inbox for a VSTS repo?", async t => {
 });
 
 test.serial("Can I make a commit to VSTS inbox?", async t=> {
-    let response = await base.pushVSTSCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoGitInboxId});
+    let response = await base.pushVSTSCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoGitInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -161,6 +260,35 @@ test.serial("Can I make a commit to VSTS inbox?", async t=> {
         inboxId: vsoGitInboxId
     });
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to VSTS inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: vsoGitInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to VSTS inbox", async t=> {
+    try {
+        await base.pushVSTSCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoGitInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'VSTS',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
 });
 
 test.serial("Can I create an inbox for a Subversion repo?", async t => {
@@ -182,7 +310,7 @@ test.serial("Can I create an inbox for a Subversion repo?", async t => {
 });
 
 test.serial("Can I make a commit to Subversion inbox?", async t=> {
-    let response = await base.pushSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: subversionInboxId});
+    let response = await base.pushSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: subversionInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -191,6 +319,35 @@ test.serial("Can I make a commit to Subversion inbox?", async t=> {
         inboxId: subversionInboxId
     });
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to Subversion inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: subversionInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to Subversion inbox", async t=> {
+    try {
+        await base.pushSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: subversionInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'Svn',
+            isScriptBased: true
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
 });
 
 test.serial("Can I create an inbox for a GitSwarm repo?", async t => {
@@ -212,7 +369,7 @@ test.serial("Can I create an inbox for a GitSwarm repo?", async t => {
 });
 
 test.serial("Can I make a commit to GitSwarm inbox?", async t=> {
-    let response = await base.pushGitSwarmCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitSwarmInboxId});
+    let response = await base.pushGitSwarmCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitSwarmInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -221,6 +378,35 @@ test.serial("Can I make a commit to GitSwarm inbox?", async t=> {
         inboxId: gitSwarmInboxId
     });
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to GitSwarm inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: gitSwarmInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to GitSwarm inbox", async t=> {
+    try {
+        await base.pushGitSwarmCommit({instanceId: instanceId, apiKey: apiKey, inboxId: gitSwarmInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'GitSwarm',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
 });
 
 test.serial("Can I create an inbox for a Perforce P4V repo?", async t => {
@@ -242,7 +428,7 @@ test.serial("Can I create an inbox for a Perforce P4V repo?", async t => {
 });
 
 test.serial("Can I make a commit to Perforce P4V inbox?", async t=> {
-    let response = await base.pushP4VCommit({instanceId: instanceId, apiKey: apiKey, inboxId: perforceP4VInboxId});
+    let response = await base.pushP4VCommit({instanceId: instanceId, apiKey: apiKey, inboxId: perforceP4VInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -253,4 +439,276 @@ test.serial("Can I make a commit to Perforce P4V inbox?", async t=> {
     JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
 });
 
+test.serial("Expect 400 response and error message for invalid commit headers to Perforce P4V inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: perforceP4VInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to Perforce P4V inbox", async t=> {
+    try {
+        await base.pushP4VCommit({instanceId: instanceId, apiKey: apiKey, inboxId: perforceP4VInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'P4V',
+            isScriptBased: true
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Can I create an inbox for a DeveoGit repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'Deveo', inboxName: 'DeveoGitGlobal', repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoGit'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'Deveo',
+        inboxName: 'DeveoGitGlobal',
+        repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoGit'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    deveoGitInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a DeveoGit inbox?", async t=> {
+    let response = await base.pushDeveoGitCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoGitInboxId, validPayload: true});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: deveoGitInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to DeveoGit inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: deveoGitInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to Deveo Git inbox", async t=> {
+    try {
+        await base.pushDeveoGitCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoGitInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'Deveo',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Can I create an inbox for a DeveoMercurial repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'Deveo', inboxName: 'DeveoMercurialGlobal', repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoMercurial'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'Deveo',
+        inboxName: 'DeveoMercurialGlobal',
+        repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoMercurial'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    deveoMercurialInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a DeveoMercurial inbox?", async t=> {
+    let response = await base.pushDeveoMercurialCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoMercurialInboxId, validPayload: true});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: deveoMercurialInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to DeveoMercurial inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: deveoMercurialInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to DeveoMercurial inbox", async t=> {
+    try {
+        await base.pushDeveoMercurialCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoMercurialInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'Deveo',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Can I create an inbox for a DeveoSubversion repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'Deveo', inboxName: 'DeveoSubversionGlobal', repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoSubversion'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'Deveo',
+        inboxName: 'DeveoSubversionGlobal',
+        repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoSubversion'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    deveoSVNInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a DeveoSubversion inbox?", async t=> {
+    let response = await base.pushDeveoSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoSVNInboxId, validPayload: true});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: deveoSVNInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to DeveoSubversion inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: deveoSVNInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to DeveoSubversion inbox", async t=> {
+    try {
+        await base.pushDeveoSVNCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoSVNInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'Deveo',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Can I create an inbox for a DeveoWebdav repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'Deveo', inboxName: 'DeveoWebdavGlobal', repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoWebdav'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'Deveo',
+        inboxName: 'DeveoWebdavGlobal',
+        repoUrl: 'https://deveo.com/sample/code/overview/test/repositories/deveoWebdav'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    deveoWebdavInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a DeveoWebdav inbox?", async t=> {
+    let response = await base.pushDeveoWebdavCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoWebdavInboxId, validPayload: true});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: deveoWebdavInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to DeveoWebdav inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: deveoWebdavInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to DeveoWebDav inbox", async t=> {
+    try {
+        await base.pushDeveoWebdavCommit({instanceId: instanceId, apiKey: apiKey, inboxId: deveoWebdavInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'Deveo',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Can I query the digest for all commits?", async t => {
+    let response = await base.getDigestCommits({instanceId: instanceId, digestId: digestId, apiKey: apiKey});
+    t.is(response.status, 200, "What response status did I get?: " + response.status);
+    digestCommits = response.data;
+    let expected = base.expectedAllDigestCommits();
+    JSON.stringify(digestCommits).should.deep.equal(JSON.stringify(expected));
+});
 
