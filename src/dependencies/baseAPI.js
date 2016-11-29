@@ -3,7 +3,7 @@ var axios = require('axios');
 module.exports = class BaseAPI {
     constructor() {
         this.rootRootUrl = 'https://v1-cs-test.azurewebsites.net';
-        this.rootUrl = 'https://v1-cs-test.azurewebsites.net/api/';
+        this.rootUrl = this.rootRootUrl + '/api/';
         this.instanceUrl = this.rootUrl + '/instances';
         this.commitGitHubData = {
             "ref": "refs/heads/master",
@@ -342,51 +342,49 @@ module.exports = class BaseAPI {
             "html_url":"PLACE BASE URL TO INSPECT YOUR REVISIONS178"
         };
         this.commitDeveoGitData = {
-            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
-            "ref": "refs/heads/master",
-            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
-            "compare": "",
-            "forced": false,
-            "created": false,
-            "deleted": false,
-            "project": {
-                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
-                "name": "Test project",
-                "url": "https://deveo.com/example/code/diff/test"
-            },
-            "repository": {
-                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
-                "name": "website",
-                "type": "git",
-                "url": "https://deveo.com/example/code/overview/test/repositories/website",
-                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
-                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
-                "owner": {
-                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                    "name": "chuck",
-                    "email": "chuck@deveo.com"
+            "after":"bd4a158555d69bd41fa1b6429c816031152d091d",
+            "ref":"refs/heads/master",
+            "before":"007c20d3bf35b19e507ecbb52dceb86a91bde173",
+            "compare":"",
+            "forced":false,
+            "created":false,
+            "deleted":false,
+            "project":{
+                "uuid":"f1115b9c-b165-46de-85a7-251805537746",
+                "name":"demo-",
+                "url":"https://app.deveo.com/Gexample/projects/demo-"},
+            "repository":{
+                "uuid":"7b23046e-405f-4ec5-b1c9-38875e65369f",
+                "name":"gitti1",
+                "type":"git",
+                "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
+                "https_url":"https://app.deveo.com/Gexample/projects/demo-/repositories/git/gitti1",
+                "ssh_url":"deveo@app.deveo.com:Gexample/projects/demo-/repositories/git/gitti1",
+                "owner":{
+                    "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                    "name":"doejohn",
+                    "email":"ilmari@deveo.com"
                 }
             },
-            "pusher": {
-                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                "name": "chuck",
-                "display_name": "Chuck Norris"
-            },
-            "commit_count": 1,
-            "commits": [{
-                "distinct": true,
-                "removed": [],
-                "message": "Update readme",
-                "added": [],
-                "timestamp": "2015-01-30T12:17:56Z",
-                "modified": ["readme"],
-                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
-                "author": {
-                    "name": "Chuck Norris",
-                    "email": "chuck@deveo.com"
-                },
-                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
-            }]
+            "pusher":{"uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                "name":"doejohn","display_name":"John Doe"},
+            "commit_count":1,
+            "commits":[
+                {
+                    "distinct":true,
+                    "removed":[],
+                    "message":"S-01041 readme.m",
+                    "added":[],
+                    "timestamp":"2016-09-07T13:58:23Z",
+                    "modified":["README.md"],
+                    "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
+                    "author":{
+                        "name":"Ilmari Kontulainen",
+                        "email":"ilmari@deveo.com"
+                    },
+                    "id":"bd4a158555d69bd41fa1b6429c816031152d091d"
+                }
+            ]
         };
         this.commitDeveoMercurialData = {
             "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
@@ -533,6 +531,7 @@ module.exports = class BaseAPI {
             "noway": "should this work"
         };
         this.validPayload = true;
+        this.isScriptBased = true;
     }
 
     createInstance() {
@@ -548,6 +547,11 @@ module.exports = class BaseAPI {
                 {
                     headers: {'Content-type': 'application/json'}
                 })
+    }
+
+    getDigestCommits ({instanceId, digestId, apiKey}) {
+        let digestCommitsUrl = this.rootUrl + instanceId + '/digests/' + digestId + '/commits?apiKey=' + apiKey;
+        return axios.get(digestCommitsUrl)
     }
 
     createInbox ({instanceId, apiKey, digestId, inboxFamily, inboxName, repoUrl}){
@@ -754,6 +758,13 @@ module.exports = class BaseAPI {
         };
     }
 
+    expectedZeroDigestCommits() {
+        return {
+            "commits": [],
+            "_links": {}
+        };
+    }
+
     expectedInboxResult({instanceId, digestId, inboxId, inboxFamily, inboxName, repoUrl}) {
         return {
             "_links": {
@@ -883,10 +894,143 @@ module.exports = class BaseAPI {
         }
     }
 
-    expectedInvalidPayloadCommitResult({instanceId, digestId, inboxId}) {
+    expectedAllDigestCommits() {
+        return {
+            "commits": [
+                {
+                    "commitDate": "2016-09-07T13:58:23Z",
+                    "timeFormatted": "3 months ago",
+                    "author": "Ilmari Kontulainen",
+                    "sha1Partial": "bd4a15",
+                    "family": "Deveo",
+                    "action": "committed",
+                    "message": "S-01041 readme.m",
+                    "commitHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
+                    "repo": "demo-/gitti1",
+                    "branch": "master",
+                    "branchHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/tree/master",
+                    "repoHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
+                    "isCommitHref": true
+                },
+                {
+                    "commitDate": "2016/10/28 16:04:17",
+                    "timeFormatted": "a month ago",
+                    "author": "v1deploy@v1deploy",
+                    "sha1Partial": "r#:178",
+                    "family": "P4V",
+                    "action": "committed",
+                    "message": " changes inthe bin?",
+                    "commitHref": "PLACE BASE URL TO INSPECT YOUR REVISIONS178",
+                    "repo": "doesNotUseUrl",
+                    "branch": "",
+                    "branchHref": "",
+                    "repoHref": "http://perforce.com/doesNotUseUrl",
+                    "isCommitHref": false
+                },
+                {
+                    "commitDate": "2016-09-22T11:21:18+00:00",
+                    "timeFormatted": "2 months ago",
+                    "author": "Administrator",
+                    "sha1Partial": "6f1268",
+                    "family": "GitSwarm",
+                    "action": "committed",
+                    "message": "Added file",
+                    "commitHref": "http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
+                    "repo": "root/api-testing",
+                    "branch": "master",
+                    "branchHref": "http://gitswarm.cloudapp.net/root/api-testing/tree/master",
+                    "repoHref": "http://gitswarm.cloudapp.net/root/api-testing",
+                    "isCommitHref": true
+                },
+                {
+                    "commitDate": "2016-09-12 03:52:55 +1300 (Mon, 16 Sep 2016)",
+                    "timeFormatted": "3 months ago",
+                    "author": "admin",
+                    "sha1Partial": "r12",
+                    "family": "Svn",
+                    "action": "committed",
+                    "message": "S-01001 SMA Tests",
+                    "commitHref": "http://v1commitstream.cloudapp.net:9090/!/#ProjectA/commit/r12",
+                    "repo": "ProjectA",
+                    "branch": "",
+                    "branchHref": "",
+                    "repoHref": "http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
+                    "isCommitHref": true
+                },
+                {
+                    "commitDate": "2016-03-10T15:42:31Z",
+                    "timeFormatted": "9 months ago",
+                    "author": "Daniel Gruesso",
+                    "sha1Partial": "42bf55",
+                    "family": "VsoGit",
+                    "action": "committed",
+                    "message": "New user sign-up API route update S-01004",
+                    "commitHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/commit/42bf55b256c46f716f0192e9216f1db5c37ea1f2",
+                    "repo": "openagile/CommitStream Git",
+                    "branch": "master",
+                    "branchHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/#version=GBmaster",
+                    "repoHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git",
+                    "isCommitHref": true
+                },
+                {
+                    "commitDate": "2015-08-18T18:43:11+00:00",
+                    "timeFormatted": "a year ago",
+                    "author": "Mariano Kunzi",
+                    "sha1Partial": "24480f",
+                    "family": "Bitbucket",
+                    "action": "committed",
+                    "message": "something happened",
+                    "commitHref": "https://bitbucket.org/kunzimariano/test/commits/24480f9c4f1b4cff6c8ccec86416f6b258b75b22",
+                    "repo": "kunzimariano/test",
+                    "branch": "master",
+                    "branchHref": "https://bitbucket.org/kunzimariano/test/branch/master",
+                    "repoHref": "https://bitbucket.org/kunzimariano/test",
+                    "isCommitHref": true
+                },
+                {
+                    "commitDate": "2011-12-12T14:27:31+02:00",
+                    "timeFormatted": "5 years ago",
+                    "author": "Jordi Mallach",
+                    "sha1Partial": "b6568d",
+                    "family": "GitLab",
+                    "action": "committed",
+                    "message": "Update Catalan translation to e38cb41.",
+                    "commitHref": "http://example.com/mike/diaspora/commit/b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327",
+                    "repo": "mike/diaspora",
+                    "branch": "master",
+                    "branchHref": "http://example.com/mike/diaspora/tree/master",
+                    "repoHref": "http://example.com/mike/diaspora",
+                    "isCommitHref": true
+                },
+                {
+                    "commitDate": "2014-10-03T15:57:14-03:00",
+                    "timeFormatted": "2 years ago",
+                    "author": "yourName",
+                    "sha1Partial": "123456",
+                    "family": "GitHub",
+                    "action": "committed",
+                    "message": "S-04026 Testing Commit functionality!",
+                    "commitHref": "https://repourl",
+                    "repo": "/repourl",
+                    "branch": "master",
+                    "branchHref": "https://repourl/tree/master",
+                    "repoHref": "https://repourl",
+                    "isCommitHref": true
+                }
+            ],
+            "_links": {
+            }
+        };
+    }
+
+    expectedInvalidPayloadCommitResult({instanceId, digestId, inboxId, vcsType, isScriptBased}) {
+        let eventType = "commit";
+        if(!isScriptBased) {
+            eventType = "push";
+        }
         return {
             "errors": [
-                "There was an unexpected error when processing your GitHub push event."
+                "There was an unexpected error when processing your " + vcsType + " " + eventType + " event."
             ]
         };
     }
