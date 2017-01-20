@@ -15,6 +15,7 @@ let gitHubInboxId;
 let gitLabInboxId;
 let bitbucketInboxId;
 let vsoGitInboxId;
+let tfsOnPremInboxId;
 let subversionInboxId;
 let gitSwarmInboxId;
 let perforceP4VInboxId;
@@ -31,6 +32,7 @@ test.serial("Can I create an instance?", async t => {
     response.data.should.deep.equal(base.expectedInstanceResult(instance.instanceId, instance.apiKey));
     apiKey = instance.apiKey;
     instanceId = instance.instanceId;
+    console.log("instanceId: " + instanceId + ", apiKey: " + apiKey);
 });
 
 test.serial("Can I create a digest", async t => {
@@ -289,6 +291,36 @@ test.serial("Expect 400 response and error message for invalid commit payload to
         });
         JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
     }
+});
+
+test.serial("Can I create an inbox for a TFSOnPrem repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'VsoGit', inboxName: 'TFSOnPremGlobal', repoUrl: 'http://tctfs05:8080/tfs/TayCommCFT'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'VsoGit',
+        inboxName: 'TFSOnPremGlobal',
+        repoUrl: 'http://tctfs05:8080/tfs/TayCommCFT'
+    });
+    JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
+    tfsOnPremInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to TFSOnPrem inbox?", async t=> {
+    let response = await base.pushTFSOnPremCommit({instanceId: instanceId, apiKey: apiKey, inboxId: tfsOnPremInboxId, validPayload: true});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: tfsOnPremInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
 });
 
 test.serial("Can I create an inbox for a Subversion repo?", async t => {
