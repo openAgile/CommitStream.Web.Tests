@@ -3,7 +3,7 @@ var axios = require('axios');
 module.exports = class BaseAPI {
     constructor() {
         this.rootRootUrl = 'https://v1-cs-test.azurewebsites.net';
-        this.rootUrl = this.rootRootUrl + '/api/';
+        this.rootUrl = this.rootRootUrl + '/api';
         this.instanceUrl = this.rootUrl + '/instances';
         this.commitGitHubData = {
             "ref": "refs/heads/master",
@@ -466,7 +466,7 @@ module.exports = class BaseAPI {
                 {
                     "distinct":true,
                     "removed":[],
-                    "message":"S-01041 readme.m",
+                    "message":"S-01041 DeveoGitreadme.m",
                     "added":[],
                     "timestamp":"2016-09-07T13:58:23Z",
                     "modified":["README.md"],
@@ -480,98 +480,101 @@ module.exports = class BaseAPI {
             ]
         };
         this.commitDeveoMercurialData = {
-            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
-            "ref": "refs/heads/master",
-            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
-            "compare": "",
-            "forced": false,
-            "created": false,
-            "deleted": false,
-            "project": {
-                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
-                "name": "Test project",
-                "url": "https://deveo.com/example/code/diff/test"
+            "after":"5b634f103ad212848a47a29d306616b002eeb828",
+            "ref":"refs/heads/default",
+            "before":"",
+            "compare":"",
+            "forced":false,
+            "created":false,
+            "deleted":false,
+            "project":{
+                "uuid":"f1115b9c-b165-46de-85a7-251805537746",
+                "name":"demo-",
+                "url":"https://app.deveo.com/Gexample/projects/demo-"
             },
-            "repository": {
-                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
-                "name": "website",
-                "type": "mercurial",
-                "url": "https://deveo.com/example/code/overview/test/repositories/website",
-                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
-                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
-                "owner": {
-                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                    "name": "chuck",
-                    "email": "chuck@deveo.com"
+            "repository":{
+                "uuid":"9371e395-6448-4e8d-8584-b042e3f2859b",
+                "name":"foo",
+                "type":"mercurial",
+                "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo",
+                "https_url":"https://app.deveo.com/Gexample/projects/demo-/repositories/mercurial/foo",
+                "ssh_url":"ssh://deveo@app.deveo.com/Gexample/projects/demo-/repositories/mercurial/foo",
+                "owner":{
+                    "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                    "name":"doejohn",
+                    "email":"ilmari@deveo.com"
                 }
             },
-            "pusher": {
-                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                "name": "chuck",
-                "display_name": "Chuck Norris"
+            "pusher":{
+                "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                "name":"doejohn",
+                "display_name":"John Doe"
             },
-            "commit_count": 1,
-            "commits": [{
-                "distinct": true,
-                "removed": [],
-                "message": "Update readme",
-                "added": [],
-                "timestamp": "2015-01-30T12:17:56Z",
-                "modified": ["readme"],
-                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
-                "author": {
-                    "name": "Chuck Norris",
-                    "email": "chuck@deveo.com"
-                },
-                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
-            }]
+            "commit_count":1,
+            "commits":[
+                {
+                    "distinct":true,"removed":[],
+                    "message":"Initial commit for DeveoMercurial.",
+                    "added":["README.md"],
+                    "timestamp":"2016-09-07T14:58:49Z",
+                    "modified":[],
+                    "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/changesets/5b634f103ad212848a47a29d306616b002eeb828",
+                    "author":{
+                        "name":"Ilmari Kontulainen",
+                        "email":"ilmari@deveo.com"
+                    },
+                    "id":"5b634f103ad212848a47a29d306616b002eeb828"
+                }
+            ]
         };
         this.commitDeveoSVNData = {
-            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
-            "ref": "refs/heads/master",
-            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
-            "compare": "",
-            "forced": false,
-            "created": false,
-            "deleted": false,
-            "project": {
-                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
-                "name": "Sample proposal",
-                "url": "https://deveo.com/example/code/diff/sample"
+            "after":"2",
+            "ref":"",
+            "before":"1",
+            "compare":"",
+            "forced":false,
+            "created":false,
+            "deleted":false,
+            "project":{
+                "uuid":"f1115b9c-b165-46de-85a7-251805537746",
+                "name":"demo-",
+                "url":"https://app.deveo.com/Gexample/projects/demo-"
             },
-            "repository": {
-                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
-                "name": "website",
-                "type": "subversion",
-                "url": "https://deveo.com/example/code/overview/test/repositories/website",
-                "https_url": "https://deveo.com/example/projects/test/repositories/svn/website",
-                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/svn/website",
-                "owner": {
-                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                    "name": "Charlie",
-                    "email": "charliethedog@deveo.com"
+            "repository":{
+                "uuid":"19cf0c6f-0743-4e4f-9e28-17f504476c34",
+                "name":"svn1",
+                "type":"subversion",
+                "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1",
+                "https_url":"https://app.deveo.com/Gexample/projects/demo-/repositories/subversion/svn1",
+                "ssh_url":"svn+ssh://deveo@app.deveo.com/Gexample/projects/demo-/repositories/subversion/svn1",
+                "owner":{
+                    "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                    "name":"doejohn",
+                    "email":"ilmari@deveo.com"
                 }
             },
-            "pusher": {
-                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                "name": "charlie",
-                "display_name": "Charlie Thedog"
+            "pusher":{
+                "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                "name":"doejohn",
+                "display_name":"John Doe"
             },
-            "commit_count": 1,
-            "commits": [{
-                "distinct": true,
-                "removed": [],
-                "message": "Update readme",
-                "added": [],
-                "timestamp": "2015-01-30T12:17:56Z",
-                "modified": ["readme"],
-                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
-                "author": {
-                    "name": "Charlie Thedog",
-                    "email": "charliethedog@deveo.com"
-                },
-                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
-            }]
+            "commit_count":1,
+            "commits":[
+                {
+                    "distinct":true,
+                    "removed":[],
+                    "message":"More text for DeveoSVN.",
+                    "added":[],
+                    "timestamp":"2016-09-07T15:05:20Z",
+                    "modified":["README.md"],
+                    "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/changesets/2",
+                    "author":{
+                        "name":"doejohn",
+                        "email":""
+                    },
+                    "id":"2"
+                }
+            ]
         };
         this.commitDeveoWebdavData = {
             "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
@@ -608,11 +611,11 @@ module.exports = class BaseAPI {
             "commits": [{
                 "distinct": true,
                 "removed": [],
-                "message": "Update readme",
+                "message": "Update readme for DeveoWebDav.",
                 "added": [],
                 "timestamp": "2015-01-30T12:17:56Z",
                 "modified": ["readme"],
-                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                "url": "https://deveo.com/example/projects/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
                 "author": {
                     "name": "Buddy One",
                     "email": "buddyOne@deveo.com"
@@ -1015,142 +1018,186 @@ module.exports = class BaseAPI {
 
     expectedAllDigestCommits() {
         return {
-            "commits": [
+            "commits":[
                 {
-                    "commitDate": "2016-09-07T13:58:23Z",
-                    "timeFormatted": "3 months ago",
-                    "author": "Ilmari Kontulainen",
-                    "sha1Partial": "bd4a15",
-                    "family": "Deveo",
-                    "action": "committed",
-                    "message": "S-01041 readme.m",
-                    "commitHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
-                    "repo": "demo-/gitti1",
-                    "branch": "master",
-                    "branchHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/tree/master",
-                    "repoHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
-                    "isCommitHref": true
+                    "commitDate":"2015-01-30T12:17:56Z",
+                    "timeFormatted":"2 years ago",
+                    "author":"Buddy One",
+                    "sha1Partial":"67ec79",
+                    "family":"Deveo",
+                    "action":"committed",
+                    "message":"Update readme for DeveoWebDav.",
+                    "commitHref":"https://deveo.com/example/projects/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                    "repo":"diff/test/website",
+                    "branch":"master",
+                    "branchHref":"https://deveo.com/example/projects/diff/test/repositories/website/tree/master",
+                    "repoHref":"https://deveo.com/example/projects/diff/test/repositories/website",
+                    "isCommitHref":true
                 },
                 {
-                    "commitDate": "2016/10/28 16:04:17",
-                    "timeFormatted": "a month ago",
-                    "author": "v1deploy@v1deploy",
-                    "sha1Partial": "r#:178",
-                    "family": "P4V",
-                    "action": "committed",
-                    "message": " changes inthe bin?",
-                    "commitHref": "PLACE BASE URL TO INSPECT YOUR REVISIONS178",
-                    "repo": "doesNotUseUrl",
-                    "branch": "",
-                    "branchHref": "",
-                    "repoHref": "http://perforce.com/doesNotUseUrl",
-                    "isCommitHref": false
+                    "commitDate":"2016-09-07T15:05:20Z",
+                    "timeFormatted":"4 months ago",
+                    "author":"John Doe",
+                    "sha1Partial":"2",
+                    "family":"Deveo",
+                    "action":"committed",
+                    "message":"More text for DeveoSVN.",
+                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/changesets/2",
+                    "repo":"demo-/svn1",
+                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/tree/undefined",
+                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1",
+                    "isCommitHref":true
                 },
                 {
-                    "commitDate": "2016-09-22T11:21:18+00:00",
-                    "timeFormatted": "2 months ago",
-                    "author": "Administrator",
-                    "sha1Partial": "6f1268",
-                    "family": "GitSwarm",
-                    "action": "committed",
-                    "message": "Added file",
-                    "commitHref": "http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
-                    "repo": "root/api-testing",
-                    "branch": "master",
-                    "branchHref": "http://gitswarm.cloudapp.net/root/api-testing/tree/master",
-                    "repoHref": "http://gitswarm.cloudapp.net/root/api-testing",
-                    "isCommitHref": true
+                    "commitDate":"2016-09-07T14:58:49Z",
+                    "timeFormatted":"4 months ago",
+                    "author":"Ilmari Kontulainen",
+                    "sha1Partial":"5b634f",
+                    "family":"Deveo",
+                    "action":"committed",
+                    "message":"Initial commit for DeveoMercurial.",
+                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/changesets/5b634f103ad212848a47a29d306616b002eeb828",
+                    "repo":"demo-/foo",
+                    "branch":"default",
+                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/tree/default",
+                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo",
+                    "isCommitHref":true
                 },
                 {
-                    "commitDate": "2016-09-12 03:52:55 +1300 (Mon, 16 Sep 2016)",
-                    "timeFormatted": "3 months ago",
-                    "author": "admin",
-                    "sha1Partial": "r12",
-                    "family": "Svn",
-                    "action": "committed",
-                    "message": "S-01001 SMA Tests",
-                    "commitHref": "http://v1commitstream.cloudapp.net:9090/!/#ProjectA/commit/r12",
-                    "repo": "ProjectA",
-                    "branch": "",
-                    "branchHref": "",
-                    "repoHref": "http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
-                    "isCommitHref": true
+                    "commitDate":"2016-09-07T13:58:23Z",
+                    "timeFormatted":"4 months ago",
+                    "author":"Ilmari Kontulainen",
+                    "sha1Partial":"bd4a15",
+                    "family":"Deveo",
+                    "action":"committed",
+                    "message":"S-01041 DeveoGitreadme.m",
+                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
+                    "repo":"demo-/gitti1",
+                    "branch":"master",
+                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/tree/master",
+                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
+                    "isCommitHref":true
+                },
+                {
+                    "commitDate":"2016/10/28 16:04:17",
+                    "timeFormatted":"3 months ago",
+                    "author":"v1deploy@v1deploy",
+                    "sha1Partial":"r#:178",
+                    "family":"P4V",
+                    "action":"committed",
+                    "message":" changes inthe bin?",
+                    "commitHref":"PLACE BASE URL TO INSPECT YOUR REVISIONS178",
+                    "repo":"doesNotUseUrl",
+                    "branch":"",
+                    "branchHref":"",
+                    "repoHref":"http://perforce.com/doesNotUseUrl",
+                    "isCommitHref":false
+                },
+                {
+                    "commitDate":"2016-09-22T11:21:18+00:00",
+                    "timeFormatted":"4 months ago",
+                    "author":"Administrator",
+                    "sha1Partial":"6f1268",
+                    "family":"GitSwarm",
+                    "action":"committed",
+                    "message":"Added file",
+                    "commitHref":"http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
+                    "repo":"root/api-testing",
+                    "branch":"master",
+                    "branchHref":"http://gitswarm.cloudapp.net/root/api-testing/tree/master",
+                    "repoHref":"http://gitswarm.cloudapp.net/root/api-testing",
+                    "isCommitHref":true
+                },
+                {
+                    "commitDate":"2016-09-12 03:52:55 +1300 (Mon, 16 Sep 2016)",
+                    "timeFormatted":"4 months ago",
+                    "author":"admin",
+                    "sha1Partial":"r12",
+                    "family":"Svn",
+                    "action":"committed",
+                    "message":"S-01001 SMA Tests",
+                    "commitHref":"http://v1commitstream.cloudapp.net:9090/!/#ProjectA/commit/r12",
+                    "repo":"ProjectA",
+                    "branch":"",
+                    "branchHref":"",
+                    "repoHref":"http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
+                    "isCommitHref":true
                 },
                 {
                     "commitDate":"2017-01-09T00:52:17Z",
-                    "timeFormatted":"11 days ago",
+                    "timeFormatted":"12 days ago",
                     "author":"Zhang, Xin (Northern Lights)",
                     "sha1Partial":"3b9cbd",
                     "family":"VsoGit",
                     "action":"committed",
-                    "message":"Added js function for story 2282.\\n\\nRelated Work Items: #2282",
-                    "commitHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/commit/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2","repo":"SMARTworks/undefined","branch":"pbi_639_2282","branchHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/undefined/#version=GBpbi_639_2282",
+                    "message":"Added js function for story 2282.\n\nRelated Work Items: #2282",
+                    "commitHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/commit/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2",
+                    "repo":"SMARTworks/undefined",
+                    "branch":"pbi_639_2282",
+                    "branchHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/undefined/#version=GBpbi_639_2282",
                     "repoHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/undefined",
                     "isCommitHref":true
                 },
                 {
-                    "commitDate": "2016-03-10T15:42:31Z",
-                    "timeFormatted": "9 months ago",
-                    "author": "Daniel Gruesso",
-                    "sha1Partial": "42bf55",
-                    "family": "VsoGit",
-                    "action": "committed",
-                    "message": "New user sign-up API route update S-01004",
-                    "commitHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/commit/42bf55b256c46f716f0192e9216f1db5c37ea1f2",
-                    "repo": "openagile/CommitStream Git",
-                    "branch": "master",
-                    "branchHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/#version=GBmaster",
-                    "repoHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git",
-                    "isCommitHref": true
+                    "commitDate":"2016-03-10T15:42:31Z",
+                    "timeFormatted":"10 months ago",
+                    "author":"Daniel Gruesso",
+                    "sha1Partial":"42bf55",
+                    "family":"VsoGit",
+                    "action":"committed",
+                    "message":"New user sign-up API route update S-01004",
+                    "commitHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/commit/42bf55b256c46f716f0192e9216f1db5c37ea1f2",
+                    "repo":"CommitStream%20Git/undefined",
+                    "branch":"master",
+                    "branchHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/undefined/#version=GBmaster",
+                    "repoHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/undefined",
+                    "isCommitHref":true
                 },
                 {
-                    "commitDate": "2015-08-18T18:43:11+00:00",
-                    "timeFormatted": "a year ago",
-                    "author": "Mariano Kunzi",
-                    "sha1Partial": "24480f",
-                    "family": "Bitbucket",
-                    "action": "committed",
-                    "message": "something happened",
-                    "commitHref": "https://bitbucket.org/kunzimariano/test/commits/24480f9c4f1b4cff6c8ccec86416f6b258b75b22",
-                    "repo": "kunzimariano/test",
-                    "branch": "master",
-                    "branchHref": "https://bitbucket.org/kunzimariano/test/branch/master",
-                    "repoHref": "https://bitbucket.org/kunzimariano/test",
-                    "isCommitHref": true
+                    "commitDate":"2015-08-18T18:43:11+00:00",
+                    "timeFormatted":"a year ago",
+                    "author":"Mariano Kunzi",
+                    "sha1Partial":"24480f",
+                    "family":"Bitbucket",
+                    "action":"committed",
+                    "message":"something happened",
+                    "commitHref":"https://bitbucket.org/kunzimariano/test/commits/24480f9c4f1b4cff6c8ccec86416f6b258b75b22",
+                    "repo":"kunzimariano/test",
+                    "branch":"master",
+                    "branchHref":"https://bitbucket.org/kunzimariano/test/branch/master",
+                    "repoHref":"https://bitbucket.org/kunzimariano/test","isCommitHref":true
                 },
                 {
-                    "commitDate": "2011-12-12T14:27:31+02:00",
-                    "timeFormatted": "5 years ago",
-                    "author": "Jordi Mallach",
-                    "sha1Partial": "b6568d",
-                    "family": "GitLab",
-                    "action": "committed",
-                    "message": "Update Catalan translation to e38cb41.",
-                    "commitHref": "http://example.com/mike/diaspora/commit/b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327",
-                    "repo": "mike/diaspora",
-                    "branch": "master",
-                    "branchHref": "http://example.com/mike/diaspora/tree/master",
-                    "repoHref": "http://example.com/mike/diaspora",
-                    "isCommitHref": true
+                    "commitDate":"2011-12-12T14:27:31+02:00",
+                    "timeFormatted":"5 years ago",
+                    "author":"Jordi Mallach",
+                    "sha1Partial":"b6568d",
+                    "family":"GitLab",
+                    "action":"committed",
+                    "message":"Update Catalan translation to e38cb41.",
+                    "commitHref":"http://example.com/mike/diaspora/commit/b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327",
+                    "repo":"mike/diaspora",
+                    "branch":"master",
+                    "branchHref":"http://example.com/mike/diaspora/tree/master",
+                    "repoHref":"http://example.com/mike/diaspora",
+                    "isCommitHref":true
                 },
                 {
-                    "commitDate": "2014-10-03T15:57:14-03:00",
-                    "timeFormatted": "2 years ago",
-                    "author": "yourName",
-                    "sha1Partial": "123456",
-                    "family": "GitHub",
-                    "action": "committed",
-                    "message": "S-04026 Testing Commit functionality!",
-                    "commitHref": "https://repourl",
-                    "repo": "/repourl",
-                    "branch": "master",
-                    "branchHref": "https://repourl/tree/master",
-                    "repoHref": "https://repourl",
-                    "isCommitHref": true
+                    "commitDate":"2014-10-03T15:57:14-03:00",
+                    "timeFormatted":"2 years ago",
+                    "author":"yourName",
+                    "sha1Partial":"123456",
+                    "family":"GitHub",
+                    "action":"committed",
+                    "message":"S-04026 Testing Commit functionality!",
+                    "commitHref":"https://repourl",
+                    "repo":"/repourl",
+                    "branch":"master",
+                    "branchHref":"https://repourl/tree/master",
+                    "repoHref":"https://repourl",
+                    "isCommitHref":true
                 }
-            ],
-            "_links": {
-            }
+            ],"_links":{}
         };
     }
 
