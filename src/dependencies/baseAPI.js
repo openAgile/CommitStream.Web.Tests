@@ -1,10 +1,11 @@
-var axios = require('axios');
+const axios = require('axios');
+const ROOT_ROOT_URL = process.env.CS_ROOT_URL || 'https://v1-cs-test.azurewebsites.net';
 
 module.exports = class BaseAPI {
     constructor() {
-        this.rootRootUrl = 'https://v1-cs-test.azurewebsites.net';
-        this.rootUrl = this.rootRootUrl + '/api';
-        this.instanceUrl = this.rootUrl + '/instances';
+        this.rootRootUrl = ROOT_ROOT_URL;
+        this.rootUrl = this.rootRootUrl + '/api/';
+        this.instanceUrl = this.rootUrl + 'instances';
         this.commitGitHubData = {
             "ref": "refs/heads/master",
             "commits": [{
