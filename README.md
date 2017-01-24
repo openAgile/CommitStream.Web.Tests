@@ -27,7 +27,11 @@ If for some reason you don't want to export the variable, you can also set it fo
 
 After running the API tests, you should see results like this:
 
-![image](https://cloud.githubusercontent.com/assets/1863005/22262827/64ef1e0a-e240-11e6-9494-83c1898137bb.png)
+![image](https://cloud.githubusercontent.com/assets/1863005/22264217/2ce6c56c-e245-11e6-84b6-a3422fe431ea.png)
+
+You can copy the selected digest TeamRoom view URL and open it in your browser to see what the digest's commits panel looks like if you'd like to inspect the UI:
+
+![image](https://cloud.githubusercontent.com/assets/1863005/22264310/7467618a-e245-11e6-9d2b-c786d86f696a.png)
 
 ### Data generation and additional tests setup
 Run the next commands in order and then you are ready to run the tests
