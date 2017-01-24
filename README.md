@@ -23,7 +23,7 @@ If for some reason you don't want to export the variable, you can also set it fo
 
 ` CS_ROOT_URL=http://google.com npm run ca`
 
-#######Expected results
+######Expected results
 
 After running the API tests, you should see results like this:
 
