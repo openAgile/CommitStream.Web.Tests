@@ -6,7 +6,34 @@ This repository contains a set of tests and tools related to CommitStream.Web.
 ###Requirements
 node.js 4.x.x
 
-###Setup
+###Running the `npm run` tests
+
+Most of the tests to run are executed via `npm run <test-suite-name>`. To see the list of available tests, just type `npm run` by itself.
+
+#####Example: API Tests 
+
+To run the API tests, type `npm run ca`. Note this will execute against `https://v1-cs-test.azurewebsites.net`.
+
+######Configuring the CommitStream instance URL
+If you want to run the API tests against your local instance of CommitStream that is running on the default location of `http://localhost:6565` instead of the Azure instance, type this:
+
+`export CS_ROOT_URL=http://localhost:6565`
+
+If for some reason you don't want to export the variable, you can also set it for a one-time execution like this:
+
+` CS_ROOT_URL=http://google.com npm run ca`
+
+######Expected results
+
+After running the API tests, you should see results like this:
+
+![image](https://cloud.githubusercontent.com/assets/1863005/22264217/2ce6c56c-e245-11e6-84b6-a3422fe431ea.png)
+
+You can copy the selected digest TeamRoom view URL and open it in your browser to see what the digest's commits panel looks like if you'd like to inspect the UI:
+
+![image](https://cloud.githubusercontent.com/assets/1863005/22264310/7467618a-e245-11e6-9d2b-c786d86f696a.png)
+
+### Data generation and additional tests setup
 Run the next commands in order and then you are ready to run the tests
 ```
 npm install -g grunt-cli
