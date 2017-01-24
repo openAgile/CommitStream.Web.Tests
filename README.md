@@ -21,7 +21,7 @@ If you want to run the API tests against your local instance of CommitStream tha
 
 If for some reason you don't want to export the variable, you can also set it for a one-time execution like this:
 
-` CS_ROOT_URL=http://google.com npm run ca`
+` CS_ROOT_URL=http://localhost:6565 npm run ca`
 
 ######Expected results
 
