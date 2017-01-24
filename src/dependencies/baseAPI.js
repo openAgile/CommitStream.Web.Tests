@@ -1021,8 +1021,8 @@ module.exports = class BaseAPI {
         return {
             "commits":[
                 {
-                    "commitDate":"2015-01-30T12:17:56Z",
-                    "timeFormatted":"2 years ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"Buddy One",
                     "sha1Partial":"67ec79",
                     "family":"Deveo",
@@ -1036,8 +1036,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2016-09-07T15:05:20Z",
-                    "timeFormatted":"4 months ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"John Doe",
                     "sha1Partial":"2",
                     "family":"Deveo",
@@ -1050,8 +1050,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2016-09-07T14:58:49Z",
-                    "timeFormatted":"4 months ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"Ilmari Kontulainen",
                     "sha1Partial":"5b634f",
                     "family":"Deveo",
@@ -1065,8 +1065,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2016-09-07T13:58:23Z",
-                    "timeFormatted":"4 months ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"Ilmari Kontulainen",
                     "sha1Partial":"bd4a15",
                     "family":"Deveo",
@@ -1080,8 +1080,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2016/10/28 16:04:17",
-                    "timeFormatted":"3 months ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"v1deploy@v1deploy",
                     "sha1Partial":"r#:178",
                     "family":"P4V",
@@ -1095,8 +1095,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":false
                 },
                 {
-                    "commitDate":"2016-09-22T11:21:18+00:00",
-                    "timeFormatted":"4 months ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"Administrator",
                     "sha1Partial":"6f1268",
                     "family":"GitSwarm",
@@ -1110,8 +1110,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2016-09-12 03:52:55 +1300 (Mon, 16 Sep 2016)",
-                    "timeFormatted":"4 months ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"admin",
                     "sha1Partial":"r12",
                     "family":"Svn",
@@ -1125,8 +1125,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2017-01-09T00:52:17Z",
-                    "timeFormatted":"12 days ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"Zhang, Xin (Northern Lights)",
                     "sha1Partial":"3b9cbd",
                     "family":"VsoGit",
@@ -1140,8 +1140,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2016-03-10T15:42:31Z",
-                    "timeFormatted":"10 months ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"Daniel Gruesso",
                     "sha1Partial":"42bf55",
                     "family":"VsoGit",
@@ -1155,8 +1155,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2015-08-18T18:43:11+00:00",
-                    "timeFormatted":"a year ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"Mariano Kunzi",
                     "sha1Partial":"24480f",
                     "family":"Bitbucket",
@@ -1169,8 +1169,8 @@ module.exports = class BaseAPI {
                     "repoHref":"https://bitbucket.org/kunzimariano/test","isCommitHref":true
                 },
                 {
-                    "commitDate":"2011-12-12T14:27:31+02:00",
-                    "timeFormatted":"5 years ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"Jordi Mallach",
                     "sha1Partial":"b6568d",
                     "family":"GitLab",
@@ -1184,8 +1184,8 @@ module.exports = class BaseAPI {
                     "isCommitHref":true
                 },
                 {
-                    "commitDate":"2014-10-03T15:57:14-03:00",
-                    "timeFormatted":"2 years ago",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
                     "author":"yourName",
                     "sha1Partial":"123456",
                     "family":"GitHub",

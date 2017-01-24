@@ -741,6 +741,9 @@ test.serial("Can I query the digest for all commits?", async t => {
     t.is(response.status, 200, "What response status did I get?: " + response.status);
     digestCommits = response.data;
     let expected = base.expectedAllDigestCommits();
-    JSON.stringify(digestCommits).should.deep.equal(JSON.stringify(expected));
+    let digestCommitsText = JSON.stringify(digestCommits);
+    digestCommitsText = digestCommitsText.replace(/"commitDate":".*?"/g, '"commitDate":"1999-12-31"');
+    digestCommitsText = digestCommitsText.replace(/"timeFormatted":".*?"/g, '"timeFormatted":"The end of time"');
+    digestCommitsText.should.deep.equal(JSON.stringify(expected));
 });
 
