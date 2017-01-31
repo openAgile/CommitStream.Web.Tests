@@ -10,6 +10,7 @@ let apiKey;
 let digest;
 let digestId;
 let digestCommits;
+let digestInboxes;
 let inbox;
 let gitHubInboxId;
 let gitLabInboxId;
@@ -35,6 +36,14 @@ test.serial("Can I create an instance?", async t => {
     console.log(`instanceId: ${instanceId}, apiKey: ${apiKey}`);
 });
 
+test.serial("Can I query an instance?", async t => {
+    let response = await base.getInstance({instanceId, apiKey});
+    console.log(instanceId, apiKey);
+    t.is(response.status, 200, "Uh oh...");
+    response.data.should.deep.equal(base.expectedInstanceResult(instance.instanceId, instance.apiKey));
+    console.log(`instanceId: ${instanceId}, apiKey: ${apiKey}`);
+});
+
 test.serial("Can I create a digest", async t => {
     let response = await base.createDigest({instanceId, apiKey, digestDescription: "SOMETHING"});
     t.is(response.status, 201, "Uh oh...");
@@ -48,6 +57,14 @@ test.serial("Can I create a digest", async t => {
     console.log(`The digest TeamRoom view URL: ${digest._links["teamroom-view"].href}&apiKey=${apiKey}`);
     JSON.stringify(digest).should.deep.equal(JSON.stringify(expected));
     digestId = digest.digestId;
+});
+
+test.serial("Can I query all the inboxes for a Digest without an inbox created?", async t => {
+    const response = await base.getDigestInboxes({instanceId, digestId, apiKey});
+    t.is(response.status, 200, `What response status did I Get ${response.status}`);
+    digestInboxes = response.data;
+    const expected = base.expectedZeroDigestInboxes({instanceId, digest});
+    JSON.stringify(digestInboxes).should.deep.equal(JSON.stringify(expected));
 });
 
 test.serial("Can I query digest for 0 commits?", async t => {
@@ -74,6 +91,14 @@ test.serial("Can I create an inbox for a GitHub repo?", async t => {
     });
     JSON.stringify(inbox).should.deep.equal(JSON.stringify(expected));
     gitHubInboxId = inbox.inboxId;
+});
+
+test.serial("Can I query all the inboxes for a Digest with one inbox created?", async t => {
+    const response = await base.getDigestInboxes({instanceId, digestId, apiKey});
+    t.is(response.status, 200, `What response status did I Get ${response.status}`);
+    digestInboxes = response.data;
+    const expected = base.expectedDigestInboxes({instanceId, digest, inbox});
+    JSON.stringify(digestInboxes).should.deep.equal(JSON.stringify(expected));
 });
 
 test.serial("Can I make a commit to GitHub inbox?", async t => {

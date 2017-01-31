@@ -635,6 +635,11 @@ module.exports = class BaseAPI {
         return axios.post(this.instanceUrl);
     }
 
+    getInstance({instanceId, apiKey}) {
+        const instanceUrl = `${this.rootUrl}instances/${instanceId}?apiKey=${apiKey}`;
+        return axios.get(instanceUrl);
+    }
+
     createDigest ({instanceId, apiKey, digestDescription}){
         let digestUrl = this.rootUrl + instanceId + '/digests?apiKey=' + apiKey;
         return axios.post(digestUrl,
@@ -649,6 +654,11 @@ module.exports = class BaseAPI {
     getDigestCommits ({instanceId, digestId, apiKey}) {
         let digestCommitsUrl = this.rootUrl + instanceId + '/digests/' + digestId + '/commits?apiKey=' + apiKey;
         return axios.get(digestCommitsUrl)
+    }
+
+    getDigestInboxes ({instanceId, digestId, apiKey}) {
+        let digestInboxesUrl = `${this.rootUrl}${instanceId}/digests/${digestId}/inboxes?apiKey=${apiKey}`;
+        return axios.get(digestInboxesUrl)
     }
 
     createInbox ({instanceId, apiKey, digestId, inboxFamily, inboxName, repoUrl}){
@@ -879,6 +889,73 @@ module.exports = class BaseAPI {
             "description": digestDescription,
             "digestId": digestId
         };
+    }
+
+    expectedZeroDigestInboxes({instanceId, digest}) {
+        return {
+          "_links": {
+            "self": {
+              "href": this.rootUrl + instanceId + "/digests/" + digest.digestId + "/inboxes"
+            },
+            "digest": {
+              "href": this.rootUrl + instanceId + "/digests/" + digest.digestId
+            },
+            "inbox-create": {
+              "href": this.rootUrl + instanceId + "/digests/" + digest.digestId + "/inboxes",
+              "method": "POST",
+              "title": "Endpoint for creating an inbox for a repository on digest " + digest.digestId + "."
+            }
+          },
+          "count": 0,
+          "digest": {
+            "description": digest.description,
+            "digestId": digest.digestId
+          },
+          "_embedded": {
+            "inboxes": []
+          }
+        };
+    }
+
+    expectedDigestInboxes({instanceId, digest, inbox}) {
+        return {
+            "_links":{
+                "self":{
+                    "href": this.rootUrl + instanceId + "/digests/" + digest.digestId + "/inboxes"
+                },
+                "digest":{
+                    "href": this.rootUrl + instanceId + "/digests/" + digest.digestId
+                },
+                "inbox-create":{
+                    "href":this.rootUrl + instanceId + "/digests/" + digest.digestId + "/inboxes",
+                    "method":"POST",
+                    "title":"Endpoint for creating an inbox for a repository on digest "+ digest.digestId + "."
+                }
+            },
+            "count":1,
+            "digest":{
+                "description":digest.description,
+                "digestId": digest.digestId
+            },
+            "_embedded":{
+                "inboxes":[{
+                    "_links":{
+                        "self":{
+                            "href": this.rootUrl + instanceId + "/inboxes/" + inbox.inboxId
+                        },
+                        "add-commit":{
+                            "href": this.rootUrl + instanceId + "/inboxes/" + inbox.inboxId + "/commits"
+                        }
+                    },
+                    "instanceId": instanceId,
+                    "inboxId": inbox.inboxId,
+                    "family": inbox.family,
+                    "name": inbox.name,
+                    "url": inbox.url
+                }
+                ]
+            }
+        }
     }
 
     expectedZeroDigestCommits() {
