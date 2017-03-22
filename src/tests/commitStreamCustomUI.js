@@ -56,7 +56,7 @@ test.serial("Login to VersionOne-SMA Instance", async t=> {
             'password>input': base.password
         })
         .click('Login')
-    .get("browser:url")
+        .get("browser:url")
     url.should.include(base.instanceUrl + "Default.aspx");
 });
 test.serial("Set TeamRoom to have Custom CS inboxes", async t=> {
@@ -83,10 +83,10 @@ test.serial("Can access TeamRoom settings", async t=> {
 });
 test.serial("Can add a Custom GitHub inbox", async t=> {
         await glance.click('Custom')
-         .click('GitHub')
-        .set('inboxUrl>input', 'https://github.com/shawnmarie/genericTest')
-        .click("Add")
-        .get('h1#2').then(function(header) {
+            .click('GitHub')
+            .set('inboxUrl>input', 'https://github.com/shawnmarie/genericTest')
+            .click("Add")
+            .get('h1#2').then(function(header) {
             console.log('Table header was: ', header);
             t.is(header, "Active Repositories", "What value did I get then?: " + header)
             return glance

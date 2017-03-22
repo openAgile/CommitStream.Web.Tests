@@ -255,6 +255,114 @@ module.exports = class BaseAPI {
             },
             "createdDate": "2016-03-10T15:42:33.0614372Z"
         };
+        this.commitTFVCDataSingleProject = {
+            "subscriptionId": "20019a9b-3534-4705-a755-198d23de2ed7",
+            "notificationId": 6,
+            "id": "b72be65b-614d-4652-9ca9-11d2942a5c91",
+            "eventType": "vsoTfvc.checkin",
+            "publisherId": "tfs",
+            "scope": "all",
+            "message": {
+                "text": "Josh Gough checked in changeset 17: Updated README.md S-12345",
+                "html": "Josh Gough checked in changeset <a href=\"https://v1platformtest.visualstudio.com/web/cs.aspx?pcguid=6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67&amp;cs=17\">17</a>: Updated README.md S-12345",
+                "markdown": "Josh Gough checked in changeset [17](https://v1platformtest.visualstudio.com/web/cs.aspx?pcguid=6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67&cs=17): Updated README.md S-12345"
+            },
+            "detailedMessage": {
+                "text": "Josh Gough checked in changeset 17: Updated README.md S-12345",
+                "html": "Josh Gough checked in changeset <a href=\"https://v1platformtest.visualstudio.com/web/cs.aspx?pcguid=6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67&amp;cs=17\">17</a>: Updated README.md S-12345",
+                "markdown": "Josh Gough checked in changeset [17](https://v1platformtest.visualstudio.com/web/cs.aspx?pcguid=6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67&cs=17): Updated README.md S-12345"
+            },
+            "resource": {
+                "hasMoreChanges": true,
+                "teamProjectIds": [
+                    "b70385b4-ae0f-4afd-b166-6aff62bfd0b0"
+                ],
+                "changesetId": 17,
+                "url": "https://v1platformtest.visualstudio.com/_apis/tfvc/changesets/17",
+                "author": {
+                    "id": "0b88cae0-021f-4fa0-b723-d670c74ae474",
+                    "displayName": "Josh Gough",
+                    "uniqueName": "jsgough@gmail.com",
+                    "url": "https://app.vssps.visualstudio.com/A95780de7-c7d8-4742-a6e7-12e311437415/_apis/Identities/0b88cae0-021f-4fa0-b723-d670c74ae474",
+                    "imageUrl": "https://v1platformtest.visualstudio.com/_api/_common/identityImage?id=0b88cae0-021f-4fa0-b723-d670c74ae474"
+                },
+                "checkedInBy": {
+                    "id": "0b88cae0-021f-4fa0-b723-d670c74ae474",
+                    "displayName": "Josh Gough",
+                    "uniqueName": "jsgough@gmail.com",
+                    "url": "https://app.vssps.visualstudio.com/A95780de7-c7d8-4742-a6e7-12e311437415/_apis/Identities/0b88cae0-021f-4fa0-b723-d670c74ae474",
+                    "imageUrl": "https://v1platformtest.visualstudio.com/_api/_common/identityImage?id=0b88cae0-021f-4fa0-b723-d670c74ae474"
+                },
+                "createdDate": "2017-01-20T16:28:45Z",
+                "comment": "Updated README.md S-12345"
+            },
+            "resourceVersion": "1.0",
+            "resourceContainers": {
+                "collection": {
+                    "id": "6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67",
+                    "baseUrl": "https://v1platformtest.visualstudio.com/"
+                },
+                "account": {
+                    "id": "95780de7-c7d8-4742-a6e7-12e311437415",
+                    "baseUrl": "https://v1platformtest.visualstudio.com/"
+                }
+            },
+            "createdDate": "2017-01-20T16:28:47.755774Z"
+        };
+        this.commitTFVCDataMultiProject = {
+            "subscriptionId": "5a5419f9-8deb-46ca-8c9b-825e80311c6c",
+            "notificationId": 1,
+            "id": "b396843b-6f58-408d-b6dd-468be8d7a615",
+            "eventType": "vsoTfvc.checkin",
+            "publisherId": "tfs",
+            "scope": "all",
+            "message": {
+                "text": "Sally Ann Cavanaugh checked in changeset 22",
+                "html": "Sally Ann Cavanaugh checked in changeset <a href=\"https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&amp;cs=22\">22</a>",
+                "markdown": "Sally Ann Cavanaugh checked in changeset [22](https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&cs=22)"
+            },
+            "detailedMessage": {
+                "text": "Sally Ann Cavanaugh checked in changeset 22",
+                "html": "Sally Ann Cavanaugh checked in changeset <a href=\"https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&amp;cs=22\">22</a>",
+                "markdown": "Sally Ann Cavanaugh checked in changeset [22](https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&cs=22)"
+            },
+            "resource": {
+                "hasMoreChanges": true,
+                "teamProjectIds": ["70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e", "fdc49ee6-ec19-43a4-bd08-55800484b342"],
+                "changesetId": 22,
+                "url": "https://testsystem.visualstudio.com/_apis/tfvc/changesets/22",
+                "author": {
+                    "id": "2c22451e-cd97-454e-aa61-bf076557ab3f",
+                    "displayName": "Sally Ann Cavanaugh",
+                    "uniqueName": "scavanaugh@nowhere.com",
+                    "url": "https://thing.somewhere.visualstudio.com/A7d7713ab-3a77-4625-a298-2f17fba9310b/_apis/Identities/2c22451e-cd97-454e-aa61-bf076557ab3f",
+                    "imageUrl": "https://testsystem.visualstudio.com/_api/_common/identityImage?id=2c22451e-cd97-454e-aa61-bf076557ab3f"
+                },
+                "checkedInBy": {
+                    "id": "2c22451e-cd97-454e-aa61-bf076557ab3f",
+                    "displayName": "Sally Ann Cavanaugh",
+                    "uniqueName": "scavanaugh@nowhere.com",
+                    "url": "https://thing.somewhere.visualstudio.com/A7d7713ab-3a77-4625-a298-2f17fba9310b/_apis/Identities/2c22451e-cd97-454e-aa61-bf076557ab3f",
+                    "imageUrl": "https://testsystem.visualstudio.com/_api/_common/identityImage?id=2c22451e-cd97-454e-aa61-bf076557ab3f"
+                },
+                "createdDate": "2017-03-08T20:54:34Z",
+                "comment": ""
+            },
+            "resourceVersion": "1.0",
+            "resourceContainers": {
+                "collection": {
+                    "id": "80c24ec7-6164-46d7-9b2a-ab3d60d8dc71",
+                    "baseUrl": "https://testsystem.visualstudio.com/"
+                },
+                "account": {
+                    "id": "7d7713ab-3a77-4625-a298-2f17fba9310b",
+                    "baseUrl": "https://testsystem.visualstudio.com/"
+                }
+            },
+            "createdDate": "2017-03-08T20:54:37.2569716Z"
+        };
+
+        this.isMultiProject = false;
         this.commitTFSOnPremData = {
             "subscriptionId": "06748b5c-e3e5-418f-88b0-57bcdae24ebf",
             "notificationId": 175,
@@ -733,6 +841,23 @@ module.exports = class BaseAPI {
         if(!validPayload) {
             commitData = this.commitInvalidPayloadData;
         }
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+            commitData,
+            {
+                headers: {'Content-type': 'application/json'}
+            })
+    }
+
+    pushTFVCCommit({instanceId, apiKey, inboxId, validPayload, isMultiProject}) {
+        let commitData = this.commitTFVCDataMultiProject;
+        if(!isMultiProject){
+            let commitData = this.commitTFVCDataSingleProject;
+        }
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
+
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
             commitData,

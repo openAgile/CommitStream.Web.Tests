@@ -16,6 +16,7 @@ let gitHubInboxId;
 let gitLabInboxId;
 let bitbucketInboxId;
 let vsoGitInboxId;
+let vsoTfvcInboxId;
 let tfsOnPremInboxId;
 let subversionInboxId;
 let gitSwarmInboxId;
@@ -260,7 +261,7 @@ test.serial("Expect 400 response and error message for invalid commit payload to
     }
 });
 
-test.serial("Can I create an inbox for a VSTS repo?", async t => {
+test.serial("Can I create an inbox for a VSTS repo?", async t =>              {
     let response = await base.createInbox({instanceId, apiKey, digestId,
         inboxFamily: 'VsoGit', inboxName: 'VsoGitGlobal', repoUrl: 'https://vsts.com/user/msRepo'});
     response.status.should.equal(201);
@@ -306,6 +307,77 @@ test.serial("Expect 400 response and error message for invalid commit headers to
 test.serial("Expect 400 response and error message for invalid commit payload to VSTS inbox", async t=> {
     try {
         await base.pushVSTSCommit({instanceId, apiKey, inboxId: vsoGitInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'VSTS',
+            isScriptBased: false
+        });
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Can I create an inbox for a TFVC repo?", async t => {
+    let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
+        inboxFamily: 'VsoTfvc', inboxName: 'VsoTfvcGlobal', repoUrl: 'https://vso.tfvc.com/user/platformTest'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'VsoTfvc',
+        inboxName: 'VsoTfvcGlobal',
+        repoUrl: 'https://vso.tfvc.com/user/platformTest'
+    });
+    JSON.stringify((inbox).should.deep.equal(JSON.stringify(expected)));
+    vsoTfvcInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit for a SINGLE project to a TFVC inbox?", async t => {
+    let response = await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true, isMultiProject: false});
+    t.is(response.status, 201, "Commit unsuccessful!");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: vsoTfvcInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify((expected)));
+});
+
+test.serial("Can I make a commit for MULTIPLE projects to a TFVC inbox?", async t => {
+    let response = await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true, isMultiProject: true});
+    t.is(respone.status, 201, "Commit unsuccessful to multiple projects!");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: vsoTfvcInboxId
+    });
+    JSON.stringify(commit).should.deep.equal(JSON.stringify((expected)));
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to TFVC inbox.", async t => {
+    try{
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        JSON.stringify(commit).should.deep.equal(JSON.stringify(expected));
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to TFVC inbox.", async t => {
+    try {
+        await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, instanceId: vsoTfvcInboxId, validPayload: false});
     }
     catch(error) {
         let response = error.response;
