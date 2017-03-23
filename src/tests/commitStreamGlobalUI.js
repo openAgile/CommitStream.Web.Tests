@@ -4,6 +4,8 @@ import chai from 'chai';
 import selenium from '../dependencies/selenium';
 import fs from 'fs';
 import _ from 'lodash';
+import BaseUI from '../dependencies/baseUI';
+let base = new BaseUI();
 chai.should();
 
 var glance;
@@ -42,27 +44,30 @@ let changeInboxWebhook=(family, webhook) => {
     vcsInbox['_links']['add-commit']['href']=webhook;
 }
 
-test("Login to VersionOne-SMA Instance", t=> {
-    return glance.url("http://localhost/VersionOneAutomation")
+test.serial("Login to VersionOne-SMA Instance", async t=> {
+    return glance.url(base.instanceUrl)
         .set("browser:size", "maximize")
         .cast({
-            'username>input':'admin',
-            'password>input':'admin'
+            'username>input': base.username,
+            'password>input': base.password
         })
         .click('Login')
-        .click('My Home')
-        .click('Getting Started')
+});
+test.serial("Can enable CommitStream")
+        //.click('My Home')
+        //.click('Getting Started')
         // .get("page-title").then(function(title) {
         //     console.log('Title was: ' + title);
         //     t.is(title, "Let's Get Started", "This test was an utter failure.");
         //     return glance
         // })
-        .click('ADMIN#1')
-        .pause(1000)
-        .click('DevOps')
-        .pause(1000)
-        .click('CommitStream')
-        .pause(1000)
+        //.click('ADMIN#1')
+        //.pause(1000)
+        //.click('DevOps')
+        //.pause(1000)
+        //.click('CommitStream')
+       //.pause(1000)
+        .url(base.instanceUrl + "/Default.aspx?menu=CommitStreamPage&feat-nav=a1#/")
         .click('Disabled')
         .pause(2000)
         .click('GitHub')

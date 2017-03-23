@@ -1,10 +1,11 @@
-var axios = require('axios');
+const axios = require('axios');
+const ROOT_ROOT_URL = process.env.CS_ROOT_URL || 'https://v1-cs-test.azurewebsites.net';
 
 module.exports = class BaseAPI {
     constructor() {
-        this.rootRootUrl = 'https://v1-cs-test.azurewebsites.net';
+        this.rootRootUrl = ROOT_ROOT_URL;
         this.rootUrl = this.rootRootUrl + '/api/';
-        this.instanceUrl = this.rootUrl + '/instances';
+        this.instanceUrl = this.rootUrl + 'instances';
         this.commitGitHubData = {
             "ref": "refs/heads/master",
             "commits": [{
@@ -254,6 +255,206 @@ module.exports = class BaseAPI {
             },
             "createdDate": "2016-03-10T15:42:33.0614372Z"
         };
+        this.commitTFVCDataSingleProject = {
+            "subscriptionId": "20019a9b-3534-4705-a755-198d23de2ed7",
+            "notificationId": 6,
+            "id": "b72be65b-614d-4652-9ca9-11d2942a5c91",
+            "eventType": "tfvc.checkin",
+            "publisherId": "tfs",
+            "scope": "all",
+            "message": {
+                "text": "Josh Gough checked in changeset 17: Updated README.md S-12345",
+                "html": "Josh Gough checked in changeset <a href=\"https://v1platformtest.visualstudio.com/web/cs.aspx?pcguid=6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67&amp;cs=17\">17</a>: Updated README.md S-12345",
+                "markdown": "Josh Gough checked in changeset [17](https://v1platformtest.visualstudio.com/web/cs.aspx?pcguid=6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67&cs=17): Updated README.md S-12345"
+            },
+            "detailedMessage": {
+                "text": "Josh Gough checked in changeset 17: Updated README.md S-12345",
+                "html": "Josh Gough checked in changeset <a href=\"https://v1platformtest.visualstudio.com/web/cs.aspx?pcguid=6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67&amp;cs=17\">17</a>: Updated README.md S-12345",
+                "markdown": "Josh Gough checked in changeset [17](https://v1platformtest.visualstudio.com/web/cs.aspx?pcguid=6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67&cs=17): Updated README.md S-12345"
+            },
+            "resource": {
+                "hasMoreChanges": true,
+                "teamProjectIds": [
+                    "b70385b4-ae0f-4afd-b166-6aff62bfd0b0"
+                ],
+                "changesetId": 17,
+                "url": "https://v1platformtest.visualstudio.com/_apis/tfvc/changesets/17",
+                "author": {
+                    "id": "0b88cae0-021f-4fa0-b723-d670c74ae474",
+                    "displayName": "Josh Gough",
+                    "uniqueName": "jsgough@gmail.com",
+                    "url": "https://app.vssps.visualstudio.com/A95780de7-c7d8-4742-a6e7-12e311437415/_apis/Identities/0b88cae0-021f-4fa0-b723-d670c74ae474",
+                    "imageUrl": "https://v1platformtest.visualstudio.com/_api/_common/identityImage?id=0b88cae0-021f-4fa0-b723-d670c74ae474"
+                },
+                "checkedInBy": {
+                    "id": "0b88cae0-021f-4fa0-b723-d670c74ae474",
+                    "displayName": "Josh Gough",
+                    "uniqueName": "jsgough@gmail.com",
+                    "url": "https://app.vssps.visualstudio.com/A95780de7-c7d8-4742-a6e7-12e311437415/_apis/Identities/0b88cae0-021f-4fa0-b723-d670c74ae474",
+                    "imageUrl": "https://v1platformtest.visualstudio.com/_api/_common/identityImage?id=0b88cae0-021f-4fa0-b723-d670c74ae474"
+                },
+                "createdDate": "2017-01-20T16:28:45Z",
+                "comment": "Updated README.md S-12345"
+            },
+            "resourceVersion": "1.0",
+            "resourceContainers": {
+                "collection": {
+                    "id": "6b1d2d92-0bb2-4ff1-b1e0-5b79fd2abd67",
+                    "baseUrl": "https://v1platformtest.visualstudio.com/"
+                },
+                "account": {
+                    "id": "95780de7-c7d8-4742-a6e7-12e311437415",
+                    "baseUrl": "https://v1platformtest.visualstudio.com/"
+                }
+            },
+            "createdDate": "2017-01-20T16:28:47.755774Z"
+        };
+        this.commitTFVCDataMultiProject = {
+            "subscriptionId": "5a5419f9-8deb-46ca-8c9b-825e80311c6c",
+            "notificationId": 1,
+            "id": "b396843b-6f58-408d-b6dd-468be8d7a615",
+            "eventType": "tfvc.checkin",
+            "publisherId": "tfs",
+            "scope": "all",
+            "message": {
+                "text": "Sally Ann Cavanaugh checked in changeset 22",
+                "html": "Sally Ann Cavanaugh checked in changeset <a href=\"https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&amp;cs=22\">22</a>",
+                "markdown": "Sally Ann Cavanaugh checked in changeset [22](https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&cs=22)"
+            },
+            "detailedMessage": {
+                "text": "Sally Ann Cavanaugh checked in changeset 22",
+                "html": "Sally Ann Cavanaugh checked in changeset <a href=\"https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&amp;cs=22\">22</a>",
+                "markdown": "Sally Ann Cavanaugh checked in changeset [22](https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&cs=22)"
+            },
+            "resource": {
+                "hasMoreChanges": true,
+                "teamProjectIds": ["70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e", "fdc49ee6-ec19-43a4-bd08-55800484b342"],
+                "changesetId": 22,
+                "url": "https://testsystem.visualstudio.com/_apis/tfvc/changesets/22",
+                "author": {
+                    "id": "2c22451e-cd97-454e-aa61-bf076557ab3f",
+                    "displayName": "Sally Ann Cavanaugh",
+                    "uniqueName": "scavanaugh@nowhere.com",
+                    "url": "https://thing.somewhere.visualstudio.com/A7d7713ab-3a77-4625-a298-2f17fba9310b/_apis/Identities/2c22451e-cd97-454e-aa61-bf076557ab3f",
+                    "imageUrl": "https://testsystem.visualstudio.com/_api/_common/identityImage?id=2c22451e-cd97-454e-aa61-bf076557ab3f"
+                },
+                "checkedInBy": {
+                    "id": "2c22451e-cd97-454e-aa61-bf076557ab3f",
+                    "displayName": "Sally Ann Cavanaugh",
+                    "uniqueName": "scavanaugh@nowhere.com",
+                    "url": "https://thing.somewhere.visualstudio.com/A7d7713ab-3a77-4625-a298-2f17fba9310b/_apis/Identities/2c22451e-cd97-454e-aa61-bf076557ab3f",
+                    "imageUrl": "https://testsystem.visualstudio.com/_api/_common/identityImage?id=2c22451e-cd97-454e-aa61-bf076557ab3f"
+                },
+                "createdDate": "2017-03-08T20:54:34Z",
+                "comment": ""
+            },
+            "resourceVersion": "1.0",
+            "resourceContainers": {
+                "collection": {
+                    "id": "80c24ec7-6164-46d7-9b2a-ab3d60d8dc71",
+                    "baseUrl": "https://testsystem.visualstudio.com/"
+                },
+                "account": {
+                    "id": "7d7713ab-3a77-4625-a298-2f17fba9310b",
+                    "baseUrl": "https://testsystem.visualstudio.com/"
+                }
+            },
+            "createdDate": "2017-03-08T20:54:37.2569716Z"
+        };
+        this.isMultiProject = false;
+        this.commitTFSOnPremData = {
+            "subscriptionId": "06748b5c-e3e5-418f-88b0-57bcdae24ebf",
+            "notificationId": 175,
+            "id": "6e6fcde3-2d98-4432-9301-916b2d162697",
+            "eventType": "git.push",
+            "publisherId": "tfs",
+            "message": {
+                "text": "Zhang, Xin (Northern Lights) pushed updates to branch pbi_639_2282 of SMARTworks\r\n(http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/#version=GBpbi_639_2282)",
+                "html": "Zhang, Xin (Northern Lights) pushed updates to branch <a href=\"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/#version=GBpbi_639_2282\">pbi_639_2282</a> of <a href=\"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/\">SMARTworks</a>",
+                "markdown": "Zhang, Xin (Northern Lights) pushed updates to branch [pbi_639_2282](http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/#version=GBpbi_639_2282) of [SMARTworks](http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/)"
+            },
+            "detailedMessage": {
+                "text": "Zhang, Xin (Northern Lights) pushed 1 commit to branch pbi_639_2282 of SMARTworks\r\n - Added js function for story 2282. 3b9cbd24 (http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/commit/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2)",
+                "html": "Zhang, Xin (Northern Lights) pushed 1 commit to branch <a href=\"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/#version=GBpbi_639_2282\">pbi_639_2282</a> of <a href=\"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/\">SMARTworks</a>\r\n<ul>\r\n<li>Added js function for story 2282. <a href=\"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/commit/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2\">3b9cbd24</a></li>\r\n</ul>",
+                "markdown": "Zhang, Xin (Northern Lights) pushed 1 commit to branch [pbi_639_2282](http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/#version=GBpbi_639_2282) of [SMARTworks](http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/)\r\n* Added js function for story 2282. [3b9cbd24](http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/commit/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2)"
+            },
+            "resource": {
+                "commits": [
+                    {
+                        "commitId": "3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2",
+                        "author": {
+                            "name": "Zhang, Xin (Northern Lights)",
+                            "email": "xinzhang@nltechdev.com",
+                            "date": "2017-01-09T00:52:17Z"
+                        },
+                        "committer": {
+                            "name": "Zhang, Xin (Northern Lights)",
+                            "email": "xinzhang@nltechdev.com",
+                            "date": "2017-01-09T00:52:17Z"
+                        },
+                        "comment": "Added js function for story 2282.\n\nRelated Work Items: #2282",
+                        "url": "http://tctfs05:8080/tfs/TayCommCFT/_apis/git/repositories/4e07555c-b313-40a1-9db0-64569906a0f5/commits/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2"
+                    }
+                ],
+                "refUpdates": [
+                    {
+                        "name": "refs/heads/pbi_639_2282",
+                        "oldObjectId": "0000000000000000000000000000000000000000",
+                        "newObjectId": "3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2"
+                    }
+                ],
+                "repository": {
+                    "id": "4e07555c-b313-40a1-9db0-64569906a0f5",
+                    "name": "SMARTworks",
+                    "url": "http://tctfs05:8080/tfs/TayCommCFT/_apis/git/repositories/4e07555c-b313-40a1-9db0-64569906a0f5",
+                    "project": {
+                        "id": "8e52738b-9a82-46e3-847c-0162bcebe2c7",
+                        "name": "SMARTworks",
+                        "url": "http://tctfs05:8080/tfs/TayCommCFT/_apis/projects/8e52738b-9a82-46e3-847c-0162bcebe2c7",
+                        "state": "wellFormed"
+                    },
+                    "defaultBranch": "refs/heads/master",
+                    "remoteUrl": "http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks"
+                },
+                "pushedBy": {
+                    "id": "d4692e8f-731e-4557-aac0-46e3c3853df2",
+                    "displayName": "Zhang, Xin (Northern Lights)",
+                    "uniqueName": "CORP\\xinzhang",
+                    "url": "http://tctfs05:8080/tfs/TayCommCFT/_apis/Identities/d4692e8f-731e-4557-aac0-46e3c3853df2",
+                    "imageUrl": "http://tctfs05:8080/tfs/TayCommCFT/_api/_common/identityImage?id=d4692e8f-731e-4557-aac0-46e3c3853df2"
+                },
+                "pushId": 2723,
+                "date": "2017-01-09T00:52:24.3043155Z",
+                "url": "http://tctfs05:8080/tfs/TayCommCFT/_apis/git/repositories/4e07555c-b313-40a1-9db0-64569906a0f5/pushes/2723",
+                "_links": {
+                    "self": {
+                        "href": "http://tctfs05:8080/tfs/TayCommCFT/_apis/git/repositories/4e07555c-b313-40a1-9db0-64569906a0f5/pushes/2723"
+                    },
+                    "repository": {
+                        "href": "http://tctfs05:8080/tfs/TayCommCFT/_apis/git/repositories/4e07555c-b313-40a1-9db0-64569906a0f5"
+                    },
+                    "commits": {
+                        "href": "http://tctfs05:8080/tfs/TayCommCFT/_apis/git/repositories/4e07555c-b313-40a1-9db0-64569906a0f5/pushes/2723/commits"
+                    },
+                    "pusher": {
+                        "href": "http://tctfs05:8080/tfs/TayCommCFT/_apis/Identities/d4692e8f-731e-4557-aac0-46e3c3853df2"
+                    },
+                    "refs": {
+                        "href": "http://tctfs05:8080/tfs/TayCommCFT/_apis/git/repositories/4e07555c-b313-40a1-9db0-64569906a0f5/refs"
+                    }
+                }
+            },
+            "resourceVersion": "1.0",
+            "resourceContainers": {
+                "collection": {
+                    "id": "16ba619e-6aa9-4b06-abf0-957eec41bd3b"
+                },
+                "project": {
+                    "id": "8e52738b-9a82-46e3-847c-0162bcebe2c7"
+                }
+            },
+            "createdDate": "2017-01-09T00:52:27.5743562Z"
+        };
         this.commitSVNData = {
             "repository": "http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
             "committer": {
@@ -373,7 +574,7 @@ module.exports = class BaseAPI {
                 {
                     "distinct":true,
                     "removed":[],
-                    "message":"S-01041 readme.m",
+                    "message":"S-01041 DeveoGitreadme.m",
                     "added":[],
                     "timestamp":"2016-09-07T13:58:23Z",
                     "modified":["README.md"],
@@ -387,98 +588,101 @@ module.exports = class BaseAPI {
             ]
         };
         this.commitDeveoMercurialData = {
-            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
-            "ref": "refs/heads/master",
-            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
-            "compare": "",
-            "forced": false,
-            "created": false,
-            "deleted": false,
-            "project": {
-                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
-                "name": "Test project",
-                "url": "https://deveo.com/example/code/diff/test"
+            "after":"5b634f103ad212848a47a29d306616b002eeb828",
+            "ref":"refs/heads/default",
+            "before":"",
+            "compare":"",
+            "forced":false,
+            "created":false,
+            "deleted":false,
+            "project":{
+                "uuid":"f1115b9c-b165-46de-85a7-251805537746",
+                "name":"demo-",
+                "url":"https://app.deveo.com/Gexample/projects/demo-"
             },
-            "repository": {
-                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
-                "name": "website",
-                "type": "mercurial",
-                "url": "https://deveo.com/example/code/overview/test/repositories/website",
-                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
-                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
-                "owner": {
-                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                    "name": "chuck",
-                    "email": "chuck@deveo.com"
+            "repository":{
+                "uuid":"9371e395-6448-4e8d-8584-b042e3f2859b",
+                "name":"foo",
+                "type":"mercurial",
+                "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo",
+                "https_url":"https://app.deveo.com/Gexample/projects/demo-/repositories/mercurial/foo",
+                "ssh_url":"ssh://deveo@app.deveo.com/Gexample/projects/demo-/repositories/mercurial/foo",
+                "owner":{
+                    "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                    "name":"doejohn",
+                    "email":"ilmari@deveo.com"
                 }
             },
-            "pusher": {
-                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                "name": "chuck",
-                "display_name": "Chuck Norris"
+            "pusher":{
+                "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                "name":"doejohn",
+                "display_name":"John Doe"
             },
-            "commit_count": 1,
-            "commits": [{
-                "distinct": true,
-                "removed": [],
-                "message": "Update readme",
-                "added": [],
-                "timestamp": "2015-01-30T12:17:56Z",
-                "modified": ["readme"],
-                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
-                "author": {
-                    "name": "Chuck Norris",
-                    "email": "chuck@deveo.com"
-                },
-                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
-            }]
+            "commit_count":1,
+            "commits":[
+                {
+                    "distinct":true,"removed":[],
+                    "message":"Initial commit for DeveoMercurial.",
+                    "added":["README.md"],
+                    "timestamp":"2016-09-07T14:58:49Z",
+                    "modified":[],
+                    "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/changesets/5b634f103ad212848a47a29d306616b002eeb828",
+                    "author":{
+                        "name":"Ilmari Kontulainen",
+                        "email":"ilmari@deveo.com"
+                    },
+                    "id":"5b634f103ad212848a47a29d306616b002eeb828"
+                }
+            ]
         };
         this.commitDeveoSVNData = {
-            "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
-            "ref": "refs/heads/master",
-            "before": "c58a421ed77556d217abc7638de9ba9b3589b36d",
-            "compare": "",
-            "forced": false,
-            "created": false,
-            "deleted": false,
-            "project": {
-                "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
-                "name": "Test project",
-                "url": "https://deveo.com/example/code/diff/test"
+            "after":"2",
+            "ref":"",
+            "before":"1",
+            "compare":"",
+            "forced":false,
+            "created":false,
+            "deleted":false,
+            "project":{
+                "uuid":"f1115b9c-b165-46de-85a7-251805537746",
+                "name":"demo-",
+                "url":"https://app.deveo.com/Gexample/projects/demo-"
             },
-            "repository": {
-                "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
-                "name": "website",
-                "type": "subversion",
-                "url": "https://deveo.com/example/code/overview/test/repositories/website",
-                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
-                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
-                "owner": {
-                    "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                    "name": "chuck",
-                    "email": "chuck@deveo.com"
+            "repository":{
+                "uuid":"19cf0c6f-0743-4e4f-9e28-17f504476c34",
+                "name":"svn1",
+                "type":"subversion",
+                "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1",
+                "https_url":"https://app.deveo.com/Gexample/projects/demo-/repositories/subversion/svn1",
+                "ssh_url":"svn+ssh://deveo@app.deveo.com/Gexample/projects/demo-/repositories/subversion/svn1",
+                "owner":{
+                    "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                    "name":"doejohn",
+                    "email":"ilmari@deveo.com"
                 }
             },
-            "pusher": {
-                "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                "name": "chuck",
-                "display_name": "Chuck Norris"
+            "pusher":{
+                "uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+                "name":"doejohn",
+                "display_name":"John Doe"
             },
-            "commit_count": 1,
-            "commits": [{
-                "distinct": true,
-                "removed": [],
-                "message": "Update readme",
-                "added": [],
-                "timestamp": "2015-01-30T12:17:56Z",
-                "modified": ["readme"],
-                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
-                "author": {
-                    "name": "Chuck Norris",
-                    "email": "chuck@deveo.com"
-                },
-                "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
-            }]
+            "commit_count":1,
+            "commits":[
+                {
+                    "distinct":true,
+                    "removed":[],
+                    "message":"More text for DeveoSVN.",
+                    "added":[],
+                    "timestamp":"2016-09-07T15:05:20Z",
+                    "modified":["README.md"],
+                    "url":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/changesets/2",
+                    "author":{
+                        "name":"doejohn",
+                        "email":""
+                    },
+                    "id":"2"
+                }
+            ]
         };
         this.commitDeveoWebdavData = {
             "after": "67ec79c2cc2737eec07b649555b3da32c47d095b",
@@ -490,39 +694,39 @@ module.exports = class BaseAPI {
             "deleted": false,
             "project": {
                 "uuid": "c788fd2a-788c-4888-8673-90e027b1b849",
-                "name": "Test project",
-                "url": "https://deveo.com/example/code/diff/test"
+                "name": "OUt of this World",
+                "url": "https://deveo.com/example/code/diff/outofthisworld"
             },
             "repository": {
                 "uuid": "ff8f33e9-d619-493e-872d-be7dd4a10235",
-                "name": "website",
+                "name": "files",
                 "type": "webdav",
                 "url": "https://deveo.com/example/code/overview/test/repositories/website",
-                "https_url": "https://deveo.com/example/projects/test/repositories/git/website",
-                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/git/website",
+                "https_url": "https://deveo.com/example/projects/test/repositories/webdav/website",
+                "ssh_url": "deveo@deveo.com:deveo/projects/test/repositories/webdav/website",
                 "owner": {
                     "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                    "name": "chuck",
-                    "email": "chuck@deveo.com"
+                    "name": "Buddy",
+                    "email": "buddyOne@deveo.com"
                 }
             },
             "pusher": {
                 "uuid": "a94ea07c-4590-4dc9-b397-c83ca5daf976",
-                "name": "chuck",
-                "display_name": "Chuck Norris"
+                "name": "Buddy",
+                "display_name": "Buddy One"
             },
             "commit_count": 1,
             "commits": [{
                 "distinct": true,
                 "removed": [],
-                "message": "Update readme",
+                "message": "Update readme for DeveoWebDav.",
                 "added": [],
                 "timestamp": "2015-01-30T12:17:56Z",
                 "modified": ["readme"],
-                "url": "https://deveo.com/example/code/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                "url": "https://deveo.com/example/projects/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
                 "author": {
-                    "name": "Chuck Norris",
-                    "email": "chuck@deveo.com"
+                    "name": "Buddy One",
+                    "email": "buddyOne@deveo.com"
                 },
                 "id": "67ec79c2cc2737eec07b649555b3da32c47d095b"
             }]
@@ -536,6 +740,11 @@ module.exports = class BaseAPI {
 
     createInstance() {
         return axios.post(this.instanceUrl);
+    }
+
+    getInstance({instanceId, apiKey}) {
+        const instanceUrl = `${this.rootUrl}instances/${instanceId}?apiKey=${apiKey}`;
+        return axios.get(instanceUrl);
     }
 
     createDigest ({instanceId, apiKey, digestDescription}){
@@ -552,6 +761,11 @@ module.exports = class BaseAPI {
     getDigestCommits ({instanceId, digestId, apiKey}) {
         let digestCommitsUrl = this.rootUrl + instanceId + '/digests/' + digestId + '/commits?apiKey=' + apiKey;
         return axios.get(digestCommitsUrl)
+    }
+
+    getDigestInboxes ({instanceId, digestId, apiKey}) {
+        let digestInboxesUrl = `${this.rootUrl}${instanceId}/digests/${digestId}/inboxes?apiKey=${apiKey}`;
+        return axios.get(digestInboxesUrl)
     }
 
     createInbox ({instanceId, apiKey, digestId, inboxFamily, inboxName, repoUrl}){
@@ -623,6 +837,36 @@ module.exports = class BaseAPI {
 
     pushVSTSCommit({instanceId, apiKey, inboxId, validPayload}) {
         let commitData = this.commitVSTSData;
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+            commitData,
+            {
+                headers: {'Content-type': 'application/json'}
+            })
+    }
+
+    pushTFVCCommit({instanceId, apiKey, inboxId, validPayload, isMultiProject}) {
+        let commitData = this.commitTFVCDataMultiProject;
+        if(!isMultiProject){
+            let commitData = this.commitTFVCDataSingleProject;
+        }
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
+
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+            commitData,
+            {
+                headers: {'Content-type': 'application/json'}
+            })
+    }
+
+    pushTFSOnPremCommit({instanceId, apiKey, inboxId, validPayload}) {
+        let commitData = this.commitTFSOnPremData;
         if(!validPayload) {
             commitData = this.commitInvalidPayloadData;
         }
@@ -771,6 +1015,73 @@ module.exports = class BaseAPI {
         };
     }
 
+    expectedZeroDigestInboxes({instanceId, digest}) {
+        return {
+          "_links": {
+            "self": {
+              "href": this.rootUrl + instanceId + "/digests/" + digest.digestId + "/inboxes"
+            },
+            "digest": {
+              "href": this.rootUrl + instanceId + "/digests/" + digest.digestId
+            },
+            "inbox-create": {
+              "href": this.rootUrl + instanceId + "/digests/" + digest.digestId + "/inboxes",
+              "method": "POST",
+              "title": "Endpoint for creating an inbox for a repository on digest " + digest.digestId + "."
+            }
+          },
+          "count": 0,
+          "digest": {
+            "description": digest.description,
+            "digestId": digest.digestId
+          },
+          "_embedded": {
+            "inboxes": []
+          }
+        };
+    }
+
+    expectedDigestInboxes({instanceId, digest, inbox}) {
+        return {
+            "_links":{
+                "self":{
+                    "href": this.rootUrl + instanceId + "/digests/" + digest.digestId + "/inboxes"
+                },
+                "digest":{
+                    "href": this.rootUrl + instanceId + "/digests/" + digest.digestId
+                },
+                "inbox-create":{
+                    "href":this.rootUrl + instanceId + "/digests/" + digest.digestId + "/inboxes",
+                    "method":"POST",
+                    "title":"Endpoint for creating an inbox for a repository on digest "+ digest.digestId + "."
+                }
+            },
+            "count":1,
+            "digest":{
+                "description":digest.description,
+                "digestId": digest.digestId
+            },
+            "_embedded":{
+                "inboxes":[{
+                    "_links":{
+                        "self":{
+                            "href": this.rootUrl + instanceId + "/inboxes/" + inbox.inboxId
+                        },
+                        "add-commit":{
+                            "href": this.rootUrl + instanceId + "/inboxes/" + inbox.inboxId + "/commits"
+                        }
+                    },
+                    "instanceId": instanceId,
+                    "inboxId": inbox.inboxId,
+                    "family": inbox.family,
+                    "name": inbox.name,
+                    "url": inbox.url
+                }
+                ]
+            }
+        }
+    }
+
     expectedZeroDigestCommits() {
         return {
             "commits": [],
@@ -909,130 +1220,247 @@ module.exports = class BaseAPI {
 
     expectedAllDigestCommits() {
         return {
-            "commits": [
+            "commits":[
                 {
-                    "commitDate": "2016-09-07T13:58:23Z",
-                    "timeFormatted": "3 months ago",
-                    "author": "Ilmari Kontulainen",
-                    "sha1Partial": "bd4a15",
-                    "family": "Deveo",
-                    "action": "committed",
-                    "message": "S-01041 readme.m",
-                    "commitHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
-                    "repo": "demo-/gitti1",
-                    "branch": "master",
-                    "branchHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/tree/master",
-                    "repoHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
-                    "isCommitHref": true
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"Buddy One",
+                    "sha1Partial":"67ec79",
+                    "family":"Deveo",
+                    "action":"committed",
+                    "message":"Update readme for DeveoWebDav.",
+                    "commitHref":"https://deveo.com/example/projects/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                    "repo":"diff/test/website",
+                    "branch":"master",
+                    "branchHref":"https://deveo.com/example/projects/diff/test/repositories/website/tree/master",
+                    "repoHref":"https://deveo.com/example/projects/diff/test/repositories/website",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
-                    "commitDate": "2016/10/28 16:04:17",
-                    "timeFormatted": "a month ago",
-                    "author": "v1deploy@v1deploy",
-                    "sha1Partial": "r#:178",
-                    "family": "P4V",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"John Doe",
+                    "sha1Partial":"2",
+                    "family":"Deveo",
+                    "action":"committed",
+                    "message":"More text for DeveoSVN.",
+                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/changesets/2",
+                    "repo":"demo-/svn1",
+                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/tree/undefined",
+                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"Ilmari Kontulainen",
+                    "sha1Partial":"5b634f",
+                    "family":"Deveo",
+                    "action":"committed",
+                    "message":"Initial commit for DeveoMercurial.",
+                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/changesets/5b634f103ad212848a47a29d306616b002eeb828",
+                    "repo":"demo-/foo",
+                    "branch":"default",
+                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/tree/default",
+                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"Ilmari Kontulainen",
+                    "sha1Partial":"bd4a15",
+                    "family":"Deveo",
+                    "action":"committed",
+                    "message":"S-01041 DeveoGitreadme.m",
+                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
+                    "repo":"demo-/gitti1",
+                    "branch":"master",
+                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/tree/master",
+                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"v1deploy@v1deploy",
+                    "sha1Partial":"r#:178",
+                    "family":"P4V",
+                    "action":"committed",
+                    "message":" changes inthe bin?",
+                    "commitHref":"PLACE BASE URL TO INSPECT YOUR REVISIONS178",
+                    "repo":"doesNotUseUrl",
+                    "branch":"",
+                    "branchHref":"",
+                    "repoHref":"http://perforce.com/doesNotUseUrl",
+                    "isCommitHref":false,
+                    "isVsoTfvc": false
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"Administrator",
+                    "sha1Partial":"6f1268",
+                    "family":"GitSwarm",
+                    "action":"committed",
+                    "message":"Added file",
+                    "commitHref":"http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
+                    "repo":"root/api-testing",
+                    "branch":"master",
+                    "branchHref":"http://gitswarm.cloudapp.net/root/api-testing/tree/master",
+                    "repoHref":"http://gitswarm.cloudapp.net/root/api-testing",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"admin",
+                    "sha1Partial":"r12",
+                    "family":"Svn",
+                    "action":"committed",
+                    "message":"S-01001 SMA Tests",
+                    "commitHref":"http://v1commitstream.cloudapp.net:9090/!/#ProjectA/commit/r12",
+                    "repo":"ProjectA",
+                    "branch":"",
+                    "branchHref":"",
+                    "repoHref":"http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"Zhang, Xin (Northern Lights)",
+                    "sha1Partial":"3b9cbd",
+                    "family":"VsoGit",
+                    "action":"committed",
+                    "message":"Added js function for story 2282.\n\nRelated Work Items: #2282",
+                    "commitHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/commit/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2",
+                    "repo":"SMARTworks/undefined",
+                    "branch":"pbi_639_2282",
+                    "branchHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/undefined/#version=GBpbi_639_2282",
+                    "repoHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/undefined",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author": "Sally Ann Cavanaugh",
+                    "sha1Partial": "b39684",
+                    "family": "VsoTfvc",
                     "action": "committed",
-                    "message": " changes inthe bin?",
-                    "commitHref": "PLACE BASE URL TO INSPECT YOUR REVISIONS178",
-                    "repo": "doesNotUseUrl",
+                    "message": "Sally Ann Cavanaugh checked in changeset 22",
+                    "commitHref": [
+                        "https://testsystem.visualstudio.com/70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e/_versionControl/changeset/22",
+                        "https://testsystem.visualstudio.com/fdc49ee6-ec19-43a4-bd08-55800484b342/_versionControl/changeset/22"
+                    ],
+                    "repo": "",
                     "branch": "",
                     "branchHref": "",
-                    "repoHref": "http://perforce.com/doesNotUseUrl",
-                    "isCommitHref": false
+                    "repoHref": {
+                        "url": [
+                            "https://testsystem.visualstudio.com/70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e/_versionControl/",
+                            "https://testsystem.visualstudio.com/fdc49ee6-ec19-43a4-bd08-55800484b342/_versionControl/"
+                        ]
+                    },
+                    "isCommitHref": true,
+                    "isVsoTfvc": true
                 },
                 {
-                    "commitDate": "2016-09-22T11:21:18+00:00",
-                    "timeFormatted": "2 months ago",
-                    "author": "Administrator",
-                    "sha1Partial": "6f1268",
-                    "family": "GitSwarm",
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author": "Sally Ann Cavanaugh",
+                    "sha1Partial": "b39684",
+                    "family": "VsoTfvc",
                     "action": "committed",
-                    "message": "Added file",
-                    "commitHref": "http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
-                    "repo": "root/api-testing",
-                    "branch": "master",
-                    "branchHref": "http://gitswarm.cloudapp.net/root/api-testing/tree/master",
-                    "repoHref": "http://gitswarm.cloudapp.net/root/api-testing",
-                    "isCommitHref": true
-                },
-                {
-                    "commitDate": "2016-09-12 03:52:55 +1300 (Mon, 16 Sep 2016)",
-                    "timeFormatted": "3 months ago",
-                    "author": "admin",
-                    "sha1Partial": "r12",
-                    "family": "Svn",
-                    "action": "committed",
-                    "message": "S-01001 SMA Tests",
-                    "commitHref": "http://v1commitstream.cloudapp.net:9090/!/#ProjectA/commit/r12",
-                    "repo": "ProjectA",
+                    "message": "Sally Ann Cavanaugh checked in changeset 22",
+                    "commitHref": [
+                        "https://testsystem.visualstudio.com/70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e/_versionControl/changeset/22",
+                        "https://testsystem.visualstudio.com/fdc49ee6-ec19-43a4-bd08-55800484b342/_versionControl/changeset/22"
+                    ],
+                    "repo": "",
                     "branch": "",
                     "branchHref": "",
-                    "repoHref": "http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
-                    "isCommitHref": true
+                    "repoHref": {
+                        "url": [
+                            "https://testsystem.visualstudio.com/70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e/_versionControl/",
+                            "https://testsystem.visualstudio.com/fdc49ee6-ec19-43a4-bd08-55800484b342/_versionControl/"
+                        ]
+                    },
+                    "isCommitHref": true,
+                    "isVsoTfvc": true
                 },
                 {
-                    "commitDate": "2016-03-10T15:42:31Z",
-                    "timeFormatted": "9 months ago",
-                    "author": "Daniel Gruesso",
-                    "sha1Partial": "42bf55",
-                    "family": "VsoGit",
-                    "action": "committed",
-                    "message": "New user sign-up API route update S-01004",
-                    "commitHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/commit/42bf55b256c46f716f0192e9216f1db5c37ea1f2",
-                    "repo": "openagile/CommitStream Git",
-                    "branch": "master",
-                    "branchHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/#version=GBmaster",
-                    "repoHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git",
-                    "isCommitHref": true
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"Daniel Gruesso",
+                    "sha1Partial":"42bf55",
+                    "family":"VsoGit",
+                    "action":"committed",
+                    "message":"New user sign-up API route update S-01004",
+                    "commitHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/commit/42bf55b256c46f716f0192e9216f1db5c37ea1f2",
+                    "repo":"CommitStream%20Git/undefined",
+                    "branch":"master",
+                    "branchHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/undefined/#version=GBmaster",
+                    "repoHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/undefined",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
-                    "commitDate": "2015-08-18T18:43:11+00:00",
-                    "timeFormatted": "a year ago",
-                    "author": "Mariano Kunzi",
-                    "sha1Partial": "24480f",
-                    "family": "Bitbucket",
-                    "action": "committed",
-                    "message": "something happened",
-                    "commitHref": "https://bitbucket.org/kunzimariano/test/commits/24480f9c4f1b4cff6c8ccec86416f6b258b75b22",
-                    "repo": "kunzimariano/test",
-                    "branch": "master",
-                    "branchHref": "https://bitbucket.org/kunzimariano/test/branch/master",
-                    "repoHref": "https://bitbucket.org/kunzimariano/test",
-                    "isCommitHref": true
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"Mariano Kunzi",
+                    "sha1Partial":"24480f",
+                    "family":"Bitbucket",
+                    "action":"committed",
+                    "message":"something happened",
+                    "commitHref":"https://bitbucket.org/kunzimariano/test/commits/24480f9c4f1b4cff6c8ccec86416f6b258b75b22",
+                    "repo":"kunzimariano/test",
+                    "branch":"master",
+                    "branchHref":"https://bitbucket.org/kunzimariano/test/branch/master",
+                    "repoHref":"https://bitbucket.org/kunzimariano/test",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
-                    "commitDate": "2011-12-12T14:27:31+02:00",
-                    "timeFormatted": "5 years ago",
-                    "author": "Jordi Mallach",
-                    "sha1Partial": "b6568d",
-                    "family": "GitLab",
-                    "action": "committed",
-                    "message": "Update Catalan translation to e38cb41.",
-                    "commitHref": "http://example.com/mike/diaspora/commit/b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327",
-                    "repo": "mike/diaspora",
-                    "branch": "master",
-                    "branchHref": "http://example.com/mike/diaspora/tree/master",
-                    "repoHref": "http://example.com/mike/diaspora",
-                    "isCommitHref": true
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"Jordi Mallach",
+                    "sha1Partial":"b6568d",
+                    "family":"GitLab",
+                    "action":"committed",
+                    "message":"Update Catalan translation to e38cb41.",
+                    "commitHref":"http://example.com/mike/diaspora/commit/b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327",
+                    "repo":"mike/diaspora",
+                    "branch":"master",
+                    "branchHref":"http://example.com/mike/diaspora/tree/master",
+                    "repoHref":"http://example.com/mike/diaspora",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
-                    "commitDate": "2014-10-03T15:57:14-03:00",
-                    "timeFormatted": "2 years ago",
-                    "author": "yourName",
-                    "sha1Partial": "123456",
-                    "family": "GitHub",
-                    "action": "committed",
-                    "message": "S-04026 Testing Commit functionality!",
-                    "commitHref": "https://repourl",
-                    "repo": "/repourl",
-                    "branch": "master",
-                    "branchHref": "https://repourl/tree/master",
-                    "repoHref": "https://repourl",
-                    "isCommitHref": true
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author":"yourName",
+                    "sha1Partial":"123456",
+                    "family":"GitHub",
+                    "action":"committed",
+                    "message":"S-04026 Testing Commit functionality!",
+                    "commitHref":"https://repourl",
+                    "repo":"/repourl",
+                    "branch":"master",
+                    "branchHref":"https://repourl/tree/master",
+                    "repoHref":"https://repourl",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 }
-            ],
-            "_links": {
-            }
+            ],"_links":{}
         };
     }
 
