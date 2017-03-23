@@ -34,15 +34,12 @@ test.serial("Can I create an instance?", async t => {
     response.data.should.deep.equal(base.expectedInstanceResult(instance.instanceId, instance.apiKey));
     apiKey = instance.apiKey;
     instanceId = instance.instanceId;
-    console.log(`instanceId: ${instanceId}, apiKey: ${apiKey}`);
 });
 
 test.serial("Can I query an instance?", async t => {
     let response = await base.getInstance({instanceId, apiKey});
-    console.log(instanceId, apiKey);
     t.is(response.status, 200, "Uh oh...");
-    response.data.should.deep.equal(base.expectedInstanceResult(instance.instanceId, instance.apiKey));
-    console.log(`instanceId: ${instanceId}, apiKey: ${apiKey}`);
+    response.data.should.deep.equal(base.expectedInstanceResult(instanceId, instance.apiKey));
 });
 
 test.serial("Can I create a digest", async t => {
@@ -55,16 +52,15 @@ test.serial("Can I create a digest", async t => {
         apiKey,
         digestDescription: "SOMETHING"
     });
-    console.log(`The digest TeamRoom view URL: ${digest._links["teamroom-view"].href}&apiKey=${apiKey}`);
     JSON.stringify(digest).should.deep.equal(JSON.stringify(expected));
     digestId = digest.digestId;
 });
 
 test.serial("Can I query all the inboxes for a Digest without an inbox created?", async t => {
-    const response = await base.getDigestInboxes({instanceId, digestId, apiKey});
+    let response = await base.getDigestInboxes({instanceId, digestId, apiKey});
     t.is(response.status, 200, `What response status did I Get ${response.status}`);
     digestInboxes = response.data;
-    const expected = base.expectedZeroDigestInboxes({instanceId, digest});
+    let expected = base.expectedZeroDigestInboxes({instanceId, digest});
     JSON.stringify(digestInboxes).should.deep.equal(JSON.stringify(expected));
 });
 
@@ -268,7 +264,6 @@ test.serial("Can I create an inbox for a VSTS repo?", async t =>              {
     inbox = response.data;
     let expected = base.expectedInboxResult({
         instanceId,
-        instanceId,
         digestId,
         inboxId: inbox.inboxId,
         inboxFamily: 'VsoGit',
@@ -398,7 +393,6 @@ test.serial("Can I create an inbox for a TFSOnPrem repo?", async t => {
     inbox = response.data;
     let expected = base.expectedInboxResult({
         instanceId,
-        instanceId,
         digestId,
         inboxId: inbox.inboxId,
         inboxFamily: 'VsoGit',
@@ -427,7 +421,6 @@ test.serial("Can I create an inbox for a Subversion repo?", async t => {
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedSVNInboxResult({
-        instanceId,
         instanceId,
         digestId,
         inboxId: inbox.inboxId,
@@ -487,7 +480,6 @@ test.serial("Can I create an inbox for a GitSwarm repo?", async t => {
     inbox = response.data;
     let expected = base.expectedInboxResult({
         instanceId,
-        instanceId,
         digestId,
         inboxId: inbox.inboxId,
         inboxFamily: 'GitSwarm',
@@ -545,7 +537,6 @@ test.serial("Can I create an inbox for a Perforce P4V repo?", async t => {
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedP4VInboxResult({
-        instanceId,
         instanceId,
         digestId,
         inboxId: inbox.inboxId,
@@ -605,7 +596,6 @@ test.serial("Can I create an inbox for a DeveoGit repo?", async t => {
     inbox = response.data;
     let expected = base.expectedInboxResult({
         instanceId,
-        instanceId,
         digestId,
         inboxId: inbox.inboxId,
         inboxFamily: 'Deveo',
@@ -663,7 +653,6 @@ test.serial("Can I create an inbox for a DeveoMercurial repo?", async t => {
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedInboxResult({
-        instanceId,
         instanceId,
         digestId,
         inboxId: inbox.inboxId,
@@ -723,7 +712,6 @@ test.serial("Can I create an inbox for a DeveoSubversion repo?", async t => {
     inbox = response.data;
     let expected = base.expectedInboxResult({
         instanceId,
-        instanceId,
         digestId,
         inboxId: inbox.inboxId,
         inboxFamily: 'Deveo',
@@ -781,7 +769,6 @@ test.serial("Can I create an inbox for a DeveoWebdav repo?", async t => {
     response.status.should.equal(201);
     inbox = response.data;
     let expected = base.expectedInboxResult({
-        instanceId,
         instanceId,
         digestId,
         inboxId: inbox.inboxId,
