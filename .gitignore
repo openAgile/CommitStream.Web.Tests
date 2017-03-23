@@ -23,3 +23,5 @@ lib
 
 #webstorm files
 .idea
+/src/tests/commitStreamAPI.js.orig
+src/tests/commitStreamAPI.js.orig
