@@ -36,6 +36,7 @@
     "babel-preset-stage-2": "^6.18.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
+    "chai-diff": "^1.0.1",
     "glance-webdriver": "^0.6.2",
     "grunt": "^0.4.5",
     "grunt-babel": "^6.0.0",

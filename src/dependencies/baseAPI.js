@@ -259,7 +259,7 @@ module.exports = class BaseAPI {
             "subscriptionId": "20019a9b-3534-4705-a755-198d23de2ed7",
             "notificationId": 6,
             "id": "b72be65b-614d-4652-9ca9-11d2942a5c91",
-            "eventType": "vsoTfvc.checkin",
+            "eventType": "tfvc.checkin",
             "publisherId": "tfs",
             "scope": "all",
             "message": {
@@ -313,7 +313,7 @@ module.exports = class BaseAPI {
             "subscriptionId": "5a5419f9-8deb-46ca-8c9b-825e80311c6c",
             "notificationId": 1,
             "id": "b396843b-6f58-408d-b6dd-468be8d7a615",
-            "eventType": "vsoTfvc.checkin",
+            "eventType": "tfvc.checkin",
             "publisherId": "tfs",
             "scope": "all",
             "message": {
@@ -361,7 +361,6 @@ module.exports = class BaseAPI {
             },
             "createdDate": "2017-03-08T20:54:37.2569716Z"
         };
-
         this.isMultiProject = false;
         this.commitTFSOnPremData = {
             "subscriptionId": "06748b5c-e3e5-418f-88b0-57bcdae24ebf",
@@ -1235,7 +1234,8 @@ module.exports = class BaseAPI {
                     "branch":"master",
                     "branchHref":"https://deveo.com/example/projects/diff/test/repositories/website/tree/master",
                     "repoHref":"https://deveo.com/example/projects/diff/test/repositories/website",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1249,7 +1249,8 @@ module.exports = class BaseAPI {
                     "repo":"demo-/svn1",
                     "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/tree/undefined",
                     "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1264,7 +1265,8 @@ module.exports = class BaseAPI {
                     "branch":"default",
                     "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/tree/default",
                     "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1279,7 +1281,8 @@ module.exports = class BaseAPI {
                     "branch":"master",
                     "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/tree/master",
                     "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1294,7 +1297,8 @@ module.exports = class BaseAPI {
                     "branch":"",
                     "branchHref":"",
                     "repoHref":"http://perforce.com/doesNotUseUrl",
-                    "isCommitHref":false
+                    "isCommitHref":false,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1309,7 +1313,8 @@ module.exports = class BaseAPI {
                     "branch":"master",
                     "branchHref":"http://gitswarm.cloudapp.net/root/api-testing/tree/master",
                     "repoHref":"http://gitswarm.cloudapp.net/root/api-testing",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1324,7 +1329,8 @@ module.exports = class BaseAPI {
                     "branch":"",
                     "branchHref":"",
                     "repoHref":"http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1339,7 +1345,56 @@ module.exports = class BaseAPI {
                     "branch":"pbi_639_2282",
                     "branchHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/undefined/#version=GBpbi_639_2282",
                     "repoHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/undefined",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author": "Sally Ann Cavanaugh",
+                    "sha1Partial": "b39684",
+                    "family": "VsoTfvc",
+                    "action": "committed",
+                    "message": "Sally Ann Cavanaugh checked in changeset 22",
+                    "commitHref": [
+                        "https://testsystem.visualstudio.com/70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e/_versionControl/changeset/22",
+                        "https://testsystem.visualstudio.com/fdc49ee6-ec19-43a4-bd08-55800484b342/_versionControl/changeset/22"
+                    ],
+                    "repo": "",
+                    "branch": "",
+                    "branchHref": "",
+                    "repoHref": {
+                        "url": [
+                            "https://testsystem.visualstudio.com/70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e/_versionControl/",
+                            "https://testsystem.visualstudio.com/fdc49ee6-ec19-43a4-bd08-55800484b342/_versionControl/"
+                        ]
+                    },
+                    "isCommitHref": true,
+                    "isVsoTfvc": true
+                },
+                {
+                    "commitDate":"1999-12-31",
+                    "timeFormatted":"The end of time",
+                    "author": "Sally Ann Cavanaugh",
+                    "sha1Partial": "b39684",
+                    "family": "VsoTfvc",
+                    "action": "committed",
+                    "message": "Sally Ann Cavanaugh checked in changeset 22",
+                    "commitHref": [
+                        "https://testsystem.visualstudio.com/70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e/_versionControl/changeset/22",
+                        "https://testsystem.visualstudio.com/fdc49ee6-ec19-43a4-bd08-55800484b342/_versionControl/changeset/22"
+                    ],
+                    "repo": "",
+                    "branch": "",
+                    "branchHref": "",
+                    "repoHref": {
+                        "url": [
+                            "https://testsystem.visualstudio.com/70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e/_versionControl/",
+                            "https://testsystem.visualstudio.com/fdc49ee6-ec19-43a4-bd08-55800484b342/_versionControl/"
+                        ]
+                    },
+                    "isCommitHref": true,
+                    "isVsoTfvc": true
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1354,7 +1409,8 @@ module.exports = class BaseAPI {
                     "branch":"master",
                     "branchHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/undefined/#version=GBmaster",
                     "repoHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/undefined",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1368,7 +1424,9 @@ module.exports = class BaseAPI {
                     "repo":"kunzimariano/test",
                     "branch":"master",
                     "branchHref":"https://bitbucket.org/kunzimariano/test/branch/master",
-                    "repoHref":"https://bitbucket.org/kunzimariano/test","isCommitHref":true
+                    "repoHref":"https://bitbucket.org/kunzimariano/test",
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1383,7 +1441,8 @@ module.exports = class BaseAPI {
                     "branch":"master",
                     "branchHref":"http://example.com/mike/diaspora/tree/master",
                     "repoHref":"http://example.com/mike/diaspora",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 },
                 {
                     "commitDate":"1999-12-31",
@@ -1398,7 +1457,8 @@ module.exports = class BaseAPI {
                     "branch":"master",
                     "branchHref":"https://repourl/tree/master",
                     "repoHref":"https://repourl",
-                    "isCommitHref":true
+                    "isCommitHref":true,
+                    "isVsoTfvc": false
                 }
             ],"_links":{}
         };
