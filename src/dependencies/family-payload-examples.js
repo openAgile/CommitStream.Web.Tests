@@ -401,6 +401,60 @@ export default {
 			}
 		)
 	},
+	VsoTfvc: {
+		validWithOneCommit: (message, repoUrl) => ({
+			"subscriptionId": "5a5419f9-8deb-46ca-8c9b-825e80311c6c",
+			"notificationId": 1,
+			"id": "b396843b-6f58-408d-b6dd-468be8d7a615",
+			"eventType": "tfvc.checkin",
+			"publisherId": "tfs",
+			"scope": "all",
+			"message": {
+				"text": "Sally Ann Cavanaugh checked in changeset 22",
+				"html": "Sally Ann Cavanaugh checked in changeset <a href=\"https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&amp;cs=22\">22</a>",
+				"markdown": "Sally Ann Cavanaugh checked in changeset [22](https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&cs=22)"
+			},
+			"detailedMessage": {
+				"text": "Sally Ann Cavanaugh checked in changeset 22",
+				"html": "Sally Ann Cavanaugh checked in changeset <a href=\"https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&amp;cs=22\">22</a>",
+				"markdown": "Sally Ann Cavanaugh checked in changeset [22](https://testsystem.visualstudio.com/web/cs.aspx?pcguid=80c24ec7-6164-46d7-9b2a-ab3d60d8dc71&cs=22)"
+			},
+			"resource": {
+				"hasMoreChanges": true,
+				"teamProjectIds": ["70cf8e3a-3ee1-4127-95d2-7f2563e5dc9e", "fdc49ee6-ec19-43a4-bd08-55800484b342"],
+				"changesetId": 22,
+				"url": "https://testsystem.visualstudio.com/_apis/tfvc/changesets/22",
+				"author": {
+					"id": "2c22451e-cd97-454e-aa61-bf076557ab3f",
+					"displayName": "Sally Ann Cavanaugh",
+					"uniqueName": "scavanaugh@nowhere.com",
+					"url": "https://thing.somewhere.visualstudio.com/A7d7713ab-3a77-4625-a298-2f17fba9310b/_apis/Identities/2c22451e-cd97-454e-aa61-bf076557ab3f",
+					"imageUrl": "https://testsystem.visualstudio.com/_api/_common/identityImage?id=2c22451e-cd97-454e-aa61-bf076557ab3f"
+				},
+				"checkedInBy": {
+					"id": "2c22451e-cd97-454e-aa61-bf076557ab3f",
+					"displayName": "Sally Ann Cavanaugh",
+					"uniqueName": "scavanaugh@nowhere.com",
+					"url": "https://thing.somewhere.visualstudio.com/A7d7713ab-3a77-4625-a298-2f17fba9310b/_apis/Identities/2c22451e-cd97-454e-aa61-bf076557ab3f",
+					"imageUrl": "https://testsystem.visualstudio.com/_api/_common/identityImage?id=2c22451e-cd97-454e-aa61-bf076557ab3f"
+				},
+				"createdDate": "2017-03-08T20:54:34Z",
+				"comment": ""
+			},
+			"resourceVersion": "1.0",
+			"resourceContainers": {
+				"collection": {
+					"id": "80c24ec7-6164-46d7-9b2a-ab3d60d8dc71",
+					"baseUrl": "https://testsystem.visualstudio.com/"
+				},
+				"account": {
+					"id": "7d7713ab-3a77-4625-a298-2f17fba9310b",
+					"baseUrl": "https://testsystem.visualstudio.com/"
+				}
+			},
+			"createdDate": "2017-03-08T20:54:37.2569716Z"
+		})
+	},
 	SVN: {
 		validWithOneCommit: message => (
 		{
@@ -478,5 +532,67 @@ export default {
 		        "visibility_level": 0
 		    }
 		})
-	}
+	},
+	P4V: {
+		validWithOneCommit: (message, repoUrl) => ({
+			"pretext":"Commit completed: rev. 178",
+			"committer":{
+				"name":"v1deploy@v1deploy",
+				"date":"2016/10/28 16:04:17"
+			},
+			"author":"v1deploy@v1deploy",
+			"revision":"178",
+			"message":" changes inthe bin?",
+			"changes":[
+				"... //depot/Test/Test2#52 edit"
+			],
+			"repository":"http://perforce.com/doesNotUseUrl",
+			"html_url":"PLACE BASE URL TO INSPECT YOUR REVISIONS178"
+		})},
+	Deveo: {
+		validWithOneCommit: (message, repoUrl) => ({
+			"after":"bd4a158555d69bd41fa1b6429c816031152d091d",
+			"ref":"refs/heads/master",
+			"before":"007c20d3bf35b19e507ecbb52dceb86a91bde173",
+			"compare":"",
+			"forced":false,
+			"created":false,
+			"deleted":false,
+			"project":{
+				"uuid":"f1115b9c-b165-46de-85a7-251805537746",
+				"name":"demo-",
+				"url":"https://app.deveo.com/Gexample/projects/demo-"},
+			"repository":{
+				"uuid":"7b23046e-405f-4ec5-b1c9-38875e65369f",
+				"name":"gitti1",
+				"type":"git",
+				"url":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
+				"https_url":"https://app.deveo.com/Gexample/projects/demo-/repositories/git/gitti1",
+				"ssh_url":"deveo@app.deveo.com:Gexample/projects/demo-/repositories/git/gitti1",
+				"owner":{
+					"uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+					"name":"doejohn",
+					"email":"ilmari@deveo.com"
+				}
+			},
+			"pusher":{"uuid":"537cf937-427d-4b4a-9133-0dba0341262a",
+				"name":"doejohn","display_name":"John Doe"},
+			"commit_count":1,
+			"commits":[
+				{
+					"distinct":true,
+					"removed":[],
+					"message":"S-01041 DeveoGitreadme.m",
+					"added":[],
+					"timestamp":"2016-09-07T13:58:23Z",
+					"modified":["README.md"],
+					"url":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
+					"author":{
+						"name":"Ilmari Kontulainen",
+						"email":"ilmari@deveo.com"
+					},
+					"id":"bd4a158555d69bd41fa1b6429c816031152d091d"
+				}
+			]
+		})}
 };

@@ -45,29 +45,18 @@ let changeInboxWebhook=(family, webhook) => {
 }
 
 test.serial("Login to VersionOne-SMA Instance", async t=> {
-    return glance.url(base.instanceUrl)
+    let url = await glance.url(base.instanceUrl)
         .set("browser:size", "maximize")
         .cast({
             'username>input': base.username,
             'password>input': base.password
         })
         .click('Login')
+        .get("browser:url")
+    url.should.include(base.instanceUrl + "Default.aspx");
 });
-test.serial("Can enable CommitStream")
-        //.click('My Home')
-        //.click('Getting Started')
-        // .get("page-title").then(function(title) {
-        //     console.log('Title was: ' + title);
-        //     t.is(title, "Let's Get Started", "This test was an utter failure.");
-        //     return glance
-        // })
-        //.click('ADMIN#1')
-        //.pause(1000)
-        //.click('DevOps')
-        //.pause(1000)
-        //.click('CommitStream')
-       //.pause(1000)
-        .url(base.instanceUrl + "/Default.aspx?menu=CommitStreamPage&feat-nav=a1#/")
+test.serial("Can enable CommitStream", async t => {
+    let url = await glance.url(base.instanceUrl + "/Default.aspx?menu=CommitStreamPage&feat-nav=a1#/")
         .click('Disabled')
         .pause(2000)
         .click('GitHub')
@@ -191,25 +180,25 @@ test.serial("Can enable CommitStream")
             return glance
         })
          //clean up
-        // .click('genericTest>iconRemove')
-        // .click('modal>button^Remove')
-        // .click('localFox>iconRemove')
-        // .click('modal>button^Remove')
-        // .click('blueTub>iconRemove')
-        // .click('modal>button^Remove')
-        // .click('microSoft>iconRemove')
-        // .click('modal>button^Remove')
-        // .click('depotNum1>iconRemove')
-        // .click('modal>button^Remove')
-        // .click('globalSwarm>iconRemove')
-        // .click('modal>button^Remove')
-        // .click('Enabled')
-        // .click('Back to Main')
-        // .click('My Home')
-        // .click('Getting Started')
-        // .get("page-title").then(function(title) {
-        //     console.log('Title was: ' + title);
-        //     t.is(title, "Let's Get Started", "This test was an utter failure.")
-        // })
+        .click('genericTest>iconRemove')
+        .click('modal>button^Remove')
+        .click('localFox>iconRemove')
+        .click('modal>button^Remove')
+        .click('blueTub>iconRemove')
+        .click('modal>button^Remove')
+        .click('microSoft>iconRemove')
+        .click('modal>button^Remove')
+        .click('depotNum1>iconRemove')
+        .click('modal>button^Remove')
+        .click('globalSwarm>iconRemove')
+        .click('modal>button^Remove')
+        .click('Enabled')
+        .click('Back to Main')
+        .click('My Home')
+        .click('Getting Started')
+        .get("page-title").then(function(title) {
+            console.log('Title was: ' + title);
+            t.is(title, "Let's Get Started", "This test was an utter failure.")
+        })
 });
 

@@ -84,11 +84,20 @@ let families = {
   VsoGit : {
     commitAdd: (client, inbox, message='VsoGit commit', repoUrl = 'https://github.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl,  'VsoGit')
   },
+  VsoTfvc : {
+    commitAdd: (client, inbox, message='VsoTfvc commit', repoUrl = 'https://gitbhu.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl, 'VsoTfvc')
+  },
   SVN : {
     commitAdd: (client, inbox, message='SVN commit', repoUrl = 'https://github.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl,  'SVN', {'CS-SVN-Event': 'Commit Event'})
   },
   GitSwarm : {
     commitAdd: (client, inbox, message='GitSwarm commit', repoUrl = 'https://github.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl,  'GitSwarm', {'x-gitlab-event': 'Push Hook', 'x-gitswarm-event': 'Push Hook'})
+  },
+  P4V : {
+    commitAdd: (client, inbox, message='P4V commit', repoUrl = 'https://github.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl, 'P4V', {'Content-type': 'application/json', 'CS-P4V-Event': 'Commit Event'})
+  },
+  Deveo : {
+    commitAdd: (client, inbox, message='Deveo commit', repoUrl = 'https://github.com/openAgile/CommitStream.Web') => postToInboxForFamily(client, inbox, message, repoUrl, 'Deveo', {'Content-type': 'application/json', 'x-deveo-event': 'push'})
   }
 };
 
