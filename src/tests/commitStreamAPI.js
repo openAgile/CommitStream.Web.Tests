@@ -828,6 +828,7 @@ test.serial("Expect 400 response and error message for invalid commit payload to
 test.serial("Can I query the digest for all commits?", async t => {
     let response = await base.getDigestCommits({instanceId, digestId, apiKey});
     console.log("instanceId: " + instanceId + ", apiKey: " + apiKey + ", digestId: " + digestId);
+    console.log(`The digest TeamRoom view URL: ${digest._links["teamroom-view"].href}&apiKey=${apiKey}`);
     t.is(response.status, 200, "What response status did I get?: " + response.status);
     digestCommits = response.data;
     let expected = base.expectedAllDigestCommits();
