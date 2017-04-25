@@ -56,19 +56,8 @@ test.serial("Can I create an inbox for a Bitbucket repo?", async t => {
 });
 
 test.serial("Can I fail from a pull-request to Bitbucket inbox?", async t=> {
-/*
- try {
-        await base.pushCommitInvalidHeaders({instanceId, apiKey, inboxId: gitHubInboxId, validPayload: true});
-    }
-    catch(error) {
-        let response = error.response;
-        t.is(response.status, 400, "Uh oh...");
-        let commit = response.data;
-        let expected = base.expectedInvalidHeadersCommitResult();
-        commit.should.not.differentFrom(expected);
-    }
-*/
-    for (let i = 0; i < 1000; i++) {
+    const FAIL_COUNT = process.env.FAIL_COUNT || 10;
+    for (let i = 0; i < FAIL_COUNT; i++) {
         try {
             await base.pushBitbucketPullRequest({instanceId, apiKey, inboxId: bitbucketInboxId});
         }
