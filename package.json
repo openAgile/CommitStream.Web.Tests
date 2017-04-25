@@ -7,7 +7,8 @@
     "test": "ava --verbose",
     "cs": "ava --verbose src/tests/commitStreamGlobalUI.js",
     "cu": "ava --verbose src/tests/commitStreamCustomUI.js",
-    "ca": "ava --verbose src/tests/commitStreamAPI.js"
+    "ca": "ava --verbose src/tests/commitStreamAPI.js",
+    "ca-fail": "ava --verbose src/tests/commitStreamAPIForceFailures.js"
   },
   "dependencies": {
     "bluebird": "^3.3.4",
