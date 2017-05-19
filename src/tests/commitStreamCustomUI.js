@@ -50,7 +50,7 @@ let changeInboxWebhook=(family, webhook) => {
 
 test.serial("Login to VersionOne-SMA Instance", async t=> {
     let url = await glance.url(base.instanceUrl)
-        .set("browser:size", "maximize")
+        //.set("browser:size", "maximize")
         .cast({
             'username>input': base.username,
             'password>input': base.password
@@ -70,16 +70,13 @@ test.serial("Set TeamRoom to have Custom CS inboxes", async t=> {
     teamOid.should.not.be.null;
 });
 test.serial("Can access TeamRoom settings", async t=> {
-    let pageText = await glance.url(base.instanceUrl + "/Default.aspx?menu=TeamRoomsPage")
-    .click('Fellowship of the Scrum')
-    .get("browser:url").then(function(teamRoomUrl) {
-        let pathArray = teamRoomUrl.split('/');
-            teamOid = pathArray[pathArray.length-1];
-            console.log("Team Oid is: ", teamOid);
-        })
+    await glance.url(base.instanceUrl + "/TeamRoom.mvc/Edit/" + teamOid)
     .pause(1000)
     .click('CommitStream')
-    .get("CommitStream Panel Options");
+    .pause(2000)
+    .get("CommitStream Panel Options").then(function(csPanelOptions) {
+            t.is(csPanelOptions, "CommitStream Panel Options", "Not in TeamRoom Settings.");
+        });
 });
 test.serial("Can add a Custom GitHub inbox", async t=> {
         await glance.click('Custom')

@@ -46,7 +46,7 @@ let changeInboxWebhook=(family, webhook) => {
 
 test.serial("Login to VersionOne-SMA Instance", async t=> {
     let url = await glance.url(base.instanceUrl)
-        .set("browser:size", "maximize")
+        //.set("browser:size", "maximize")
         .cast({
             'username>input': base.username,
             'password>input': base.password
