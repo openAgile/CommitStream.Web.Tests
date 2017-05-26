@@ -1,6 +1,8 @@
 import test from 'ava';
 import chai from 'chai';
 import chaidiff from 'chai-diff';
+import fs from 'fs';
+import _ from 'lodash';
 import BaseAPI from '../dependencies/baseAPI';
 let base = new BaseAPI();
 chai.should();
@@ -28,6 +30,29 @@ let deveoMercurialInboxId;
 let deveoSVNInboxId;
 let deveoWebdavInboxId;
 
+
+test.after.always('savePerformanceData', t => {
+    console.log("All vars have values? apiKey: " + apiKey + ", instanceId: " + instanceId + ", digestId: " + digestId + ", gitbubIndoxId: " + gitHubInboxId);
+    let data = "";
+    data+= "export APIKEY=" + apiKey + "\n";
+    data+= "export INSTANCEID=" + instanceId + "\n";
+    data+= "export DIGESTID=" + digestId + "\n";
+    data+= "export GITHUBINBOXID=" + gitHubInboxId + "\n";
+    data+= "export GITLABINBOXID=" + gitLabInboxId + "\n";
+    data+= "export BITBUCKETID=" + bitbucketInboxId + "\n";
+    data+= "export VSOGITINBOXID=" + vsoGitInboxId + "\n";
+    data+= "export VSOTFVCINBOXID=" + vsoTfvcInboxId + "\n";
+    data+= "export TFSONPREMINBOXID=" + tfsOnPremInboxId + "\n";
+    data+= "export SUBVERSIONINBOXID=" + subversionInboxId + "\n";
+    data+= "export GITSWARMINBOXID=" + gitSwarmInboxId + "\n";
+    data+= "export PERFORCEP4VINBOXID=" + perforceP4VInboxId + "\n";
+    data+= "export DEVEOGITINBOXID=" + deveoGitInboxId + "\n";
+    data+= "export DEVEOMERCURIALINBOXID=" + deveoMercurialInboxId + "\n";
+    data+= "export DEVEOSVNINBOXID=" + deveoSVNInboxId + "\n";
+    data+= "export DEVEOWEBDAVINBOXID=" + deveoWebdavInboxId + "\n";
+
+    fs.writeFileSync('../../config/performanceData.txt', data, 'utf-8');
+});
 
 test.serial("Can I create an instance?", async t => {
     let response = await base.createInstance();
@@ -838,3 +863,5 @@ test.serial("Can I query the digest for all commits?", async t => {
     //console.log("Digest Commits output: " + JSON.stringify(digestCommitsText));
     JSON.parse(digestCommitsText).should.not.differentFrom(expected);
 });
+
+
