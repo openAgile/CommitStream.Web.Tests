@@ -1,20 +1,20 @@
 # CommitStream.Web.Tests
 
-###Summary
+## Summary
 This repository contains a set of tests and tools related to CommitStream.Web. 
 
-###Requirements
+### Requirements
 node.js 4.x.x
 
-###Running the `npm run` tests
+###R unning the `npm run` tests
 
 Most of the tests to run are executed via `npm run <test-suite-name>`. To see the list of available tests, just type `npm run` by itself.
 
-#####Example: API Tests 
+#### Example: API Tests 
 
 To run the API tests, type `npm run ca`. Note this will execute against `https://v1-cs-test.azurewebsites.net`.
 
-######Configuring the CommitStream instance URL
+##### Configuring the CommitStream instance URL
 If you want to run the API tests against your local instance of CommitStream that is running on the default location of `http://localhost:6565` instead of the Azure instance, type this:
 
 `export CS_ROOT_URL=http://localhost:6565`
@@ -23,7 +23,7 @@ If for some reason you don't want to export the variable, you can also set it fo
 
 ` CS_ROOT_URL=http://localhost:6565 npm run ca`
 
-######Expected results
+##### Expected results
 
 After running the API tests, you should see results like this:
 
@@ -34,7 +34,8 @@ You can copy the selected digest TeamRoom view URL and open it in your browser t
 ![image](https://cloud.githubusercontent.com/assets/1863005/22264310/7467618a-e245-11e6-9d2b-c786d86f696a.png)
 
 ### Data generation and additional tests setup
-Run the next commands in order and then you are ready to run the tests
+Run these commands in order and then you are ready to run the tests:
+
 ```
 npm install -g grunt-cli
 
@@ -56,7 +57,7 @@ grunt watch
 ```
 while working on the scripts so the files are transpiled as soon as you save changes.
 
-###Tests currently available###
+### Tests currently available
 - **create-demo-data.js**: Provides the ability to create data in CommitStream
 - **create-new-instance-with-digest.js**: Self descriptive.
 - **happy-path-end-to-end.tests.js**: Self descriptive.
@@ -64,9 +65,9 @@ while working on the scripts so the files are transpiled as soon as you save cha
 - **smoke.tests.js**
 
 ---
-###Usage###
+### Usag
 
-####create-demo-data.js:####
+#### create-demo-data.js:
 ```
 node create-demo-data.js --help
 ``` 
