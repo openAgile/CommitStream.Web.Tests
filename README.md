@@ -6,7 +6,7 @@ This repository contains a set of tests and tools related to CommitStream.Web.
 ### Requirements
 node.js 4.x.x
 
-###R unning the `npm run` tests
+### Running the `npm run` tests
 
 Most of the tests to run are executed via `npm run <test-suite-name>`. To see the list of available tests, just type `npm run` by itself.
 
