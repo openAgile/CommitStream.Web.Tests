@@ -399,19 +399,17 @@ test.serial("Expect 400 response and error message for invalid commit headers to
 
 test.serial("Expect 400 response and error message for invalid commit payload to TFVC inbox.", async t => {
     try {
-        await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, instanceId: vsoTfvcInboxId, validPayload: false, isMultiProject: false});
+        await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: false, isMultiProject: false});
     }
     catch(error) {
         let response = error.response;
         t.is(response.status, 400, "Uh oh...");
-        console.log("The full response: " + JSON.stringify((response)));
         let commit = response.data;
         let expected = base.expectedInvalidPayloadCommitResult({
             vcsType: 'VSTS',
             isScriptBased: false
         });
         commit.should.not.differentFrom(expected);
-        console.log("This is the value of commit: " + JSON.stringify((commit)));
     }
 });
 
