@@ -32,6 +32,7 @@ time curl -i -X POST \
                  "name": "therepo"
              }
          }' \
- 'localhost:6565/api/9f4b2e16-15b0-4e4c-9343-2e8c164fa543/inboxes/fe371082-de05-4df8-9820-5f24c2f4c060/commits?apiKey=f417d7cd-062b-45ae-8703-759e434752ad'
+         $2
+ #'localhost:6565/api/9f4b2e16-15b0-4e4c-9343-2e8c164fa543/inboxes/fe371082-de05-4df8-9820-5f24c2f4c060/commits?apiKey=f417d7cd-062b-45ae-8703-759e434752ad'
 
 done

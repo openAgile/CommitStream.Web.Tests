@@ -1,6 +1,3 @@
- stuff="http://localhost:6565/api/27aa2346-8e12-4869-96d7-21e90544b116/inboxes/d9e13898-45b3-4094-9942-ce2b1b689e62/commits?apiKey=7f3aeb2b-41f5-4d3f-b21c-8e7b76662d1e"
-echo stuff=$stuff
-
 for i in `seq 1 $1`;
 do
 
@@ -194,8 +191,5 @@ time curl -i -X POST \
     "created_on": "2017-04-24T15:54:45.727187+00:00"
   }
 }' \
-'http://localhost:6565/api/ac977fd2-6515-4dd3-a6ee-020c79c881d8/inboxes/c20bd3de-d4d8-451f-8f5e-39b626caf900/commits?apiKey=24494d0e-c4df-4fd5-bac1-a234c5c58224'
-#"$stuff"
-#'http://localhost:6565/api/3d8f15e7-af01-4153-b5b3-7ed8deee0b12/inboxes/f0ef74e1-945f-430d-9088-a70bb6965134/commits?apiKey=02059477-9480-46d4-877d-efc7ca5db2f9'
-
+"$2"
 done
