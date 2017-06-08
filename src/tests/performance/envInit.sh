@@ -1,5 +1,6 @@
-#!/usr/bin/bash
+#!/usr/bin/bash -x
 
+source ./urlBuilders.sh
 
 function initx {
 
@@ -71,7 +72,32 @@ echo "In build url scm=$1"
              export PRODUCTID
              url=`newDigestUrl`
          ;;
-         "queryNonExist")
+         "queryEsNonExist")
+             echo "Processing query-es-non-existent-instance!"
+             PRODUCTID="General"
+             export PRODUCTID
+             url=`queryInstance`
+        ;;
+        "queryNonExist")
+             echo "Processing query-non-existent-instance!"
+             PRODUCTID="General"
+             export PRODUCTID
+             url=`queryInstances`
+        ;;
+        "queryExist")
+            echo "Processing query-es-real-instance!"
+            PRODUCTID="General"
+            export PRODUCTID
+            url=`queryInstance real`
+         ;;
+         "c")
+             echo "Processing newDigest!"
+             #Has no function purpose Just because I dont want it to be null
+             PRODUCTID="General"
+             export PRODUCTID
+             url=`newDigestUrl`
+         ;;
+         "d")
              echo "Processing query-non-existent-instance!"
              PRODUCTID="General"
              export PRODUCTID
@@ -83,54 +109,9 @@ echo "In build url scm=$1"
         ;;
     esac
 
-
-#    url=${CS_ROOT_URL}
-#    url+='/api/'
-#    url+=${INSTANCEID}
-#    url+='/inboxes/'
-#    url+=${PRODUCTID}
-#    url+='/commits?apiKey='
-#    url+=${APIKEY}
-#     url=`basicUrlFunc`
     export url
     echo "Successfully buildUrl=${url}"
-    echo $url
     return 0
 }
 
-function basicUrl
-{
-    local url=${CS_ROOT_URL}
-    url+='/api/'
-    url+=${INSTANCEID}
-    url+='/inboxes/'
-    url+=${PRODUCTID}
-    url+='/commits?apiKey='
-    url+=${APIKEY}
-    echo "$url"
-}
 
-function newDigestUrl
-{
-    local url=${CS_ROOT_URL}
-    url+='/api/'
-    url+=${INSTANCEID}
-    url+='/digests'
-    url+='?apiKey='
-    url+=${APIKEY}
-    echo "$url"
-}
-
-function queryNonExist
-{
-    local url=${CS_ROOT_URL}
-    url+='/projection/instance/state?partition=instance-NOTHINGISHERE'
-    echo "$url"
-}
-
-function queryNonExist
-{
-    local url=${CS_ROOT_URL}
-    url+='/projection/instance/state?partition=instance-NOTHINGISHERE'
-    echo "$url"
-}
