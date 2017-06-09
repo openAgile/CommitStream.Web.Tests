@@ -4,9 +4,6 @@
 
 source envInit.sh
 
-#checkCommon
-#We need to know what kind of URL to build
-#buildUrl $3
 
 for i in `seq 1 $1`;
 do
