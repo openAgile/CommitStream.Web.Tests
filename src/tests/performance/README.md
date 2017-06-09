@@ -104,3 +104,37 @@ These are additional tools help maintain the pscript environment
  3) pshow - This shows all of the Commitstream related environment variables
     usage: pshow
 
+ 4) pSwitchRoot - This changes the CS_ROOT_URL to point to the appropriate url
+    usage pSwitchRoot <test | staging | local>
+    The argments represent https://v1-cs-test.azurewebsites.net, https://commitstream-staging.azurewebsites.net and http://localhost:6565
+    respectively.
+
+How to run specific tests
+
+Usually when running a test such as
+
+./runner.sh 1 "./post-bitbucket-pull-request.sh 1"
+
+This contains a sufficient number of arguments in order to run the test.  This is not the case for some tests.  For
+example, the test query-es-non-existent-instance.sh
+
+In a nutshell, this test works not against Commitstream but against Eventstore, the backing store for Commitstream.
+It simply checks for non existing instance by querying for a non-existing partition.
+
+ The function that handles this is called queryInstance().  This function is also overloaded to handle the
+ query-es-real-instance.sh by adding an argument like this
+
+ ./runner.sh 1 "./query-es-real-instance.sh 1" real
+
+ This will build the url accordingly.
+
+ There is another case where the same princple of explicitly overloading the function but there is another trick that
+ required to use the same function.  The script query-real-instance-v1-cs-test.sh requires that we use the same
+ queryInstance() but we also have to confirm that the URL is changed to point to v1-cs-test.  This script will not run
+ unless the user runs with yet another argument to allow to switch of the CS_ROOT_URL to point to v1-cs-test.
+
+ ./runner.sh 1 "./query-real-instance-v1-cs-test.sh 1" real "pSwitchRoot v1-cs-test"
+ 
+
+
+

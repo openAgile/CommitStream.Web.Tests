@@ -20,6 +20,10 @@ function clean
     source unsetPerformanceData.txt
 }
 
+function pSwitchRootUrl
+{
+
+}
 
 function checkCommon {
     if [ -z "${INSTANCEID}" ]; then

@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+
+
 function basicUrl
 {
     local url=${CS_ROOT_URL}
@@ -58,4 +60,5 @@ function queryInstances
 
     echo "$url"
 }
+
 
