@@ -19,11 +19,21 @@ That will create 20 bash processes and run curl 150 times each in each window, f
 
 
 #Addendum
+Introduction to pScripts
+
 Overall scheme
-When running the Commitstream tests (npm run ca) a file performanceData.txt is generated in the folder
-CommitStream.Web.Tests/config.  This folder is a list of the VCSes that Commitstream supports.  Each VCS is prepended with
-the linux command export and appended with '=SOME_IDENTIFIER'
-For example
+
+PScripts is a set of Bash shell scripts written to test various performance aspects of Commitstream.  It contains a set
+a set of scripts that test things like the creation of new digests or the testing of how the system reacts to undefined
+parameters.  The scripts work together to create an execution environment that dynamically creates the proper urls needed
+to execute a particular test.  The tests can create extra processes and generate a flood of requests whereby simulating
+multiple computers sending and attempting to executing and testing Commitstream functionality.
+
+When running the Commitstream tests (ie. npm run ca) a file performanceData.txt is generated in the folder
+CommitStream.Web.Tests/config.  This file contains a list of the VCSes that Commitstream supports.  Each VCS is prepended
+with the linux command "export" and appended with " '=SOME_IDENTIFIER' "
+
+For example,
 
 export APIKEY=24494d0e-c4df-4fd5-bac1-a234c5c58224
 export INSTANCEID=ac977fd2-6515-4dd3-a6ee-020c79c881d8
@@ -43,11 +53,14 @@ All you need to do is enter the following
 
 ./masterRunner.sh
 
-If you would like to see more detail, execute
-bash -x ./masterRunner.sh
-This will add some debug to the execution
+If you would like to see more detail during your execution, to be precise, the what is going on with the shell that is
+executing your script ,then
 
-All environment variables will fall out of scope and disapper.
+bash -x ./masterRunner.sh
+
+This execution is somewhat a closure in the sense that scope is the shell context where the script executes. Once this
+masterRunner.sh terminates, the environment variables will fall out of scope and disapper leaving your command
+environment non poluted.
 
 2) CmdLine - This is a more manual testing technique.  The use case when using this methodology is when you need to look
 up close and personal at the execution and results of an individual test.
