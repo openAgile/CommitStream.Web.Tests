@@ -8,7 +8,8 @@ time curl -i -X POST \
   "description": "Digest!" 
 }' \
  "$2"
- #'http://localhost:6565/api/888827a2-06ef-4f18-b53f-885d1fc5394c/digests?apiKey=0e8b1681-5e3a-423a-a481-dacf31fe3191'
+
+#'http://localhost:6565/api/888827a2-06ef-4f18-b53f-885d1fc5394c/digests?apiKey=0e8b1681-5e3a-423a-a481-dacf31fe3191'
 
  
 done

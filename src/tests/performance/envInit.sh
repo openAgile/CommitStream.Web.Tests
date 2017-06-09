@@ -1,4 +1,4 @@
-#!/usr/bin/bash -x
+#!/usr/bin/bash
 
 source ./urlBuilders.sh
 source ./cmdLineTools.sh

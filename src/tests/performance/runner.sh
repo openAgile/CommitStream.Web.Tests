@@ -1,4 +1,4 @@
-#!/usr/bin/bash -x
+#!/usr/bin/bash
 
 #usage: ./runner <performance-script-name> <Number of concurrent spawns>
 
