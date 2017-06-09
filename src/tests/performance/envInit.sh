@@ -1,6 +1,7 @@
 #!/usr/bin/bash -x
 
 source ./urlBuilders.sh
+source ./cmdLineTools.sh
 
 function initx {
 
