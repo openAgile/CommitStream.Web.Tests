@@ -22,7 +22,7 @@ function clean
 
 function pSwitchRootUrl
 {
-
+    echo "TODO"
 }
 
 function checkCommon {
