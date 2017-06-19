@@ -47,6 +47,7 @@ function queryInstance
 function queryInstances
 {
 #'http://localhost:6565/api/instances/NOTHINGHERE?apiKey=blah'
+
     local url=${CS_ROOT_URL}
     url+='/api/instances/'
     local tempAPIKey ='fakeApiKey'
