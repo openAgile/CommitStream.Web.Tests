@@ -128,13 +128,20 @@ It simply checks for non existing instance by querying for a non-existing partit
 
  This will build the url accordingly.
 
+WIP
  There is another case where the same princple of explicitly overloading the function but there is another trick that
  required to use the same function.  The script query-real-instance-v1-cs-test.sh requires that we use the same
  queryInstance() but we also have to confirm that the URL is changed to point to v1-cs-test.  This script will not run
  unless the user runs with yet another argument to allow to switch of the CS_ROOT_URL to point to v1-cs-test.
 
  ./runner.sh 1 "./query-real-instance-v1-cs-test.sh 1" real "pSwitchRoot v1-cs-test"
- 
 
 
 
+
+Q&A
+
+1) Q: How do I run post-bitbucket-pull-request-v1-cs-test.sh?
+   A: This is a test that specifically uses the v1-cs-test Commitstream instance as the target instance.
+      This is the default instance value for the CS_ROOT_URL environment variable. So technically you get
+      the same results when you run post-bitbucket-pull-request.

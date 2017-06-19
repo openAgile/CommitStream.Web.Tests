@@ -20,9 +20,27 @@ function clean
     source unsetPerformanceData.txt
 }
 
-function pSwitchRootUrl
+function switchUrl
 {
-    echo "TODO"
+    case $1 in
+            "localhost")
+                echo "Switching url to localhost:6565!"
+                export CS_ROOT_URL="http://localhost:6565"
+                set CS_ROOT_UL
+             ;;
+            "v1-cs-test")
+                echo "Switching url to test instance https://v1-cs-test.azurewebsites.net !"
+                export CS_ROOT_URL="https://v1-cs-test.azurewebsites.net"
+             ;;
+            "staging")
+                echo "Switching url to staging instance https://v1-cs-test.azurewebsites.net !"
+                export CS_ROOT_URL="https://v1-cs-test.azurewebsites.net"
+             ;;
+             *)
+                echo "Cant determine what host you are trying to switch to"
+                return 1
+             ;;
+    esac
 }
 
 function checkCommon {
@@ -32,6 +50,12 @@ function checkCommon {
     else
         echo "Successful capture of INSTANCEID=${INSTANCEID}"
     fi
+    if [ -z "${DIGESTID}" ]; then
+        echo "You do not have a DIGESTID variable set in your environment"
+        exit 1
+    else
+        echo "Successful capture of INSTANCEID=${DIGESTID}"
+    fi
 
     if [ -z "${APIKEY}" ]; then
         echo "You do not have an APIKEY variable set in your environment"
@@ -39,15 +63,28 @@ function checkCommon {
     else
         echo "Successful capture of APIKEY=${APIKEY}"
     fi
+    if [ -z "${BITBUCKETID}" ]; then
+        echo "You do not have an BITBUCKETID variable set in your environment"
+        exit 1
+    else
+        echo "Successful capture of BITBUCKETID=${BITBUCKETID}"
+    fi
+    if [ -z "${GITHUBINBOXID}" ]; then
+        echo "You do not have an GITHUBINBOXID variable set in your environment"
+        exit 1
+    else
+        echo "Successful capture of GITHUBINBOXID=${GITHUBINBOXID}"
+    fi
 
     if [  -z "${CS_ROOT_URL}" ]
     then
-       echo "Assuming since you dont have CS_ROOT_URL, this is hosted."
-       #KILLTHIS.  this is just forcing an instance locally for testing
-       export CS_ROOT_URL="http://localhost:6565"
+       echo "Assuming since you dont have CS_ROOT_URL, this is cs-test instance."
+       echo "CS_ROOT_URL pointing to https://v1-cs-test.azurewebsites.net/version."
+       export CS_ROOT_URL="https://v1-cs-test.azurewebsites.net/version"
     else
        echo "Looks like you have CS_ROOT"
     fi
+
 
 }
 
@@ -71,7 +108,7 @@ echo "In build url scm=$1"
             url=`basicUrl`
          ;;
          "newDigest")
-             echo "Processing newDigest!"
+             echo "Processing Post New Digest!"
              #Has no function purpose Just because I dont want it to be null
              PRODUCTID="General"
              export PRODUCTID

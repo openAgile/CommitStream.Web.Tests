@@ -13,3 +13,6 @@ buildUrl github
 ./runner.sh 1 "./post-github-commits.sh 1"
 
 
+
+buildUrl bitbucket
+
