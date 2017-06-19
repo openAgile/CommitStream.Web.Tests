@@ -31,35 +31,46 @@ function queryNonExist
     echo "$url"
 }
 
-function queryInstance
+function queryInstanceEs
 {
+# non http://localhost:2113/projection/instance/state?partition=instance-NOTHINGISHERE
+# real http://localhost:2113/projection/instance/state?partition=instance-04687d4f-8bdc-45c0-8df7-95b6646cc621'
     local url=${CS_ROOT_URL}
     url+='/projection/instance/state?partition=instance-'
 
-    if [ $1 == "real"  ]; then
-        url+=${INSTANCEID}
+    if [ $1 == "non"  ]; then
+       url+='-NOTHINGISHERE'
     else
-        url+='-NOTHINGISHERE'
+       url+=${INSTANCEID}
     fi
     echo "$url"
 }
 
-function queryInstances
+function queryInstance
 {
-#'http://localhost:6565/api/instances/NOTHINGHERE?apiKey=blah'
+# non 'http://localhost:6565/api/instances/NOTHINGHERE?apiKey=blah'
+# real http://localhost:6565/api/instances/04687d4f-8bdc-45c0-8df7-95b6646cc621?apiKey=9a4c25d1-e614-43a8-8a0c-ee8b2cb75435'
 
     local url=${CS_ROOT_URL}
     url+='/api/instances/'
     local tempAPIKey ='fakeApiKey'
-    if [ $1 == "real"  ]; then
-        url+=${INSTANCEID}
-        tempAPI = ${APIKEY}
-    else
+
+    if [ $1 == "non"  ]; then
         url+='-NOTHINGISHERE'
+    else
+        url+=${INSTANCEID}
+        tempAPIKey = ${APIKEY}
     fi
     url+=$tempAPIKey
 
     echo "$url"
 }
 
+function queryV1
+{
+#'https://v1-cs-test.azurewebsites.net/api/public'
+    local url=${CS_ROOT_URL}
+    url+='/api/public'
+    echo "$url"
+}
 

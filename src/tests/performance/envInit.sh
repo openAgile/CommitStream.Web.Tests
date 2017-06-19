@@ -118,20 +118,21 @@ echo "In build url scm=$1"
              echo "Processing query-es-non-existent-instance!"
              PRODUCTID="General"
              export PRODUCTID
-             url=`queryInstance`
+             url=`queryInstanceEs non`
+        ;;
+        "queryEsExist")
+             echo "Processing query-es-real-instance!"
+             PRODUCTID="General"
+             export PRODUCTID
+             url=`queryInstanceEs`
         ;;
         "queryNonExist")
              echo "Processing query-non-existent-instance!"
              PRODUCTID="General"
              export PRODUCTID
-             url=`queryInstances`
+             url=`queryInstances non`
         ;;
-        "queryExist")
-            echo "Processing query-es-real-instance!"
-            PRODUCTID="General"
-            export PRODUCTID
-            url=`queryInstance real`
-         ;;
+
          "c")
              echo "Processing newDigest!"
              #Has no function purpose Just because I dont want it to be null

@@ -144,4 +144,23 @@ Q&A
 1) Q: How do I run post-bitbucket-pull-request-v1-cs-test.sh?
    A: This is a test that specifically uses the v1-cs-test Commitstream instance as the target instance.
       This is the default instance value for the CS_ROOT_URL environment variable. So technically you get
-      the same results when you run post-bitbucket-pull-request.
+      the same results when you run post-bitbucket-pull-request.  The output range of these scripts
+      are a function (no pun intended)
+      of the CS_ROOT_URL.
+
+2) Q: How do I run post-github-pull-request-v1-cs-test.sh?
+   A: This is is the same situation as 1).  In fact the same goes for any other test that contains
+   v1.cs-test in its name with exception of tests that have real instances and fake instance.
+   ( the name of script contains the text "real" and "non-existence respectively")  There is a twist to tests that have "non-existent" in their name. In order
+
+3) Q: How do I handle scripts with "non-exitence" in their name?
+   A: Lets use the query-non-existent-instance-v1cs-test.sh. The solution can be described as having two parts
+      (a) The words non-existence - This indicates that the test has the form
+         ${CS_ROOT_URL}/api/instances/NOTHINGHERE?apiKey=blah'
+          or
+          ${CS_ROOT_URL}/projection/instance/state?partition=instance-NOTHINGISHERE
+
+      (b) The words v1-cs-test - refers to the value of ${CS_ROOT_URL}, the test instance.  This
+
+    so in order to set this up, your Master runner needs the following lines
+    
