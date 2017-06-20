@@ -107,38 +107,36 @@ echo "In build url scm=$1"
             export PRODUCTID
             url=`basicUrl`
          ;;
-         "newDigest")
+         "postNewDigest")
              echo "Processing Post New Digest!"
              #Has no function purpose Just because I dont want it to be null
              PRODUCTID="General"
              export PRODUCTID
              url=`newDigestUrl`
          ;;
-         "queryEsNonExist")
+         "queryEsNonExistentInstance")
              echo "Processing query-es-non-existent-instance!"
              PRODUCTID="General"
              export PRODUCTID
              url=`queryInstanceEs non`
         ;;
-        "queryEsExist")
+        "queryEsRealInstance")
              echo "Processing query-es-real-instance!"
              PRODUCTID="General"
              export PRODUCTID
              url=`queryInstanceEs`
         ;;
-        "queryNonExist")
+        "queryNonExistentInstance")
              echo "Processing query-non-existent-instance!"
              PRODUCTID="General"
              export PRODUCTID
-             url=`queryInstances non`
+             url=`queryInstance non`
         ;;
-
-         "c")
-             echo "Processing newDigest!"
-             #Has no function purpose Just because I dont want it to be null
+        "queryRealInstance")
+             echo "Processing query-real-instance!"
              PRODUCTID="General"
              export PRODUCTID
-             url=`newDigestUrl`
+             url=`queryInstance`
          ;;
          "d")
              echo "Processing query-non-existent-instance!"

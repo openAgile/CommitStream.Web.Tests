@@ -35,6 +35,7 @@ function queryInstanceEs
 {
 # non http://localhost:2113/projection/instance/state?partition=instance-NOTHINGISHERE
 # real http://localhost:2113/projection/instance/state?partition=instance-04687d4f-8bdc-45c0-8df7-95b6646cc621'
+
     local url=${CS_ROOT_URL}
     url+='/projection/instance/state?partition=instance-'
 
