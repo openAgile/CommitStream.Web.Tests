@@ -46,32 +46,32 @@ function switchUrl
 function checkCommon {
     if [ -z "${INSTANCEID}" ]; then
         echo "You do not have an INSTANCEID variable set in your environment"
-        exit 1
+        break
     else
         echo "Successful capture of INSTANCEID=${INSTANCEID}"
     fi
     if [ -z "${DIGESTID}" ]; then
         echo "You do not have a DIGESTID variable set in your environment"
-        exit 1
+        break
     else
         echo "Successful capture of INSTANCEID=${DIGESTID}"
     fi
 
     if [ -z "${APIKEY}" ]; then
         echo "You do not have an APIKEY variable set in your environment"
-        exit 1
+        break
     else
         echo "Successful capture of APIKEY=${APIKEY}"
     fi
     if [ -z "${BITBUCKETID}" ]; then
         echo "You do not have an BITBUCKETID variable set in your environment"
-        exit 1
+        break
     else
         echo "Successful capture of BITBUCKETID=${BITBUCKETID}"
     fi
     if [ -z "${GITHUBINBOXID}" ]; then
         echo "You do not have an GITHUBINBOXID variable set in your environment"
-        exit 1
+        break
     else
         echo "Successful capture of GITHUBINBOXID=${GITHUBINBOXID}"
     fi
@@ -138,11 +138,11 @@ echo "In build url scm=$1"
              export PRODUCTID
              url=`queryInstance`
          ;;
-         "queryV1")
+         "queryVersion")
              echo "Processing query-v1!"
              PRODUCTID="General"
              export PRODUCTID
-             url=`queryV1`
+             url=`queryVersion`
         ;;
         *)
             echo "Cant determine what test you are specifying to run, exiting buildUrl()"

@@ -87,7 +87,7 @@ I will explain the role and goal of each line
   a) Copy the performanceData.txt to the working folder
   b) Initialize the environment with the environment variables needed to run tests against VCS and CS instances in general.
 
-3) CheckCommon - The confirms that existence of INSTANCEID, APIKEY AND CS_ROOT_URL
+3) checkCommon - The confirms that existence of INSTANCEID, APIKEY AND CS_ROOT_URL
 
 4) buildUrl bitbucket - This builds a url when the Bitbucket.  This url gets pulled into each test that gets executed.
   In some cases we will have tests that are not vendor VCS specific but test instances.  These get built here as well.

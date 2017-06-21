@@ -4,6 +4,7 @@
 source ./envInit.sh
 initx
 checkCommon
+switchUrl v1-cs-test
 
 #Runner Section
 buildUrl bitbucket
@@ -27,5 +28,5 @@ buildUrl queryNonExistentInstance
 buildUrl queryRealInstance
 ./runner.sh 1 "./query-real-instance.sh 1"
 
-buildUrl queryV1
+buildUrl queryVersion
 ./runner.sh 1 "./query-real-instance.sh 1"

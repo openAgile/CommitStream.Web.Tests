@@ -67,7 +67,7 @@ function queryInstance
     echo "$url"
 }
 
-function queryV1
+function queryVersion
 {
 #'https://v1-cs-test.azurewebsites.net/api/public'
     local url=${CS_ROOT_URL}
