@@ -29,4 +29,4 @@ buildUrl queryRealInstance
 ./runner.sh 1 "./query-real-instance.sh 1"
 
 buildUrl queryVersion
-./runner.sh 1 "./query-real-instance.sh 1"
+./runner.sh 1 "./query-version.sh 1"

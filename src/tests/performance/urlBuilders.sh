@@ -54,7 +54,7 @@ function queryInstance
 
     local url=${CS_ROOT_URL}
     url+='/api/instances/'
-    local tempAPIKey ='fakeApiKey'
+    local tempAPIKey='fakeApiKey'
 
     if [ $1 == "non"  ]; then
         url+='-NOTHINGISHERE'
