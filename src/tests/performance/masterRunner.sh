@@ -26,3 +26,6 @@ buildUrl queryNonExistentInstance
 
 buildUrl queryRealInstance
 ./runner.sh 1 "./query-real-instance.sh 1"
+
+buildUrl queryV1
+./runner.sh 1 "./query-real-instance.sh 1"

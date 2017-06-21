@@ -138,11 +138,11 @@ echo "In build url scm=$1"
              export PRODUCTID
              url=`queryInstance`
          ;;
-         "d")
-             echo "Processing query-non-existent-instance!"
+         "queryV1")
+             echo "Processing query-v1!"
              PRODUCTID="General"
              export PRODUCTID
-             url=`queryNonExist`
+             url=`queryV1`
         ;;
         *)
             echo "Cant determine what test you are specifying to run, exiting buildUrl()"
