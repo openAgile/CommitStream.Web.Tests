@@ -57,11 +57,12 @@ function queryInstance
     local tempAPIKey='fakeApiKey'
 
     if [ $1 == "non"  ]; then
-        url+='-NOTHINGISHERE'
+        url+='NOTHINGISHERE'
     else
         url+=${INSTANCEID}
         tempAPIKey = ${APIKEY}
     fi
+    url+='?'
     url+=$tempAPIKey
 
     echo "$url"
