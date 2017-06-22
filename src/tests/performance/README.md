@@ -24,13 +24,13 @@ Introduction to pScripts
 Overall scheme
 
 PScripts is a set of Bash shell scripts written to test various performance aspects of Commitstream.  It contains a set
-a set of scripts that test things like the creation of new digests or the testing of how the system reacts to undefined
+of scripts that test things like the creation of new digests or the testing of how the system reacts to undefined
 parameters.  The scripts work together to create an execution environment that dynamically creates the proper urls needed
 to execute a particular test.  The tests can create extra processes and generate a flood of requests whereby simulating
-multiple computers sending and attempting to executing and testing Commitstream functionality.
+multiple computers sending and attempting to execute and test Commitstream functionality.
 
 When running the Commitstream tests (ie. npm run ca) a file performanceData.txt is generated in the folder
-CommitStream.Web.Tests/config.  This file contains a list of the VCSes that Commitstream supports.  Each VCS is prepended
+CommitStream.Web.Tests/config.  This file contains a list of the VCSs that Commitstream supports.  Each VCS is prepended
 with the linux command "export" and appended with " '=SOME_IDENTIFIER' "
 
 For example,
@@ -60,7 +60,7 @@ bash -x ./masterRunner.sh
 
 This execution is somewhat a closure in the sense that scope is the shell context where the script executes. Once this
 masterRunner.sh terminates, the environment variables will fall out of scope and disapper leaving your command
-environment non poluted.
+environment non polluted.
 
 2) CmdLine - This is a more manual testing technique.  The use case when using this methodology is when you need to look
 up close and personal at the execution and results of an individual test.
@@ -87,18 +87,18 @@ I will explain the role and goal of each line
   a) Copy the performanceData.txt to the working folder
   b) Initialize the environment with the environment variables needed to run tests against VCS and CS instances in general.
 
-3) checkCommon - The confirms that existence of INSTANCEID, APIKEY AND CS_ROOT_URL
+3) checkCommon - This confirms the existence of INSTANCEID, APIKEY AND CS_ROOT_URL
 
 4) buildUrl bitbucket - This builds a url when the Bitbucket.  This url gets pulled into each test that gets executed.
   In some cases we will have tests that are not vendor VCS specific but test instances.  These get built here as well.
 
 Helper Tools
 
-These are additional tools help maintain the pscript environment
+These are additional tools to help maintain the pscript environment
  1) pserver - This gets your instance id
     usage: pserver
 
- 2) pdelete - This removes and environment
+ 2) pdelete - This removes an environment
     usage: pdelete <environment variable>
 
  3) pshow - This shows all of the Commitstream related environment variables
@@ -153,7 +153,7 @@ Q&A
    v1.cs-test in its name with exception of tests that have real instances and fake instance.
    ( the name of script contains the text "real" and "non-existence respectively")  There is a twist to tests that have "non-existent" in their name. In order
 
-3) Q: How do I handle scripts with "non-exitence" in their name?
+3) Q: How do I handle scripts with "non-existence" in their name?
    A: Lets use the query-non-existent-instance-v1cs-test.sh. The solution can be described as having two parts
       (a) The words non-existence - This indicates that the test has the form
          ${CS_ROOT_URL}/api/instances/NOTHINGHERE?apiKey=blah'
