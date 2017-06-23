@@ -5,11 +5,10 @@
 source envInit.sh
 
 
-for i in `seq 1 $1`;
+for ((c=1; c<=$1; c++))
 do
 #Call the current performance script with the url as the argument
-`$2 $url &`
-echo "************* ================== >>>>>>>>>> HERE IS MY SEQUENCE NUMBER: $i"
-done
+output=`$2 $url &`&&(echo "\n";echo $output)
 
-#wait;
+echo "************* ================== >>>>>>>>>> HERE IS MY SEQUENCE NUMBER: $c"
+done

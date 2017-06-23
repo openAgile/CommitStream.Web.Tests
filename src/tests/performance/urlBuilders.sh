@@ -38,12 +38,18 @@ function queryInstanceEs
 
     local url=${CS_ROOT_URL}
     url+='/projection/instance/state?partition=instance-'
-
-    if [ $1 == "non"  ]; then
-       url+='-NOTHINGISHERE'
+    if [ $# -ne 0 ]
+    then
+        if [ $1 == "non"  ]
+        then
+            url+='-NOTHINGISHERE'
+        else
+            url+=${INSTANCEID}
+        fi
     else
-       url+=${INSTANCEID}
+        url+=${INSTANCEID}
     fi
+
     echo "$url"
 }
 
@@ -60,7 +66,7 @@ function queryInstance
         url+='NOTHINGISHERE'
     else
         url+=${INSTANCEID}
-        tempAPIKey = ${APIKEY}
+        tempAPIKey=${APIKEY}
     fi
     url+='?'
     url+=$tempAPIKey

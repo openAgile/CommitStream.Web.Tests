@@ -3,6 +3,22 @@
 source ./urlBuilders.sh
 source ./cmdLineTools.sh
 
+function fPostNewDigest
+{
+    for i in `seq 1 $1`;
+    do
+
+        curl -i -X POST \
+       -H "Content-Type:application/json" \
+       -d \
+    '{
+      "description": "Digest!"
+    }' "$2"
+    printf  "\n************* ================== >>>>>>>>>>ITERATION=%s\n" "$i"
+    done
+}
+
+
 function initx {
 
     export PDATAPATH="../../../config/performanceData.txt"
