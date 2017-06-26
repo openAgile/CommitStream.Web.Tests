@@ -71,7 +71,7 @@ function checkCommon {
         echo "You do not have a DIGESTID variable set in your environment"
         break
     else
-        echo "Successful capture of INSTANCEID=${DIGESTID}"
+        echo "Successful capture of DIGESTID=${DIGESTID}"
     fi
 
     if [ -z "${APIKEY}" ]; then
