@@ -30,32 +30,33 @@ function initx {
 
 function clean
 {
-    echo "Deleting $PDATAPATH"
+    echo "Deleting performanceData.txt file.  You will have to run initx again in order to get a copy of it"
     rm ./performanceData.txt
     unset PRODUCTID
+    unset CS_ROOT
     source unsetPerformanceData.txt
 }
 
 function switchUrl
 {
     case $1 in
-            "localhost")
-                echo "Switching url to localhost:6565!"
-                export CS_ROOT_URL="http://localhost:6565"
-                set CS_ROOT_UL
-             ;;
-            "v1-cs-test")
-                echo "Switching url to test instance https://v1-cs-test.azurewebsites.net !"
-                export CS_ROOT_URL="https://v1-cs-test.azurewebsites.net"
-             ;;
-            "staging")
-                echo "Switching url to staging instance https://v1-cs-test.azurewebsites.net !"
-                export CS_ROOT_URL="https://v1-cs-test.azurewebsites.net"
-             ;;
-             *)
-                echo "Cant determine what host you are trying to switch to"
-                return 1
-             ;;
+        "localhost")
+            echo "Switching url to localhost:6565!"
+            export CS_ROOT_URL="http://localhost:6565"
+            set CS_ROOT_UL
+         ;;
+        "v1-cs-test")
+            echo "Switching url to test instance https://v1-cs-test.azurewebsites.net !"
+            export CS_ROOT_URL="https://v1-cs-test.azurewebsites.net"
+         ;;
+        "staging")
+            echo "Switching url to staging instance https://v1-cs-test.azurewebsites.net !"
+            export CS_ROOT_URL="https://v1-cs-test.azurewebsites.net"
+         ;;
+         *)
+            echo "Cant determine what host you are trying to switch to"
+            return 1
+         ;;
     esac
 }
 
@@ -107,7 +108,7 @@ function checkCommon {
 function buildUrl {
 #TODO remove the explicit cmd line argument and parse the the test name
 #TODO For example post-github-commits if
-echo "In build url scm=$1"
+    echo "In build url scm=$1"
     case $1 in
         "bitbucket")
             echo "Processing Bitbucket!"
