@@ -70,9 +70,11 @@ executing your script ,then
 bash -x ./masterRunner.sh
 
 This execution is somewhat a closure in the sense that scope is the shell context where the script executes. Once this
-masterRunner.sh terminates, the environment variables will fall out of scope and disapper leaving your command
+masterRunner.sh terminates, the environment variables will fall out of scope and disappear leaving your command
 environment non polluted.
 
+Note: While executing masterRunner.sh, if you do not have all of the proper environment variables set, the script will
+terminate after encountering the variable.
 
 2) CmdLine - This is a more manual testing technique.  The use case when using this methodology is when you need to look
 up close and personal at the execution and results of an individual test.

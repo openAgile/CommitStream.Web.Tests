@@ -63,32 +63,32 @@ function switchUrl
 function checkCommon {
     if [ -z "${INSTANCEID}" ]; then
         echo "You do not have an INSTANCEID variable set in your environment"
-        break
+        exit 1
     else
         echo "Successful capture of INSTANCEID=${INSTANCEID}"
     fi
     if [ -z "${DIGESTID}" ]; then
         echo "You do not have a DIGESTID variable set in your environment"
-        break
+        exit 1
     else
         echo "Successful capture of DIGESTID=${DIGESTID}"
     fi
 
     if [ -z "${APIKEY}" ]; then
         echo "You do not have an APIKEY variable set in your environment"
-        break
+        exit 1
     else
         echo "Successful capture of APIKEY=${APIKEY}"
     fi
     if [ -z "${BITBUCKETID}" ]; then
         echo "You do not have an BITBUCKETID variable set in your environment"
-        break
+        exit 1
     else
         echo "Successful capture of BITBUCKETID=${BITBUCKETID}"
     fi
     if [ -z "${GITHUBINBOXID}" ]; then
         echo "You do not have an GITHUBINBOXID variable set in your environment"
-        break
+        exit 1
     else
         echo "Successful capture of GITHUBINBOXID=${GITHUBINBOXID}"
     fi
