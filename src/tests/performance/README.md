@@ -46,6 +46,17 @@ reduced to the trivial case.
 
 
 pScripts can be used in a batch fashion or cmdline.
+Here is a list of all tests that can be run
+
+1) post-bitbucket-pull-request.sh
+2) post-github-commits.sh
+3) post new-digest.sh
+4) query-new-non-existent-instance.sh
+5) query-es-real-instance.sh
+6) query-real-instance.sh
+7) query-version.sh
+
+
 
 1) Batch - Examine the masterRunner.sh file.  You will see two sections Prep and Runner.  Modify to fit your flavor.  As the
 batch script executes, it will create an environment, do all of the processing and running of the scripts then terminate.
@@ -61,6 +72,7 @@ bash -x ./masterRunner.sh
 This execution is somewhat a closure in the sense that scope is the shell context where the script executes. Once this
 masterRunner.sh terminates, the environment variables will fall out of scope and disapper leaving your command
 environment non polluted.
+
 
 2) CmdLine - This is a more manual testing technique.  The use case when using this methodology is when you need to look
 up close and personal at the execution and results of an individual test.
@@ -110,21 +122,11 @@ These are additional tools to help maintain the pscript environment
     respectively.
 
 How to run specific tests
+The pattern is
 
-Usually when running a test such as
-
+buildUrl bitbucket
 ./runner.sh 1 "./post-bitbucket-pull-request.sh 1"
 
-This contains a sufficient number of arguments in order to run the test.  This is not the case for some tests.  For
-example, the test query-es-non-existent-instance.sh
-
-In a nutshell, this test works not against Commitstream but against Eventstore, the backing store for Commitstream.
-It simply checks for non existing instance by querying for a non-existing partition.
-
- The function that handles this is called queryInstance().  This function is also overloaded to handle the
- query-es-real-instance.sh by adding an argument like this
-
- ./runner.sh 1 "./query-es-real-instance.sh 1" real
 
  This will build the url accordingly.
 
@@ -136,31 +138,4 @@ WIP
 
  ./runner.sh 1 "./query-real-instance-v1-cs-test.sh 1" real "pSwitchRoot v1-cs-test"
 
-
-
-WIP
-Q&A
-
-1) Q: How do I run post-bitbucket-pull-request-v1-cs-test.sh?
-   A: This is a test that specifically uses the v1-cs-test Commitstream instance as the target instance.
-      This is the default instance value for the CS_ROOT_URL environment variable. So technically you get
-      the same results when you run post-bitbucket-pull-request.  The output range of these scripts
-      are a function (no pun intended)
-      of the CS_ROOT_URL.
-
-2) Q: How do I run post-github-pull-request-v1-cs-test.sh?
-   A: This is is the same situation as 1).  In fact the same goes for any other test that contains
-   v1.cs-test in its name with exception of tests that have real instances and fake instance.
-   ( the name of script contains the text "real" and "non-existence respectively")  There is a twist to tests that have "non-existent" in their name. In order
-
-3) Q: How do I handle scripts with "non-existence" in their name?
-   A: Lets use the query-non-existent-instance-v1cs-test.sh. The solution can be described as having two parts
-      (a) The words non-existence - This indicates that the test has the form
-         ${CS_ROOT_URL}/api/instances/NOTHINGHERE?apiKey=blah'
-          or
-          ${CS_ROOT_URL}/projection/instance/state?partition=instance-NOTHINGISHERE
-
-      (b) The words v1-cs-test - refers to the value of ${CS_ROOT_URL}, the test instance.  This
-
-    so in order to set this up, your Master runner needs the following lines
     
