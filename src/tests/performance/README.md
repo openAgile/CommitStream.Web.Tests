@@ -104,8 +104,8 @@ These are additional tools to help maintain the pscript environment
  3) pshow - This shows all of the Commitstream related environment variables
     usage: pshow
 
- 4) pSwitchRoot - This changes the CS_ROOT_URL to point to the appropriate url
-    usage pSwitchRoot <test | staging | local>
+ 4) switchUrl - This changes the CS_ROOT_URL to point to the appropriate url
+    usage pSwitchRoot <v1-cs-test | localhost>
     The argments represent https://v1-cs-test.azurewebsites.net, https://commitstream-staging.azurewebsites.net and http://localhost:6565
     respectively.
 
@@ -138,7 +138,7 @@ WIP
 
 
 
-
+WIP
 Q&A
 
 1) Q: How do I run post-bitbucket-pull-request-v1-cs-test.sh?
