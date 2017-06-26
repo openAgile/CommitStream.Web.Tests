@@ -3,16 +3,32 @@
 
 #Prep Section
 
+isANumber='^[0-9]+$'
 
 if [ "$#" -ne 2 ]
 then
     echo "Since there are less than 2 args, we are going to run with both process and iterations set to 1"
     PROCESS_COUNTER=1
     ITERATION_COUNTER=1
-
 else
-    PROCESS_COUNTER=$1
-    ITERATION_COUNTER=$2
+    if [[ $1 =~ $isANumber ]]
+    then
+        echo "FIRST ARG IS A NUMBER "
+        if [[ $2 =~ $isANumber ]]
+        then
+            PROCESS_COUNTER=$1
+            ITERATION_COUNTER=$2
+        else
+            echo "Your second arg should be a number"
+            exit 1
+        fi
+    else
+        echo "Both arguments should be numeric. One or both may be non-numberic "
+        echo "Usage: ./masterRunner.sh <blank blank | number number>"
+        exit 1
+    fi
+    echo "You have entered non-numeric values for arguments "
+
 fi
 
 
@@ -25,7 +41,7 @@ switchUrl v1-cs-test
 buildUrl bitbucket
 ./runner2.sh ${PROCESS_COUNTER} "./post-bitbucket-pull-request.sh ${ITERATION_COUNTER}"
 echo "**************************************************************"
-exit 1
+
 buildUrl github
 ./runner2.sh ${PROCESS_COUNTER} "./post-github-commits.sh ${ITERATION_COUNTER}"
 echo "**************************************************************"
@@ -41,13 +57,13 @@ echo "**************************************************************"
 buildUrl queryEsRealInstance
 ./runner2.sh ${PROCESS_COUNTER} "./query-es-real-instance.sh ${ITERATION_COUNTER}"
 echo "**************************************************************"
-#wip
-#buildUrl queryNonExistentInstance
-#./runner2.sh 1 "./query-non-existent-instance.sh 1"
-#echo "**************************************************************"
+
+buildUrl queryNonExistentInstance
+./runner2.sh ${PROCESS_COUNTER} "./query-es-non-existent-instance.sh ${ITERATION_COUNTER}"
+echo "**************************************************************"
 
 buildUrl queryRealInstance
-#BROKEN ./runner2.sh 1 "./query-real-instance.sh 1"
+ ./runner2.sh ${PROCESS_COUNTER} "./query-real-instance.sh ${ITERATION_COUNTER}"
 echo "**************************************************************"
 
 buildUrl queryVersion
