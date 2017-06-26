@@ -122,22 +122,18 @@ These are additional tools to help maintain the pscript environment
     usage pSwitchRoot <v1-cs-test | localhost>
     The argments represent https://v1-cs-test.azurewebsites.net, https://commitstream-staging.azurewebsites.net and http://localhost:6565
     respectively.
+ 5) pclean - This removes all of the environment variables
 
 How to run specific tests
-The pattern is
 
+The pattern is
+build a a test url
+run a test
+
+For example,
 buildUrl bitbucket
 ./runner.sh 1 "./post-bitbucket-pull-request.sh 1"
 
 
- This will build the url accordingly.
+ This will build the url accordingly and run the test.
 
-WIP
- There is another case where the same princple of explicitly overloading the function but there is another trick that
- required to use the same function.  The script query-real-instance-v1-cs-test.sh requires that we use the same
- queryInstance() but we also have to confirm that the URL is changed to point to v1-cs-test.  This script will not run
- unless the user runs with yet another argument to allow to switch of the CS_ROOT_URL to point to v1-cs-test.
-
- ./runner.sh 1 "./query-real-instance-v1-cs-test.sh 1" real "pSwitchRoot v1-cs-test"
-
-    
