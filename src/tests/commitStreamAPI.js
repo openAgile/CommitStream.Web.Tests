@@ -33,23 +33,23 @@ let deveoWebdavInboxId;
 
 test.after.always('savePerformanceData', t => {
     console.log("All vars have values? apiKey: " + apiKey + ", instanceId: " + instanceId + ", digestId: " + digestId + ", gitbubIndoxId: " + gitHubInboxId);
-    let data = "";
-    data+= "export APIKEY=" + apiKey + "\n";
-    data+= "export INSTANCEID=" + instanceId + "\n";
-    data+= "export DIGESTID=" + digestId + "\n";
-    data+= "export GITHUBINBOXID=" + gitHubInboxId + "\n";
-    data+= "export GITLABINBOXID=" + gitLabInboxId + "\n";
-    data+= "export BITBUCKETID=" + bitbucketInboxId + "\n";
-    data+= "export VSOGITINBOXID=" + vsoGitInboxId + "\n";
-    data+= "export VSOTFVCINBOXID=" + vsoTfvcInboxId + "\n";
-    data+= "export TFSONPREMINBOXID=" + tfsOnPremInboxId + "\n";
-    data+= "export SUBVERSIONINBOXID=" + subversionInboxId + "\n";
-    data+= "export GITSWARMINBOXID=" + gitSwarmInboxId + "\n";
-    data+= "export PERFORCEP4VINBOXID=" + perforceP4VInboxId + "\n";
-    data+= "export DEVEOGITINBOXID=" + deveoGitInboxId + "\n";
-    data+= "export DEVEOMERCURIALINBOXID=" + deveoMercurialInboxId + "\n";
-    data+= "export DEVEOSVNINBOXID=" + deveoSVNInboxId + "\n";
-    data+= "export DEVEOWEBDAVINBOXID=" + deveoWebdavInboxId + "\n";
+    const data =
+`export APIKEY=${apiKey}
+export INSTANCEID=${instanceId}
+export DIGESTID=${digestId}
+export GITHUBINBOXID=${gitHubInboxId}
+export GITLABINBOXID=${gitLabInboxId}
+export BITBUCKETID=${bitbucketInboxId}
+export VSOGITINBOXID=${vsoGitInboxId}
+export VSOTFVCINBOXID=${vsoTfvcInboxId}
+export TFSONPREMINBOXID=${tfsOnPremInboxId}
+export SUBVERSIONINBOXID=${subversionInboxId}
+export GITSWARMINBOXID=${gitSwarmInboxId}
+export PERFORCEP4VINBOXID=${perforceP4VInboxId}
+export DEVEOGITINBOXID=${deveoGitInboxId}
+export DEVEOMERCURIALINBOXID=${deveoMercurialInboxId}
+export DEVEOSVNINBOXID=${deveoSVNInboxId}
+export DEVEOWEBDAVINBOXID=${deveoWebdavInboxId}`;
 
     fs.writeFileSync('../../config/performanceData.txt', data, 'utf-8');
 });

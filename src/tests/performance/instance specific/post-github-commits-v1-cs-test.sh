@@ -32,7 +32,6 @@ time curl -i -X POST \
                  "name": "therepo"
              }
          }' \
-         $2
- #'localhost:6565/api/9f4b2e16-15b0-4e4c-9343-2e8c164fa543/inboxes/fe371082-de05-4df8-9820-5f24c2f4c060/commits?apiKey=f417d7cd-062b-45ae-8703-759e434752ad'
+ 'https://v1-cs-test.azurewebsites.net/api/e7ce21c0-270e-4ea2-be09-0e89801ac29d/inboxes/09d8a352-9922-4c17-92e2-05d9d3713ac6/commits?apiKey=e189d885-bd5c-4140-8c1a-24e286cfc0db'
 
 done

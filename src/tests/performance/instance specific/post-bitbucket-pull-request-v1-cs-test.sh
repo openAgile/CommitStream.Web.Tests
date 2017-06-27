@@ -191,5 +191,6 @@ time curl -i -X POST \
     "created_on": "2017-04-24T15:54:45.727187+00:00"
   }
 }' \
-"$2"
+'https://v1-cs-test.azurewebsites.net/api/e7ce21c0-270e-4ea2-be09-0e89801ac29d/inboxes/a02dee39-4a96-44c8-bc59-364e0d21dc38/commits?apiKey=e189d885-bd5c-4140-8c1a-24e286cfc0db'
+
 done
