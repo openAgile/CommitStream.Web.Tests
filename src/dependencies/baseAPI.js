@@ -1,5 +1,8 @@
 const axios = require('axios');
 const ROOT_ROOT_URL = process.env.CS_ROOT_URL || 'https://v1-cs-test.azurewebsites.net';
+const requireDir = require('require-dir');
+
+const families = requireDir('./families', {recurse:true});
 
 module.exports = class BaseAPI {
     constructor() {
@@ -966,8 +969,33 @@ module.exports = class BaseAPI {
             commitData,
             {
                 headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
-            })
+            });
     }
+
+	pushCtfGitCommit({instanceId, apiKey, inboxId, validPayload}) {
+		const message = 'I am the CtfGit message';
+		const headers = {'Content-type': 'application/json', 'x-ctf-scm': 'git'};
+		return this._stepRightUpAndPushACommitAnyCommit({family:'CtfGit', message, headers, instanceId, apiKey, inboxId, validPayload});
+	}
+
+	pushCtfSvnCommit({instanceId, apiKey, inboxId, validPayload}) {
+		const message = 'I am the CtfSvn message';
+		const headers = {'Content-type': 'application/json', 'x-ctf-scm': 'subversion'};
+		return this._stepRightUpAndPushACommitAnyCommit({family:'CtfSvn', message, headers, instanceId, apiKey, inboxId, validPayload});
+	}
+
+	_stepRightUpAndPushACommitAnyCommit({family, message, headers, instanceId, apiKey, inboxId, validPayload}) {
+		let commitData = families[family].validWithOneCommit.default(message);
+		if (!validPayload) {
+			commitData = this.commitInvalidPayloadData;
+		}
+		let commitUrl = `${this.rootUrl}${instanceId}/inboxes/${inboxId}/commits?apiKey=${apiKey}`;
+		return axios.post(commitUrl,
+			commitData,
+			{
+				headers
+			});
+	}
 
     expectedInstanceResult(instanceId, apiKey){
         return {

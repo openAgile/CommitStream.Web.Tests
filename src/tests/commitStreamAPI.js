@@ -29,10 +29,11 @@ let deveoGitInboxId;
 let deveoMercurialInboxId;
 let deveoSVNInboxId;
 let deveoWebdavInboxId;
-
+let ctfGitInboxId;
+let ctfSvnInboxId;
 
 test.after.always('savePerformanceData', t => {
-    console.log("All vars have values? apiKey: " + apiKey + ", instanceId: " + instanceId + ", digestId: " + digestId + ", gitbubIndoxId: " + gitHubInboxId);
+    console.log("All vars have values? apiKey: " + apiKey + ", instanceId: " + instanceId + ", digestId: " + digestId + ", githubIndoxId: " + gitHubInboxId);
     const data =
 `export APIKEY=${apiKey}
 export INSTANCEID=${instanceId}
@@ -848,6 +849,93 @@ test.serial("Expect 400 response and error message for invalid commit payload to
     }
 });
 
+test.serial("Can I create an inbox for a CtfGit repo?", async t => {
+    let response = await base.createInbox({instanceId, apiKey, digestId,
+        inboxFamily: 'CtfGit', inboxName: 'CtfGitGlobal', repoUrl: 'http://main.server.collab.net/sf/projects/check_url_path'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId,
+        digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'CtfGit',
+        inboxName: 'CtfGitGlobal',
+        repoUrl: 'http://main.server.collab.net/sf/projects/check_url_path'
+    });
+    inbox.should.not.differentFrom(expected);
+    ctfGitInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a CtfGit inbox?", async t=> {
+	let response = await base.pushCtfGitCommit({instanceId, apiKey, inboxId: ctfGitInboxId, validPayload: true});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId,
+        digestId,
+        inboxId: ctfGitInboxId
+    });
+    commit.should.not.differentFrom(expected);
+});
+
+test.serial("Can I create an inbox for a CtfSvn repo?", async t => {
+    let response = await base.createInbox({instanceId, apiKey, digestId,
+        inboxFamily: 'CtfSvn', inboxName: 'CtfSvnGlobal', repoUrl: 'https://ctf.open.collab.net/sf/scm/do/viewRepositorySource/projects.desktop/scm.NET_Desktops'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId,
+        digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'CtfSvn',
+        inboxName: 'CtfSvnGlobal',
+        repoUrl: 'https://ctf.open.collab.net/sf/scm/do/viewRepositorySource/projects.desktop/scm.NET_Desktops'
+    });
+    inbox.should.not.differentFrom(expected);
+    ctfSvnInboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a CtfSvn inbox?", async t=> {
+	let response = await base.pushCtfSvnCommit({instanceId, apiKey, inboxId: ctfSvnInboxId, validPayload: true});
+    t.is(response.status, 201, "Uh oh...");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId,
+        digestId,
+        inboxId: ctfSvnInboxId
+    });
+    commit.should.not.differentFrom(expected);
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to DeveoWebdav inbox", async t=> {
+    try {
+        await base.pushCommitInvalidHeaders({instanceId, apiKey, inboxId: deveoWebdavInboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        commit.should.not.differentFrom(expected);
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to DeveoWebDav inbox", async t=> {
+    try {
+        await base.pushDeveoWebdavCommit({instanceId, apiKey, inboxId: deveoWebdavInboxId, validPayload: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'Deveo',
+            isScriptBased: false
+        });
+        commit.should.not.differentFrom(expected);
+    }
+});
+
 test.serial("Can I query the digest for all commits?", async t => {
     let response = await base.getDigestCommits({instanceId, digestId, apiKey});
     console.log("instanceId: " + instanceId + ", apiKey: " + apiKey + ", digestId: " + digestId);
@@ -861,5 +949,3 @@ test.serial("Can I query the digest for all commits?", async t => {
     //console.log("Digest Commits output: " + JSON.stringify(digestCommitsText));
     JSON.parse(digestCommitsText).should.not.differentFrom(expected);
 });
-
-
