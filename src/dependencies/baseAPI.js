@@ -973,15 +973,13 @@ module.exports = class BaseAPI {
     }
 
 	pushCtfGitCommit({instanceId, apiKey, inboxId, validPayload}) {
-		const message = 'I am the CtfGit message';
-		const headers = {'Content-type': 'application/json', 'x-ctf-scm': 'git'};
-		return this._stepRightUpAndPushACommitAnyCommit({family:'CtfGit', message, headers, instanceId, apiKey, inboxId, validPayload});
+		const [family, message, headers] = ['CtfGit', 'I am the CtfGit message', {'Content-type': 'application/json', 'x-ctf-scm': 'git'}];
+		return this._stepRightUpAndPushACommitAnyCommit({family, message, headers, instanceId, apiKey, inboxId, validPayload});
 	}
 
 	pushCtfSvnCommit({instanceId, apiKey, inboxId, validPayload}) {
-		const message = 'I am the CtfSvn message';
-		const headers = {'Content-type': 'application/json', 'x-ctf-scm': 'subversion'};
-		return this._stepRightUpAndPushACommitAnyCommit({family:'CtfSvn', message, headers, instanceId, apiKey, inboxId, validPayload});
+		const [family, message, headers] = ['CtfSvn', 'I am the CtfSvn message', {'Content-type': 'application/json', 'x-ctf-scm': 'subversion'}];
+		return this._stepRightUpAndPushACommitAnyCommit({family, message, headers, instanceId, apiKey, inboxId, validPayload});
 	}
 
 	_stepRightUpAndPushACommitAnyCommit({family, message, headers, instanceId, apiKey, inboxId, validPayload}) {
