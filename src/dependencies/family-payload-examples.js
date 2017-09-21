@@ -321,80 +321,80 @@ export default {
 			  "eventType": "git.push",
 			  "publisherId": "tfs",
 			  "message": {
-			    "text": "Josh Gough pushed updates to branch MyNew/Shelveset of V1 Integration\r\n(https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset)",
-			    "html": "Josh Gough pushed updates to branch <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset\">MyNew/Shelveset</a> of <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration/\">V1 Integration</a>",
-			    "markdown": "Josh Gough pushed updates to branch [MyNew/Shelveset](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset) of [V1 Integration](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration/)"
+				"text": "Josh Gough pushed updates to branch MyNew/Shelveset of V1 Integration\r\n(https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset)",
+				"html": "Josh Gough pushed updates to branch <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset\">MyNew/Shelveset</a> of <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration/\">V1 Integration</a>",
+				"markdown": "Josh Gough pushed updates to branch [MyNew/Shelveset](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset) of [V1 Integration](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration/)"
 			  },
 			  "detailedMessage": {
-			    "text": `Josh Gough pushed 1 commit to branch MyNew/Shelveset of V1 Integration\r\n - ${message} cf383dd3 (https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/commit/cf383dd370a74a8a5062385f6c1723fcc7cc66eb)`,
-			    "html": `Josh Gough pushed 1 commit to branch <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset\">MyNew/Shelveset</a> of <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration/\">V1 Integration</a>\r\n<ul>\r\n<li>${message} <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/commit/cf383dd370a74a8a5062385f6c1723fcc7cc66eb\">cf383dd3</a></li>\r\n</ul>`,
-			    "markdown": `Josh Gough pushed 1 commit to branch [MyNew/Shelveset](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset) of [V1 Integration](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration/)\r\n* ${message} [cf383dd3](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/commit/cf383dd370a74a8a5062385f6c1723fcc7cc66eb)`
+				"text": `Josh Gough pushed 1 commit to branch MyNew/Shelveset of V1 Integration\r\n - ${message} cf383dd3 (https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/commit/cf383dd370a74a8a5062385f6c1723fcc7cc66eb)`,
+				"html": `Josh Gough pushed 1 commit to branch <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset\">MyNew/Shelveset</a> of <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration/\">V1 Integration</a>\r\n<ul>\r\n<li>${message} <a href=\"https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/commit/cf383dd370a74a8a5062385f6c1723fcc7cc66eb\">cf383dd3</a></li>\r\n</ul>`,
+				"markdown": `Josh Gough pushed 1 commit to branch [MyNew/Shelveset](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/#version=GBMyNew%2FShelveset) of [V1 Integration](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration/)\r\n* ${message} [cf383dd3](https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1%20Integration/commit/cf383dd370a74a8a5062385f6c1723fcc7cc66eb)`
 			  },
 			  "resource": {
-			    "commits": [
-			      {
-			        "commitId": "cf383dd370a74a8a5062385f6c1723fcc7cc66eb",
-			        "author": {
-			          "name": "Josh Gough",
-			          "email": "jsgough@gmail.com",
-			          "date": "2015-11-11T20:13:49Z"
-			        },
-			        "committer": {
-			          "name": "Josh Gough",
-			          "email": "jsgough@gmail.com",
-			          "date": "2015-11-11T20:13:49Z"
-			        },
-			        "comment": message,
-			        "url": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/commits/cf383dd370a74a8a5062385f6c1723fcc7cc66eb"
-			      }
-			    ],
-			    "refUpdates": [
-			      {
-			        "name": "refs/heads/MyNew/Shelveset",
-			        "oldObjectId": "0000000000000000000000000000000000000000",
-			        "newObjectId": "cf383dd370a74a8a5062385f6c1723fcc7cc66eb"
-			      }
-			    ],
-			    "repository": {
-			      "id": "d29767bb-8f5f-4c43-872f-6c73635a1256",
-			      "name": "V1 Integration",
-			      "url": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256",
-			      "project": {
-			        "id": "213b6eda-2f19-4651-9fa9-ee01a9a75945",
-			        "name": "V1 Integration",
-			        "url": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/projects/213b6eda-2f19-4651-9fa9-ee01a9a75945",
-			        "state": "wellFormed"
-			      },
-			      "defaultBranch": "refs/heads/master",
-			      "remoteUrl": "https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration"
-			    },
-			    "pushedBy": {
-			      "id": "0b88cae0-021f-4fa0-b723-d670c74ae474",
-			      "displayName": "Josh Gough",
-			      "uniqueName": "jsgough@gmail.com",
-			      "url": "https://v1platformtest.vssps.visualstudio.com/_apis/Identities/0b88cae0-021f-4fa0-b723-d670c74ae474",
-			      "imageUrl": "https://v1platformtest.visualstudio.com/DefaultCollection/_api/_common/identityImage?id=0b88cae0-021f-4fa0-b723-d670c74ae474"
-			    },
-			    "pushId": 7,
-			    "date": "2015-11-11T20:13:49.321845Z",
-			    "url": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/pushes/7",
-			    "_links": {
-			      "self": {
-			        "href": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/pushes/7"
-			      },
-			      "repository": {
-			        "href": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256"
-			      },
-			      "commits": {
-			        "href": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/pushes/7/commits"
-			      },
-			      "pusher": {
-			        "href": "https://v1platformtest.vssps.visualstudio.com/_apis/Identities/0b88cae0-021f-4fa0-b723-d670c74ae474"
-			      },
-			      "refs": {
-			        "href": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/refs"
-			      }
-			    }
+				"commits": [
+				  {
+					"commitId": "cf383dd370a74a8a5062385f6c1723fcc7cc66eb",
+					"author": {
+					  "name": "Josh Gough",
+					  "email": "jsgough@gmail.com",
+					  "date": "2015-11-11T20:13:49Z"
+					},
+					"committer": {
+					  "name": "Josh Gough",
+					  "email": "jsgough@gmail.com",
+					  "date": "2015-11-11T20:13:49Z"
+					},
+					"comment": message,
+					"url": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/commits/cf383dd370a74a8a5062385f6c1723fcc7cc66eb"
+				  }
+				],
+				"refUpdates": [
+				  {
+					"name": "refs/heads/MyNew/Shelveset",
+					"oldObjectId": "0000000000000000000000000000000000000000",
+					"newObjectId": "cf383dd370a74a8a5062385f6c1723fcc7cc66eb"
+				  }
+				],
+				"repository": {
+				  "id": "d29767bb-8f5f-4c43-872f-6c73635a1256",
+				  "name": "V1 Integration",
+				  "url": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256",
+				  "project": {
+					"id": "213b6eda-2f19-4651-9fa9-ee01a9a75945",
+					"name": "V1 Integration",
+					"url": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/projects/213b6eda-2f19-4651-9fa9-ee01a9a75945",
+					"state": "wellFormed"
+				  },
+				  "defaultBranch": "refs/heads/master",
+				  "remoteUrl": "https://v1platformtest.visualstudio.com/DefaultCollection/_git/V1 Integration"
+				},
+				"pushedBy": {
+				  "id": "0b88cae0-021f-4fa0-b723-d670c74ae474",
+				  "displayName": "Josh Gough",
+				  "uniqueName": "jsgough@gmail.com",
+				  "url": "https://v1platformtest.vssps.visualstudio.com/_apis/Identities/0b88cae0-021f-4fa0-b723-d670c74ae474",
+				  "imageUrl": "https://v1platformtest.visualstudio.com/DefaultCollection/_api/_common/identityImage?id=0b88cae0-021f-4fa0-b723-d670c74ae474"
+				},
+				"pushId": 7,
+				"date": "2015-11-11T20:13:49.321845Z",
+				"url": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/pushes/7",
+				"_links": {
+				  "self": {
+					"href": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/pushes/7"
+				  },
+				  "repository": {
+					"href": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256"
+				  },
+				  "commits": {
+					"href": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/pushes/7/commits"
+				  },
+				  "pusher": {
+					"href": "https://v1platformtest.vssps.visualstudio.com/_apis/Identities/0b88cae0-021f-4fa0-b723-d670c74ae474"
+				  },
+				  "refs": {
+					"href": "https://v1platformtest.visualstudio.com/DefaultCollection/_apis/git/repositories/d29767bb-8f5f-4c43-872f-6c73635a1256/refs"
+				  }
+				}
 			  },
 			  "resourceVersion": "1.0-preview.1",
 			  "createdDate": "2015-11-11T20:13:52.4966577Z"
@@ -460,14 +460,14 @@ export default {
 		{
 		  "repository": "http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
 		  "committer": {
-		    "name": "admin",
-		    "date": "2016-09-12 03:52:55 +1300 (Mon, 16 Sep 2016)"
+			"name": "admin",
+			"date": "2016-09-12 03:52:55 +1300 (Mon, 16 Sep 2016)"
 		  },
 		  "pretext": "Commit completed:  rev. 12",
 		  "revision": "12",
 		  "author": "admin",
 		  "changes": [
-		    "U   mariano.txt"
+			"U   mariano.txt"
 		  ],
 		  "message": message,
 		  "html_url": "http://v1commitstream.cloudapp.net:9090/!/#ProjectA/commit/r12"
@@ -476,61 +476,61 @@ export default {
 	GitSwarm: {
 		validWithOneCommit: message => (
 			{
-		    "object_kind": "push",
-		    "event_name": "push",
-		    "before": "bf2c20bc7824a3da6bda5b301560cc0bdfe1b557",
-		    "after": "6f1268102193085e512b3e13a701d201ce522e85",
-		    "ref": "refs/heads/master",
-		    "checkout_sha": "6f1268102193085e512b3e13a701d201ce522e85",
-		    "message": null,
-		    "user_id": 1,
-		    "user_name": "Administrator",
-		    "user_email": "admin@example.com",
-		    "user_avatar": "http://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80&d=identicon",
-		    "project_id": 1,
-		    "project": {
-		        "name": "api-testing",
-		        "description": "API testing with Postman",
-		        "web_url": "http://gitswarm.cloudapp.net/root/api-testing",
-		        "avatar_url": null,
-		        "git_ssh_url": "git@gitswarm.cloudapp.net:root/api-testing.git",
-		        "git_http_url": "http://gitswarm.cloudapp.net/root/api-testing.git",
-		        "namespace": "root",
-		        "visibility_level": 0,
-		        "path_with_namespace": "root/api-testing",
-		        "default_branch": "master",
-		        "homepage": "http://gitswarm.cloudapp.net/root/api-testing",
-		        "url": "git@gitswarm.cloudapp.net:root/api-testing.git",
-		        "ssh_url": "git@gitswarm.cloudapp.net:root/api-testing.git",
-		        "http_url": "http://gitswarm.cloudapp.net/root/api-testing.git"
-		    },
-		    "commits": [
-		        {
-		            "id": "6f1268102193085e512b3e13a701d201ce522e85",
-		            "message": message,
-		            "timestamp": "2016-09-22T11:21:18+00:00",
-		            "url": "http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
-		            "author": {
-		                "name": "Administrator",
-		                "email": "admin@example.com"
-		            },
-		            "added": [],
-		            "modified": [
-		                "ReadMe2.md"
-		            ],
-		            "removed": []
-		        }
-		    ],
-		    "total_commits_count": 1,
-		    "repository": {
-		        "name": "api-testing",
-		        "url": "git@gitswarm.cloudapp.net:root/api-testing.git",
-		        "description": "API Testing with Postman",
-		        "homepage": "http://gitswarm.cloudapp.net/root/api-testing",
-		        "git_http_url": "http://gitswarm.cloudapp.net/root/api-testing.git",
-		        "git_ssh_url": "git@gitswarm.cloudapp.net:root/api-testing.git",
-		        "visibility_level": 0
-		    }
+			"object_kind": "push",
+			"event_name": "push",
+			"before": "bf2c20bc7824a3da6bda5b301560cc0bdfe1b557",
+			"after": "6f1268102193085e512b3e13a701d201ce522e85",
+			"ref": "refs/heads/master",
+			"checkout_sha": "6f1268102193085e512b3e13a701d201ce522e85",
+			"message": null,
+			"user_id": 1,
+			"user_name": "Administrator",
+			"user_email": "admin@example.com",
+			"user_avatar": "http://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80&d=identicon",
+			"project_id": 1,
+			"project": {
+				"name": "api-testing",
+				"description": "API testing with Postman",
+				"web_url": "http://gitswarm.cloudapp.net/root/api-testing",
+				"avatar_url": null,
+				"git_ssh_url": "git@gitswarm.cloudapp.net:root/api-testing.git",
+				"git_http_url": "http://gitswarm.cloudapp.net/root/api-testing.git",
+				"namespace": "root",
+				"visibility_level": 0,
+				"path_with_namespace": "root/api-testing",
+				"default_branch": "master",
+				"homepage": "http://gitswarm.cloudapp.net/root/api-testing",
+				"url": "git@gitswarm.cloudapp.net:root/api-testing.git",
+				"ssh_url": "git@gitswarm.cloudapp.net:root/api-testing.git",
+				"http_url": "http://gitswarm.cloudapp.net/root/api-testing.git"
+			},
+			"commits": [
+				{
+					"id": "6f1268102193085e512b3e13a701d201ce522e85",
+					"message": message,
+					"timestamp": "2016-09-22T11:21:18+00:00",
+					"url": "http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
+					"author": {
+						"name": "Administrator",
+						"email": "admin@example.com"
+					},
+					"added": [],
+					"modified": [
+						"ReadMe2.md"
+					],
+					"removed": []
+				}
+			],
+			"total_commits_count": 1,
+			"repository": {
+				"name": "api-testing",
+				"url": "git@gitswarm.cloudapp.net:root/api-testing.git",
+				"description": "API Testing with Postman",
+				"homepage": "http://gitswarm.cloudapp.net/root/api-testing",
+				"git_http_url": "http://gitswarm.cloudapp.net/root/api-testing.git",
+				"git_ssh_url": "git@gitswarm.cloudapp.net:root/api-testing.git",
+				"visibility_level": 0
+			}
 		})
 	},
 	P4V: {
@@ -594,5 +594,108 @@ export default {
 					"id":"bd4a158555d69bd41fa1b6429c816031152d091d"
 				}
 			]
-		})}
+		})},
+	CtfGit: {
+		validWithOneCommit: message => ({
+			"project": {
+				"id": "proj1013",
+				"url": "http://main.server.collab.net/sf/projects/check_url_path"
+			},
+			"event_type": "ref-updated",
+			"ref": "refs/heads/master",
+			"before": "54823e9181f2ca78dc625e2fe13aecb1c3b4fd41",
+			"after": "3ddbe1ee1a0909e5dcbb62ac61b7b266922912c0",
+			"created": false,
+			"deleted": false,
+			"forced": false,
+			"commits": [
+				{
+					"id": "3ddbe1ee1a0909e5dcbb62ac61b7b266922912c0",
+					"tree_id": "1a66c81509d148978a95638f114e31e6a217ae29",
+					"distinct": true,
+					"message": `${message}`,
+					"timestamp": "2017-09-15T06:04:23Z",
+					"url": "http://main.server.collab.net/ctf/code/git/projects.check_url_path/scm.test_repo/commits?treeId=3ddbe1ee1a0909e5dcbb62ac61b7b266922912c0",
+					"author": {
+						"name": "TeamForge Administrator",
+						"email": "root@ctf-centos72-dev-box.collab.net",
+						"username": "admin"
+					},
+					"committer": {
+						"name": "TeamForge Administrator",
+						"email": "root@ctf-centos72-dev-box.collab.net",
+						"username": "admin"
+					},
+					"added": [],
+					"removed": [],
+					"modified": [
+						"test.file"
+						]
+				}],
+			"head_commit": {
+				"id": "3ddbe1ee1a0909e5dcbb62ac61b7b266922912c0",
+				"tree_id": "1a66c81509d148978a95638f114e31e6a217ae29",
+				"distinct": true,
+				"message": `${message}`,
+				"timestamp": "2017-09-15T06:04:23Z",
+				"url": "http://main.server.collab.net/ctf/code/git/projects.check_url_path/scm.test_repo/commits?treeId=3ddbe1ee1a0909e5dcbb62ac61b7b266922912c0",
+				"author": {
+					"name": "TeamForge Administrator",
+					"email": "root@ctf-centos72-dev-box.collab.net",
+					"username": "admin"
+				},
+				"committer": {
+					"name": "TeamForge Administrator",
+					"email": "root@ctf-centos72-dev-box.collab.net",
+					"username": "admin"
+				},
+				"added": [],
+				"removed": [],
+				"modified": [
+					"test.file"
+					]
+			},
+			"repository": {
+				"id": "reps1004",
+				"name": "test_repo",
+				"full_name": "test_repo",
+				"description": "| Repo Category: optional_review, History Protection: On",
+				"url": "http://main.server.collab.net/ctf/code/git/projects.check_url_path/scm.test_repo/tree"
+			},
+			"pusher": {
+				"name": "TeamForge Administrator",
+				"email": "root@ctf-centos72-dev-box.collab.net",
+				"username": "admin"
+			}
+		})
+	},
+	CtfSvn: {
+		validWithOneCommit: message => ({
+			"event_type": "post-commit",
+			"repository": {
+				"full_name": ".NET Desktops",
+				"name": "dotnet",
+				"description": "Windows, Visual Studio and Outlook Desktops",
+				"id": "reps1900",
+				"type": "subversion",
+				"url": "https://ctf.open.collab.net/sf/scm/do/viewRepositorySource/projects.desktop/scm.NET_Desktops"
+			},
+			"revision": {
+				"changed_paths": {
+					"modified": [
+					  "trunk/www/index.html"
+					]
+				},
+				"author": {
+					"name": "Full Name",
+					"email": "uname@teamforge.org",
+					"username": "uname"
+				},
+				"id": "372",
+				"message": `${message}`,
+				"url": "https://ctf.open.collab.net/integration/viewvc/viewvc.cgi?view=revision&root=dotnet&system=exsy1005&revision=372",
+				"timestamp": "2015-08-18T18:43:11+00:00"
+			}
+		})
+	}
 };
