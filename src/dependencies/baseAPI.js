@@ -9,33 +9,6 @@ module.exports = class BaseAPI {
         this.rootRootUrl = ROOT_ROOT_URL;
         this.rootUrl = this.rootRootUrl + '/api/';
         this.instanceUrl = this.rootUrl + 'instances';
-        this.commitGitHubData = {
-            "ref": "refs/heads/master",
-            "commits": [{
-                "id": "1234567",
-                "distinct": true,
-                "message": "S-04026 Testing Commit functionality!",
-                "timestamp": "2014-10-03T15:57:14-03:00",
-                "url": "https://repourl",
-                "author": {
-                    "name": "yourName",
-                    "email": "you@mail.com",
-                    "username": "theuser"
-                },
-                "committer": {
-                    "name": "yourName",
-                    "email": "you@mail.cm",
-                    "username": "theuser"
-                },
-                "added": [],
-                "removed": [],
-                "modified": ["README.md"]
-            }],
-            "repository": {
-                "id": 246810,
-                "name": "therepo"
-            }
-        };
         this.commitGitLabData = {
             "object_kind": "push",
             "before": "95790bf891e76fee5e1747ab589903a6a1f80f22",
@@ -787,7 +760,7 @@ module.exports = class BaseAPI {
     }
 
     pushCommitInvalidHeaders({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = this.commitGitHubData;
+        let commitData = familes.GitHub.commitData();
         if(!validPayload) {
             commitData = this.commitInvalidPayloadData;
         }
@@ -800,7 +773,7 @@ module.exports = class BaseAPI {
     }
 
     pushGitHubCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = this.commitGitHubData;
+        let commitData = families.GitHub.commitData();
         if(!validPayload) {
           commitData = this.commitInvalidPayloadData;
         }
@@ -983,7 +956,7 @@ module.exports = class BaseAPI {
 	}
 
 	_stepRightUpAndPushACommitAnyCommit({family, message, headers, instanceId, apiKey, inboxId, validPayload}) {
-		let commitData = families[family].validWithOneCommit.default(message);
+		let commitData = families[family].validWithOneCommit(message);
 		if (!validPayload) {
 			commitData = this.commitInvalidPayloadData;
 		}
