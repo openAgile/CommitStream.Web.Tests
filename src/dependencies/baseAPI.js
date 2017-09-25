@@ -361,6 +361,108 @@ module.exports = class BaseAPI {
             },
             "createdDate": "2017-03-08T20:54:37.2569716Z"
         };
+        this.commitTFVCOnPrem2015 = {
+            "subscriptionId":"6c2db902-7af3-4f36-9410-7d80c81ca616",
+            "notificationId":7,
+            "id":"6ac1837f-4147-44b6-b1db-2bf8677cd5d4",
+            "eventType":"tfvc.checkin",
+            "publisherId":"tfs",
+            "message":{
+                "text":"versionone checked in changeset 7: Updated Readme.txt",
+                "html":"versionone checked in changeset <a href=\"http://tfsbox:8080/tfs/web/cs.aspx?pcguid=345833f5-19a7-48c3-865e-6fe81412a63b&amp;cs=7\">7</a>: Updated Readme.txt",
+                "markdown":"versionone checked in changeset [7](http://tfsbox:8080/tfs/web/cs.aspx?pcguid=345833f5-19a7-48c3-865e-6fe81412a63b&cs=7): Updated Readme.txt"
+            },
+            "detailedMessage":{
+                "text":"versionone checked in changeset 7: Updated Readme.txt",
+                "html":"versionone checked in changeset <a href=\"http://tfsbox:8080/tfs/web/cs.aspx?pcguid=345833f5-19a7-48c3-865e-6fe81412a63b&amp;cs=7\">7</a>: Updated Readme.txt",
+                "markdown":"versionone checked in changeset [7](http://tfsbox:8080/tfs/web/cs.aspx?pcguid=345833f5-19a7-48c3-865e-6fe81412a63b&cs=7): Updated Readme.txt"
+            },
+            "resource":{
+                "hasMoreChanges":true,
+                "teamProjectIds":[
+                    "82eaaafe-9eeb-4d51-9f2d-5d7f6546a0ca"
+                ],
+                "changesetId":7,
+                "url":"http://tfsbox:8080/tfs/DefaultCollection/_apis/tfvc/changesets/7",
+                "author":{
+                    "id":"0e153d9a-eeb6-481d-bbc8-4711edb00243",
+                    "displayName":"versionone",
+                    "uniqueName":"TfsBox\\versionone",
+                    "url":"http://tfsbox:8080/tfs/DefaultCollection/_apis/Identities/0e153d9a-eeb6-481d-bbc8-4711edb00243",
+                    "imageUrl":"http://tfsbox:8080/tfs/DefaultCollection/_api/_common/identityImage?id=0e153d9a-eeb6-481d-bbc8-4711edb00243"
+                },
+                "checkedInBy":{
+                    "id":"0e153d9a-eeb6-481d-bbc8-4711edb00243",
+                    "displayName":"versionone",
+                    "uniqueName":"TfsBox\\versionone",
+                    "url":"http://tfsbox:8080/tfs/DefaultCollection/_apis/Identities/0e153d9a-eeb6-481d-bbc8-4711edb00243",
+                    "imageUrl":"http://tfsbox:8080/tfs/DefaultCollection/_api/_common/identityImage?id=0e153d9a-eeb6-481d-bbc8-4711edb00243"
+                },
+                "createdDate":"2017-08-02T16:15:46Z",
+                "comment":"Updated Readme.txt"
+            },
+            "resourceVersion":"1.0",
+            "resourceContainers":{
+                "collection":{
+                    "id":"345833f5-19a7-48c3-865e-6fe81412a63b"
+                }
+            },
+            "createdDate":"2017-08-02T16:20:04.2766243Z"
+        };
+        this.commitTFVCOnPrem2017 = {
+            "subscriptionId":"c43d7c85-aa70-4c3c-ba03-bdb4af693b0e",
+            "notificationId":3,
+            "id":"cf0058b3-c5d7-46e4-a0ff-484208fb23c7",
+            "eventType":"tfvc.checkin",
+            "publisherId":"tfs",
+            "scope":"all",
+            "message":{
+                "text":"versionone checked in changeset 4: Updated Readme.txt",
+                "html":"versionone checked in changeset <a href=\"http://tfsbox-2017:8080/tfs/web/cs.aspx?pcguid=aefa5acd-22d5-4cb8-95e6-4fa474ce0c48&amp;cs=4\">4</a>: Updated Readme.txt",
+                "markdown":"versionone checked in changeset [4](http://tfsbox-2017:8080/tfs/web/cs.aspx?pcguid=aefa5acd-22d5-4cb8-95e6-4fa474ce0c48&cs=4): Updated Readme.txt"
+            },
+            "detailedMessage":{
+                "text":"versionone checked in changeset 4: Updated Readme.txt",
+                "html":"versionone checked in changeset <a href=\"http://tfsbox-2017:8080/tfs/web/cs.aspx?pcguid=aefa5acd-22d5-4cb8-95e6-4fa474ce0c48&amp;cs=4\">4</a>: Updated Readme.txt",
+                "markdown":"versionone checked in changeset [4](http://tfsbox-2017:8080/tfs/web/cs.aspx?pcguid=aefa5acd-22d5-4cb8-95e6-4fa474ce0c48&cs=4): Updated Readme.txt"
+            },
+            "resource":{
+                "hasMoreChanges":true,
+                "teamProjectIds":[
+                    "4428d01a-0a75-4cc6-aaea-cb9664bf113f"
+                ],
+                "changesetId":4,
+                "url":"http://tfsbox-2017:8080/tfs/DefaultCollection/_apis/tfvc/changesets/4",
+                "author":{
+                    "id":"d4db1c21-4bef-44d2-b185-fa17b93c6b4a",
+                    "displayName":"versionone",
+                    "uniqueName":"tfsbox-2017\\versionone",
+                    "url":"http://tfsbox-2017:8080/tfs/DefaultCollection/_apis/Identities/d4db1c21-4bef-44d2-b185-fa17b93c6b4a",
+                    "imageUrl":"http://tfsbox-2017:8080/tfs/DefaultCollection/_api/_common/identityImage?id=d4db1c21-4bef-44d2-b185-fa17b93c6b4a"
+                },
+                "checkedInBy":{
+                    "id":"d4db1c21-4bef-44d2-b185-fa17b93c6b4a",
+                    "displayName":"versionone",
+                    "uniqueName":"tfsbox-2017\\versionone",
+                    "url":"http://tfsbox-2017:8080/tfs/DefaultCollection/_apis/Identities/d4db1c21-4bef-44d2-b185-fa17b93c6b4a",
+                    "imageUrl":"http://tfsbox-2017:8080/tfs/DefaultCollection/_api/_common/identityImage?id=d4db1c21-4bef-44d2-b185-fa17b93c6b4a"
+                },
+                "createdDate":"2017-07-26T16:57:33Z",
+                "comment":"Updated Readme.txt"
+            },
+            "resourceVersion":"1.0",
+            "resourceContainers":{
+                "collection":{
+                    "id":"aefa5acd-22d5-4cb8-95e6-4fa474ce0c48",
+                    "baseUrl":"http://tfsbox-2017:8080/tfs/DefaultCollection/"
+                },
+                "server":{
+                    "id":"64f8ba4f-9216-4265-a863-8c2a7a48efee",
+                    "baseUrl":"http://tfsbox-2017:8080/tfs/"
+                }
+            },
+            "createdDate":"2017-07-26T16:57:38.3011874Z"
+        }
         this.isMultiProject = false;
         this.commitTFSOnPremData = {
             "subscriptionId": "06748b5c-e3e5-418f-88b0-57bcdae24ebf",
@@ -735,6 +837,7 @@ module.exports = class BaseAPI {
             "noway": "should this work"
         };
         this.validPayload = true;
+        this.year = 2015;
         this.isScriptBased = true;
     }
 
@@ -873,6 +976,23 @@ module.exports = class BaseAPI {
         let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
         return axios.post(commitUrl,
             commitData,
+            {
+                headers: {'Content-type': 'application/json'}
+            })
+    }
+
+    pushTFVCOnPremCommit({instanceId, apiKey, inboxId, validPayload, year}) {
+        let commitData = this.commitTFVCOnPrem2015;
+        if(year = 2017){
+            let commitData = this.commitTFVCOnPrem2017;
+        }
+        if(!validPayload) {
+            commitData = this.commitInvalidPayloadData;
+        }
+
+        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        return axios.post(commitUrl,
+        commitData,
             {
                 headers: {'Content-type': 'application/json'}
             })
@@ -1220,137 +1340,181 @@ module.exports = class BaseAPI {
 
     expectedAllDigestCommits() {
         return {
-            "commits":[
+            "commits": [
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"Buddy One",
-                    "sha1Partial":"67ec79c",
-                    "family":"Deveo",
-                    "action":"committed",
-                    "message":"Update readme for DeveoWebDav.",
-                    "commitHref":"https://deveo.com/example/projects/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
-                    "repo":"diff/test/website",
-                    "branch":"master",
-                    "branchHref":"https://deveo.com/example/projects/diff/test/repositories/website/tree/master",
-                    "repoHref":"https://deveo.com/example/projects/diff/test/repositories/website",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "Buddy One",
+                    "sha1Partial": "67ec79c",
+                    "family": "Deveo",
+                    "action": "committed",
+                    "message": "Update readme for DeveoWebDav.",
+                    "commitHref": "https://deveo.com/example/projects/diff/test/repositories/website/commits/67ec79c2cc2737eec07b649555b3da32c47d095b",
+                    "repo": "diff/test/website",
+                    "branch": "master",
+                    "branchHref": "https://deveo.com/example/projects/diff/test/repositories/website/tree/master",
+                    "repoHref": "https://deveo.com/example/projects/diff/test/repositories/website",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"John Doe",
-                    "sha1Partial":"2",
-                    "family":"Deveo",
-                    "action":"committed",
-                    "message":"More text for DeveoSVN.",
-                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/changesets/2",
-                    "repo":"demo-/svn1",
-                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/tree/undefined",
-                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/svn1",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "John Doe",
+                    "sha1Partial": "2",
+                    "family": "Deveo",
+                    "action": "committed",
+                    "message": "More text for DeveoSVN.",
+                    "commitHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/changesets/2",
+                    "repo": "demo-/svn1",
+                    "branchHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/svn1/tree/undefined",
+                    "repoHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/svn1",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"Ilmari Kontulainen",
-                    "sha1Partial":"5b634f1",
-                    "family":"Deveo",
-                    "action":"committed",
-                    "message":"Initial commit for DeveoMercurial.",
-                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/changesets/5b634f103ad212848a47a29d306616b002eeb828",
-                    "repo":"demo-/foo",
-                    "branch":"default",
-                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo/tree/default",
-                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/foo",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "Ilmari Kontulainen",
+                    "sha1Partial": "5b634f1",
+                    "family": "Deveo",
+                    "action": "committed",
+                    "message": "Initial commit for DeveoMercurial.",
+                    "commitHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/foo/changesets/5b634f103ad212848a47a29d306616b002eeb828",
+                    "repo": "demo-/foo",
+                    "branch": "default",
+                    "branchHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/foo/tree/default",
+                    "repoHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/foo",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"Ilmari Kontulainen",
-                    "sha1Partial":"bd4a158",
-                    "family":"Deveo",
-                    "action":"committed",
-                    "message":"S-01041 DeveoGitreadme.m",
-                    "commitHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
-                    "repo":"demo-/gitti1",
-                    "branch":"master",
-                    "branchHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/tree/master",
-                    "repoHref":"https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "Ilmari Kontulainen",
+                    "sha1Partial": "bd4a158",
+                    "family": "Deveo",
+                    "action": "committed",
+                    "message": "S-01041 DeveoGitreadme.m",
+                    "commitHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/changesets/bd4a158555d69bd41fa1b6429c816031152d091d",
+                    "repo": "demo-/gitti1",
+                    "branch": "master",
+                    "branchHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1/tree/master",
+                    "repoHref": "https://app.deveo.com/Gexample/projects/demo-/repositories/gitti1",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"v1deploy@v1deploy",
-                    "sha1Partial":"r#:178",
-                    "family":"P4V",
-                    "action":"committed",
-                    "message":" changes inthe bin?",
-                    "commitHref":"PLACE BASE URL TO INSPECT YOUR REVISIONS178",
-                    "repo":"doesNotUseUrl",
-                    "branch":"",
-                    "branchHref":"",
-                    "repoHref":"http://perforce.com/doesNotUseUrl",
-                    "isCommitHref":false,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "v1deploy@v1deploy",
+                    "sha1Partial": "r#:178",
+                    "family": "P4V",
+                    "action": "committed",
+                    "message": " changes inthe bin?",
+                    "commitHref": "PLACE BASE URL TO INSPECT YOUR REVISIONS178",
+                    "repo": "doesNotUseUrl",
+                    "branch": "",
+                    "branchHref": "",
+                    "repoHref": "http://perforce.com/doesNotUseUrl",
+                    "isCommitHref": false,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"Administrator",
-                    "sha1Partial":"6f12681",
-                    "family":"GitSwarm",
-                    "action":"committed",
-                    "message":"Added file",
-                    "commitHref":"http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
-                    "repo":"root/api-testing",
-                    "branch":"master",
-                    "branchHref":"http://gitswarm.cloudapp.net/root/api-testing/tree/master",
-                    "repoHref":"http://gitswarm.cloudapp.net/root/api-testing",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "Administrator",
+                    "sha1Partial": "6f12681",
+                    "family": "GitSwarm",
+                    "action": "committed",
+                    "message": "Added file",
+                    "commitHref": "http://gitswarm.cloudapp.net/root/api-testing/commit/6f1268102193085e512b3e13a701d201ce522e85",
+                    "repo": "root/api-testing",
+                    "branch": "master",
+                    "branchHref": "http://gitswarm.cloudapp.net/root/api-testing/tree/master",
+                    "repoHref": "http://gitswarm.cloudapp.net/root/api-testing",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"admin",
-                    "sha1Partial":"r12",
-                    "family":"Svn",
-                    "action":"committed",
-                    "message":"S-01001 SMA Tests",
-                    "commitHref":"http://v1commitstream.cloudapp.net:9090/!/#ProjectA/commit/r12",
-                    "repo":"ProjectA",
-                    "branch":"",
-                    "branchHref":"",
-                    "repoHref":"http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "admin",
+                    "sha1Partial": "r12",
+                    "family": "Svn",
+                    "action": "committed",
+                    "message": "S-01001 SMA Tests",
+                    "commitHref": "http://v1commitstream.cloudapp.net:9090/!/#ProjectA/commit/r12",
+                    "repo": "ProjectA",
+                    "branch": "",
+                    "branchHref": "",
+                    "repoHref": "http://v1commitstream.cloudapp.net:9090/svn/ProjectA",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"Zhang, Xin (Northern Lights)",
-                    "sha1Partial":"3b9cbd24",
-                    "family":"VsoGit",
-                    "action":"committed",
-                    "message":"Added js function for story 2282.\n\nRelated Work Items: #2282",
-                    "commitHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/commit/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2",
-                    "repo":"tctfs05/SMARTworks",
-                    "branch":"pbi_639_2282",
-                    "branchHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/#version=GBpbi_639_2282",
-                    "repoHref":"http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "Zhang, Xin (Northern Lights)",
+                    "sha1Partial": "3b9cbd24",
+                    "family": "VsoGit",
+                    "action": "committed",
+                    "message": "Added js function for story 2282.\n\nRelated Work Items: #2282",
+                    "commitHref": "http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/commit/3b9cbd2406f315bfc7f5da5b004cc32cf898dcb2",
+                    "repo": "tctfs05/SMARTworks",
+                    "branch": "pbi_639_2282",
+                    "branchHref": "http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks/#version=GBpbi_639_2282",
+                    "repoHref": "http://tctfs05:8080/tfs/TayCommCFT/_git/SMARTworks",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "versionone",
+                    "sha1Partial": "6ac1837",
+                    "family": "VsoTfvc",
+                    "action": "committed",
+                    "message": "versionone checked in changeset 7: Updated Readme.txt",
+                    "commitHref": [
+                        "http://tfsbox:8080/tfs/DefaultCollection/82eaaafe-9eeb-4d51-9f2d-5d7f6546a0ca/_versionControl/changeset/7"
+                    ],
+                    "repo": "",
+                    "branch": "",
+                    "branchHref": "",
+                    "repoHref": {
+                        "url": [
+                            "http://tfsbox:8080/tfs/DefaultCollection/82eaaafe-9eeb-4d51-9f2d-5d7f6546a0ca/_versionControl/"
+                        ]
+                    },
+                    "isCommitHref": true,
+                    "isVsoTfvc": true
+                },
+                {
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "versionone",
+                    "sha1Partial": "6ac1837",
+                    "family": "VsoTfvc",
+                    "action": "committed",
+                    "message": "versionone checked in changeset 7: Updated Readme.txt",
+                    "commitHref": [
+                        "http://tfsbox:8080/tfs/DefaultCollection/82eaaafe-9eeb-4d51-9f2d-5d7f6546a0ca/_versionControl/changeset/7"
+                    ],
+                    "repo": "",
+                    "branch": "",
+                    "branchHref": "",
+                    "repoHref": {
+                        "url": [
+                            "http://tfsbox:8080/tfs/DefaultCollection/82eaaafe-9eeb-4d51-9f2d-5d7f6546a0ca/_versionControl/"
+                        ]
+                    },
+                    "isCommitHref": true,
+                    "isVsoTfvc": true
+                },
+                {
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
                     "author": "Sally Ann Cavanaugh",
                     "sha1Partial": "b396843",
                     "family": "VsoTfvc",
@@ -1373,8 +1537,8 @@ module.exports = class BaseAPI {
                     "isVsoTfvc": true
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
                     "author": "Sally Ann Cavanaugh",
                     "sha1Partial": "b396843",
                     "family": "VsoTfvc",
@@ -1397,70 +1561,71 @@ module.exports = class BaseAPI {
                     "isVsoTfvc": true
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"Daniel Gruesso",
-                    "sha1Partial":"42bf55b2",
-                    "family":"VsoGit",
-                    "action":"committed",
-                    "message":"New user sign-up API route update S-01004",
-                    "commitHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/commit/42bf55b256c46f716f0192e9216f1db5c37ea1f2",
-                    "repo":"openagile/CommitStream Git",
-                    "branch":"master",
-                    "branchHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/#version=GBmaster",
-                    "repoHref":"https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "Daniel Gruesso",
+                    "sha1Partial": "42bf55b2",
+                    "family": "VsoGit",
+                    "action": "committed",
+                    "message": "New user sign-up API route update S-01004",
+                    "commitHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/commit/42bf55b256c46f716f0192e9216f1db5c37ea1f2",
+                    "repo": "openagile/CommitStream Git",
+                    "branch": "master",
+                    "branchHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git/#version=GBmaster",
+                    "repoHref": "https://openagile.visualstudio.com/DefaultCollection/CommitStream/_git/CommitStream%20Git",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"Mariano Kunzi",
-                    "sha1Partial":"24480f9",
-                    "family":"Bitbucket",
-                    "action":"committed",
-                    "message":"something happened",
-                    "commitHref":"https://bitbucket.org/kunzimariano/test/commits/24480f9c4f1b4cff6c8ccec86416f6b258b75b22",
-                    "repo":"kunzimariano/test",
-                    "branch":"master",
-                    "branchHref":"https://bitbucket.org/kunzimariano/test/branch/master",
-                    "repoHref":"https://bitbucket.org/kunzimariano/test",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "Mariano Kunzi",
+                    "sha1Partial": "24480f9",
+                    "family": "Bitbucket",
+                    "action": "committed",
+                    "message": "something happened",
+                    "commitHref": "https://bitbucket.org/kunzimariano/test/commits/24480f9c4f1b4cff6c8ccec86416f6b258b75b22",
+                    "repo": "kunzimariano/test",
+                    "branch": "master",
+                    "branchHref": "https://bitbucket.org/kunzimariano/test/branch/master",
+                    "repoHref": "https://bitbucket.org/kunzimariano/test",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"Jordi Mallach",
-                    "sha1Partial":"b6568db",
-                    "family":"GitLab",
-                    "action":"committed",
-                    "message":"Update Catalan translation to e38cb41.",
-                    "commitHref":"http://example.com/mike/diaspora/commit/b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327",
-                    "repo":"mike/diaspora",
-                    "branch":"master",
-                    "branchHref":"http://example.com/mike/diaspora/tree/master",
-                    "repoHref":"http://example.com/mike/diaspora",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "Jordi Mallach",
+                    "sha1Partial": "b6568db",
+                    "family": "GitLab",
+                    "action": "committed",
+                    "message": "Update Catalan translation to e38cb41.",
+                    "commitHref": "http://example.com/mike/diaspora/commit/b6568db1bc1dcd7f8b4d5a946b0b91f9dacd7327",
+                    "repo": "mike/diaspora",
+                    "branch": "master",
+                    "branchHref": "http://example.com/mike/diaspora/tree/master",
+                    "repoHref": "http://example.com/mike/diaspora",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 },
                 {
-                    "commitDate":"1999-12-31",
-                    "timeFormatted":"The end of time",
-                    "author":"yourName",
-                    "sha1Partial":"1234567",
-                    "family":"GitHub",
-                    "action":"committed",
-                    "message":"S-04026 Testing Commit functionality!",
-                    "commitHref":"https://repourl",
-                    "repo":"/repourl",
-                    "branch":"master",
-                    "branchHref":"https://repourl/tree/master",
-                    "repoHref":"https://repourl",
-                    "isCommitHref":true,
+                    "commitDate": "1999-12-31",
+                    "timeFormatted": "The end of time",
+                    "author": "yourName",
+                    "sha1Partial": "1234567",
+                    "family": "GitHub",
+                    "action": "committed",
+                    "message": "S-04026 Testing Commit functionality!",
+                    "commitHref": "https://repourl",
+                    "repo": "/repourl",
+                    "branch": "master",
+                    "branchHref": "https://repourl/tree/master",
+                    "repoHref": "https://repourl",
+                    "isCommitHref": true,
                     "isVsoTfvc": false
                 }
-            ],"_links":{}
+            ],
+            "_links": {}
         };
     }
 

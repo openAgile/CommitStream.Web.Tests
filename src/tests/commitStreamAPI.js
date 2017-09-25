@@ -21,6 +21,8 @@ let gitLabInboxId;
 let bitbucketInboxId;
 let vsoGitInboxId;
 let vsoTfvcInboxId;
+let vsoTfvcOnPrem2015InboxId;
+let vsoTfvcOnPrem2017InboxId;
 let tfsOnPremInboxId;
 let subversionInboxId;
 let gitSwarmInboxId;
@@ -400,6 +402,124 @@ test.serial("Expect 400 response and error message for invalid commit headers to
 test.serial("Expect 400 response and error message for invalid commit payload to TFVC inbox.", async t => {
     try {
         await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: false, isMultiProject: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'VSTS',
+            isScriptBased: false
+        });
+        commit.should.not.differentFrom(expected);
+    }
+});
+
+test.serial("Can I create an inbox for a TFVC OnPrem 2015 repo?", async t => {
+    let response = await base.createInbox({instanceId, apiKey, digestId, inboxFamily: 'VsoTfvc', inboxName: 'VsoTFVCOnPrem2015',
+        repoUrl: 'https://vso.tfvc.com/user/2015OnPrem'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'VsoTfvc',
+        inboxName: 'VsoTFVCOnPrem2015',
+        repoUrl: 'https://vso.tfvc.com/user/2015OnPrem'
+    });
+    inbox.should.not.differentFrom(expected);
+    vsoTfvcOnPrem2015InboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a TFVC OnPrem 2015 inbox?", async t => {
+    let response = await base.pushTFVCOnPremCommit({instanceId, apiKey, inboxId: vsoTfvcOnPrem2015InboxId, validPayload: true, year:2015});
+    t.is(response.status, 201, "Commit Successful!");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: vsoTfvcOnPrem2015InboxId
+    });
+    commit.should.not.differentFrom(expected);
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to TFVC OnPrem 2015 inbox.", async t => {
+    try{
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcOnPrem2015InboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        commit.should.not.differentFrom(expected);
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to TFVC OnPrem 2015 inbox.", async t=> {
+    try {
+        await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcOnPrem2015InboxId, validPayload: false, isMultiProject: false});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidPayloadCommitResult({
+            vcsType: 'VSTS',
+            isScriptBased: false
+        });
+        commit.should.not.differentFrom(expected);
+    }
+});
+
+test.serial("Can I create an inbox for a TFVC OnPrem 2017 repo?", async t => {
+    let response = await base.createInbox({instanceId, apiKey, digestId, inboxFamily: 'VsoTfvc', inboxName: 'VsoTFVCOnPrem2017',
+        repoUrl: 'https://vso.tfvc.com/user/2017OnPrem'});
+    response.status.should.equal(201);
+    inbox = response.data;
+    let expected = base.expectedInboxResult({
+        instanceId: instanceId,
+        apiKey: apiKey,
+        digestId: digestId,
+        inboxId: inbox.inboxId,
+        inboxFamily: 'VsoTfvc',
+        inboxName: 'VsoTFVCOnPrem2017',
+        repoUrl: 'https://vso.tfvc.com/user/2017OnPrem'
+    });
+    inbox.should.not.differentFrom(expected);
+    vsoTfvcOnPrem2017InboxId = inbox.inboxId;
+});
+
+test.serial("Can I make a commit to a TFVC OnPrem 2017 inbox?", async t => {
+    let response = await base.pushTFVCOnPremCommit({instanceId, apiKey, inboxId: vsoTfvcOnPrem2017InboxId, validPayload: true, year:2017});
+    t.is(response.status, 201, "Commit Successful!");
+    let commit = response.data;
+    let expected = base.expectedCommitResult({
+        instanceId: instanceId,
+        digestId: digestId,
+        inboxId: vsoTfvcOnPrem2017InboxId
+    });
+    commit.should.not.differentFrom(expected);
+});
+
+test.serial("Expect 400 response and error message for invalid commit headers to TFVC OnPrem 2017 inbox.", async t => {
+    try{
+        await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcOnPrem2017InboxId, validPayload: true});
+    }
+    catch(error) {
+        let response = error.response;
+        t.is(response.status, 400, "Uh oh...");
+        let commit = response.data;
+        let expected = base.expectedInvalidHeadersCommitResult();
+        commit.should.not.differentFrom(expected);
+    }
+});
+
+test.serial("Expect 400 response and error message for invalid commit payload to TFVC OnPrem 2017 inbox.", async t => {
+    try {
+        await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcOnPrem2017InboxId, validPayload: false, isMultiProject: false});
     }
     catch(error) {
         let response = error.response;

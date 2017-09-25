@@ -53,7 +53,7 @@ test.serial("Login to VersionOne-SMA Instance", async t=> {
         })
         .click('Login')
         .get("browser:url")
-    url.should.include(base.instanceUrl + "Default.aspx");
+    url.should.include(base.instanceUrl + "/Default.aspx");
 });
 test.serial("Can enable CommitStream", async t => {
     let url = await glance.url(base.instanceUrl + "/Default.aspx?menu=CommitStreamPage&feat-nav=a1#/")
