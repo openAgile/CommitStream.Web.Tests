@@ -362,7 +362,7 @@ test.serial("Can I create an inbox for a TFVC repo?", async t => {
 });
 
 test.serial("Can I make a commit for a SINGLE project to a TFVC inbox?", async t => {
-    let response = await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true, isMultiProject: false});
+    let response = await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true}, false);
     t.is(response.status, 201, "Commit unsuccessful!");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -374,7 +374,7 @@ test.serial("Can I make a commit for a SINGLE project to a TFVC inbox?", async t
 });
 
 test.serial("Can I make a commit for MULTIPLE projects to a TFVC inbox?", async t => {
-    let response = await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true, isMultiProject: true});
+    let response = await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true}, true);
     t.is(response.status, 201, "Commit unsuccessful to multiple projects!");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -400,7 +400,7 @@ test.serial("Expect 400 response and error message for invalid commit headers to
 
 test.serial("Expect 400 response and error message for invalid commit payload to TFVC inbox.", async t => {
     try {
-        await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: false, isMultiProject: false});
+        await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: false}, false);
     }
     catch(error) {
         let response = error.response;

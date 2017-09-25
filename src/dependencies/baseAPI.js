@@ -4,7 +4,9 @@ const requireDir = require('require-dir');
 
 const families = requireDir('./families', {recurse:true});
 
-const getData = (family, name='commitData') => families[family][name]();
+const getData = (family, name='commitData', message=null) => families[family][name](message);
+
+const getHeaders = family => families[family].httpHeaders;
 
 module.exports = class BaseAPI {
     constructor() {
@@ -77,201 +79,49 @@ module.exports = class BaseAPI {
             })
     }
 
-    pushGitHubCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('GitHub');
-        if(!validPayload) {
-          commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'x-github-event': 'push'}
-            })
-    }
-
-    pushGitLabCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('GitLab');
-        if(!validPayload) {
+    _pushFamilyCommit({instanceId, apiKey, inboxId, validPayload, isMultiProject}, family, dataFunctionName='commitData', message=null) {
+        let commitData = getData(family, dataFunctionName, message);
+        if (!validPayload) {
             commitData = this.commitInvalidPayloadData;
         }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
+        let commitUrl = `${this.rootUrl}${instanceId}/inboxes/${inboxId}/commits?apiKey=${apiKey}`;
         return axios.post(commitUrl,
             commitData,
             {
-                headers: {'Content-type': 'application/json', 'x-gitlab-event': 'Push Hook'}
-            })
+                headers: getHeaders(family)
+            }
+        );
     }
 
-    pushBitbucketCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('Bitbucket');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'x-event-key': 'repo:push'}
-            })
-    }
+    pushGitHubCommit(options) { return this._pushFamilyCommit(options, 'GitHub'); }
 
-    pushVSTSCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('VsoGit');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json'}
-            })
-    }
+    pushGitLabCommit(options) { return this._pushFamilyCommit(options, 'GitLab'); }
 
-    pushTFVCCommit({instanceId, apiKey, inboxId, validPayload, isMultiProject}) {
-        let commitData = getData('VsoTfvc', 'multiProjectData');
-        if(!isMultiProject){
-            let commitData = getData('VsoTfvc', 'singleProjectData');
-        }
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
+    pushBitbucketCommit(options) { return this._pushFamilyCommit(options, 'Bitbucket'); }
 
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json'}
-            })
-    }
+    pushVSTSCommit(options) { return this._pushFamilyCommit(options, 'VsoGit'); }
 
-    pushTFSOnPremCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('VsoGit', 'onPremCommitData');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json'}
-            })
-    }
+    pushTFVCCommit(options, isMultiProject=false) { return this._pushFamilyCommit(options, 'VsoTfvc', isMultiProject ? 'multiProjectData' : 'singleProjectData'); }
 
-    pushSVNCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('Svn');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'CS-SVN-Event': 'Commit Event'}
-            })
-    }
+    pushTFSOnPremCommit(options) { return this._pushFamilyCommit(options, 'VsoGit', 'onPremCommitData'); }
 
-    pushGitSwarmCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('GitSwarm');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'x-gitlab-event': 'Push Hook', 'X-Gitswarm-Event': 'Push Hook'}
-            })
-    }
+    pushSVNCommit(options) { return this._pushFamilyCommit(options, 'Svn'); }
 
-    pushP4VCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('P4V');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'CS-P4V-Event': 'Commit Event'}
-            })
-    }
+    pushGitSwarmCommit(options) { return this._pushFamilyCommit(options, 'GitSwarm'); }
 
-    pushDeveoGitCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('Deveo', 'gitCommitData');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
-            })
-    }
+    pushP4VCommit(options) { return this._pushFamilyCommit(options, 'P4V'); }
 
-    pushDeveoMercurialCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('Deveo', 'mercurialCommitData');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
-            })
-    }
+    pushDeveoGitCommit(options) { return this._pushFamilyCommit(options, 'Deveo', 'gitCommitData'); }
 
-    pushDeveoSVNCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('Deveo', 'svnCommitData');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
-            })
-    }
+    pushDeveoMercurialCommit(options) { return this._pushFamilyCommit(options, 'Deveo', 'mercurialCommitData'); }
 
-    pushDeveoWebdavCommit({instanceId, apiKey, inboxId, validPayload}) {
-        let commitData = getData('Deveo', 'webdavCommitData');
-        if(!validPayload) {
-            commitData = this.commitInvalidPayloadData;
-        }
-        let commitUrl = this.rootUrl + instanceId + '/inboxes/' + inboxId + '/commits?apiKey=' + apiKey;
-        return axios.post(commitUrl,
-            commitData,
-            {
-                headers: {'Content-type': 'application/json', 'x-deveo-event': 'push'}
-            });
-    }
+    pushDeveoSVNCommit(options) { return this._pushFamilyCommit(options, 'Deveo', 'svnCommitData'); }
 
-	pushCtfGitCommit({instanceId, apiKey, inboxId, validPayload}) {
-		const [family, message, headers] = ['CtfGit', 'I am the CtfGit message', {'Content-type': 'application/json', 'x-ctf-scm': 'git'}];
-		return this._stepRightUpAndPushACommitAnyCommit({family, message, headers, instanceId, apiKey, inboxId, validPayload});
-	}
+    pushDeveoWebdavCommit(options) { return this._pushFamilyCommit(options, 'Deveo', 'webdavCommitData'); }
 
-	pushCtfSvnCommit({instanceId, apiKey, inboxId, validPayload}) {
-		const [family, message, headers] = ['CtfSvn', 'I am the CtfSvn message', {'Content-type': 'application/json', 'x-ctf-scm': 'subversion'}];
-		return this._stepRightUpAndPushACommitAnyCommit({family, message, headers, instanceId, apiKey, inboxId, validPayload});
-	}
+    pushCtfGitCommit(options) { return this._pushFamilyCommit(options, 'CtfGit', 'commitData', 'I am the CtfGit message'); }
 
-	_stepRightUpAndPushACommitAnyCommit({family, message, headers, instanceId, apiKey, inboxId, validPayload}) {
-		let commitData = families[family].validWithOneCommit(message);
-		if (!validPayload) {
-			commitData = this.commitInvalidPayloadData;
-		}
-		let commitUrl = `${this.rootUrl}${instanceId}/inboxes/${inboxId}/commits?apiKey=${apiKey}`;
-		return axios.post(commitUrl,
-			commitData,
-			{
-				headers
-			});
-	}
+    pushCtfSvnCommit(options) { return this._pushFamilyCommit(options, 'CtfSvn', 'commitData', 'I am the CtfSvn message'); }
 
     expectedInstanceResult(instanceId, apiKey){
         return {
