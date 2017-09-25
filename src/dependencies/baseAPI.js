@@ -79,7 +79,7 @@ module.exports = class BaseAPI {
             })
     }
 
-    _pushFamilyCommit({instanceId, apiKey, inboxId, validPayload, isMultiProject}, family, dataFunctionName='commitData', message=null) {
+    _pushFamilyCommit({instanceId, apiKey, inboxId, validPayload}, family, dataFunctionName='commitData', message=null) {
         let commitData = getData(family, dataFunctionName, message);
         if (!validPayload) {
             commitData = this.commitInvalidPayloadData;
