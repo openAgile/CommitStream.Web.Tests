@@ -2,7 +2,6 @@ import test from 'ava';
 import chai from 'chai';
 import chaidiff from 'chai-diff';
 import fs from 'fs';
-import _ from 'lodash';
 import BaseAPI from '../dependencies/baseAPI';
 let base = new BaseAPI();
 chai.should();
@@ -285,7 +284,7 @@ test.serial("Expect 400 response and error message for invalid commit payload to
     }
 });
 
-test.serial("Can I create an inbox for a VSTS repo?", async t =>              {
+test.serial("Can I create an inbox for a VsoGit repo?", async t =>              {
     let response = await base.createInbox({instanceId, apiKey, digestId,
         inboxFamily: 'VsoGit', inboxName: 'VsoGitGlobal', repoUrl: 'https://vsts.com/user/msRepo'});
     response.status.should.equal(201);
@@ -302,8 +301,8 @@ test.serial("Can I create an inbox for a VSTS repo?", async t =>              {
     vsoGitInboxId = inbox.inboxId;
 });
 
-test.serial("Can I make a commit to VSTS inbox?", async t=> {
-    let response = await base.pushVSTSCommit({instanceId, apiKey, inboxId: vsoGitInboxId, validPayload: true});
+test.serial("Can I make a commit to VsoGit inbox?", async t=> {
+    let response = await base.pushVsoGitCommit({instanceId, apiKey, inboxId: vsoGitInboxId, validPayload: true}, false);
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -343,7 +342,7 @@ test.serial("Expect 400 response and error message for invalid commit payload to
     }
 });
 
-test.serial("Can I create an inbox for a TFVC repo?", async t => {
+test.serial("Can I create an inbox for a VsoTfvc repo?", async t => {
     let response = await base.createInbox({instanceId: instanceId, apiKey: apiKey, digestId: digestId,
         inboxFamily: 'VsoTfvc', inboxName: 'VsoTfvcGlobal', repoUrl: 'https://vso.tfvc.com/user/platformTest'});
     response.status.should.equal(201);
@@ -361,31 +360,44 @@ test.serial("Can I create an inbox for a TFVC repo?", async t => {
     vsoTfvcInboxId = inbox.inboxId;
 });
 
-test.serial("Can I make a commit for a SINGLE project to a TFVC inbox?", async t => {
-    let response = await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true}, false);
-    t.is(response.status, 201, "Commit unsuccessful!");
-    let commit = response.data;
-    let expected = base.expectedCommitResult({
-        instanceId: instanceId,
-        digestId: digestId,
-        inboxId: vsoTfvcInboxId
+['singleProjectData', 'multiProjectData', 'onPrem2015ProjectData', 'onPrem2017ProjectData'].forEach(d => {
+    test.serial("Can I make a commit for a " + d + "  project to a VsoTfvc inbox?", async t => {
+        let response = await base.pushVsoTfvcCommitBeta({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true}, d);
+        t.is(response.status, 201, "Commit unsuccessful to " + d + " !");
+        let commit = response.data;
+        let expected = base.expectedCommitResult({
+            instanceId: instanceId,
+            digestId: digestId,
+            inboxId: vsoTfvcInboxId
+        });
+        commit.should.not.differentFrom(expected);
     });
-    commit.should.not.differentFrom(expected);
-});
+})
+// test.serial("Can I make a commit for a SINGLE project to a VsoTfvc inbox?", async t => {
+//     let response = await base.pushVsoTfvcCommitBeta({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true}, 'singleProjectData');
+//     t.is(response.status, 201, "Commit unsuccessful!");
+//     let commit = response.data;
+//     let expected = base.expectedCommitResult({
+//         instanceId: instanceId,
+//         digestId: digestId,
+//         inboxId: vsoTfvcInboxId
+//     });
+//     commit.should.not.differentFrom(expected);
+// });
+//
+// test.serial("Can I make a commit for MULTIPLE projects to a VsoTfvc inbox?", async t => {
+//     let response = await base.pushVsoTfvcCommitBeta({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true}, 'multipleProjectData');
+//     t.is(response.status, 201, "Commit unsuccessful to multiple projects!");
+//     let commit = response.data;
+//     let expected = base.expectedCommitResult({
+//         instanceId: instanceId,
+//         digestId: digestId,
+//         inboxId: vsoTfvcInboxId
+//     });
+//     commit.should.not.differentFrom(expected);
+// });
 
-test.serial("Can I make a commit for MULTIPLE projects to a TFVC inbox?", async t => {
-    let response = await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true}, true);
-    t.is(response.status, 201, "Commit unsuccessful to multiple projects!");
-    let commit = response.data;
-    let expected = base.expectedCommitResult({
-        instanceId: instanceId,
-        digestId: digestId,
-        inboxId: vsoTfvcInboxId
-    });
-    commit.should.not.differentFrom(expected);
-});
-
-test.serial("Expect 400 response and error message for invalid commit headers to TFVC inbox.", async t => {
+test.serial("Expect 400 response and error message for invalid commit headers to VsoTfvc inbox.", async t => {
     try{
         await base.pushCommitInvalidHeaders({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: true});
     }
@@ -398,9 +410,9 @@ test.serial("Expect 400 response and error message for invalid commit headers to
     }
 });
 
-test.serial("Expect 400 response and error message for invalid commit payload to TFVC inbox.", async t => {
+test.serial("Expect 400 response and error message for invalid commit payload to VsoTfvc inbox.", async t => {
     try {
-        await base.pushTFVCCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: false}, false);
+        await base.pushVsoTfvcCommit({instanceId: instanceId, apiKey: apiKey, inboxId: vsoTfvcInboxId, validPayload: false}, false);
     }
     catch(error) {
         let response = error.response;
@@ -414,7 +426,7 @@ test.serial("Expect 400 response and error message for invalid commit payload to
     }
 });
 
-test.serial("Can I create an inbox for a TFSOnPrem repo?", async t => {
+test.serial("Can I create an inbox for a VsoGit OnPrem repo?", async t => {
     let response = await base.createInbox({instanceId, apiKey, digestId,
         inboxFamily: 'VsoGit', inboxName: 'TFSOnPremGlobal', repoUrl: 'http://tctfs05:8080/tfs/TayCommCFT'});
     response.status.should.equal(201);
@@ -431,8 +443,8 @@ test.serial("Can I create an inbox for a TFSOnPrem repo?", async t => {
     tfsOnPremInboxId = inbox.inboxId;
 });
 
-test.serial("Can I make a commit to TFSOnPrem inbox?", async t=> {
-    let response = await base.pushTFSOnPremCommit({instanceId, apiKey, inboxId: tfsOnPremInboxId, validPayload: true});
+test.serial("Can I make a commit to VsoGit OnPrem inbox?", async t=> {
+    let response = await base.pushVsoGitCommit({instanceId, apiKey, inboxId: tfsOnPremInboxId, validPayload: true}, true);
     t.is(response.status, 201, "Uh oh...");
     let commit = response.data;
     let expected = base.expectedCommitResult({
@@ -939,6 +951,7 @@ test.serial("Expect 400 response and error message for invalid commit payload to
 test.serial("Can I query the digest for all commits?", async t => {
     let response = await base.getDigestCommits({instanceId, digestId, apiKey});
     console.log("instanceId: " + instanceId + ", apiKey: " + apiKey + ", digestId: " + digestId);
+    console.log(`All Digests URL: ${base.rootUrl}/${instanceId}/digests/${digestId}/commits?apiKey=${apiKey}`);
     console.log(`The digest TeamRoom view URL: ${digest._links["teamroom-view"].href}&apiKey=${apiKey}`);
     t.is(response.status, 200, "What response status did I get?: " + response.status);
     digestCommits = response.data;
