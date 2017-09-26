@@ -4,9 +4,13 @@ import chaidiff from 'chai-diff';
 import fs from 'fs';
 import _ from 'lodash';
 import BaseAPI from '../dependencies/baseAPI';
+import requireDir from 'require-dir';
+
 let base = new BaseAPI();
 chai.should();
 chai.use(chaidiff);
+
+const context = {};
 
 let instance;
 let instanceId;
@@ -31,6 +35,7 @@ let deveoSVNInboxId;
 let deveoWebdavInboxId;
 let ctfGitInboxId;
 let ctfSvnInboxId;
+
 
 test.after.always('savePerformanceData', t => {
     console.log("All vars have values? apiKey: " + apiKey + ", instanceId: " + instanceId + ", digestId: " + digestId + ", githubIndoxId: " + gitHubInboxId);
@@ -60,8 +65,8 @@ test.serial("Can I create an instance?", async t => {
     t.is(response.status, 201, "Uh oh..." + response.status);
     instance = response.data;
     response.data.should.not.differentFrom(base.expectedInstanceResult(instance.instanceId, instance.apiKey));
-    apiKey = instance.apiKey;
-    instanceId = instance.instanceId;
+    apiKey = context.apiKey = instance.apiKey;
+    instanceId = context.instanceId = instance.instanceId;
 });
 
 test.serial("Can I query an instance?", async t => {
@@ -81,7 +86,7 @@ test.serial("Can I create a digest", async t => {
         digestDescription: "SOMETHING"
     });
     digest.should.not.differentFrom(expected);
-    digestId = digest.digestId;
+    digestId = context.digestId = digest.digestId;
 });
 
 test.serial("Can I query all the inboxes for a Digest without an inbox created?", async t => {
@@ -100,23 +105,13 @@ test.serial("Can I query digest for 0 commits?", async t => {
     digestCommits.should.not.differentFrom(expected);
 });
 
-test.serial("Can I create an inbox for a GitHub repo?", async t => {
-    let response = await base.createInbox({instanceId, apiKey, digestId,
-        inboxFamily: 'GitHub', inboxName: 'GitHubGlobal', repoUrl: 'https://github.com/user/genericTest'});
-    t.is(response.status, 201, "Uh oh...");
-    inbox = response.data;
-    let expected = base.expectedInboxResult({
-        instanceId,
-        apiKey,
-        digestId,
-        inboxId: inbox.inboxId,
-        inboxFamily: 'GitHub',
-        inboxName: 'GitHubGlobal',
-        repoUrl: 'https://github.com/user/genericTest'
-    });
-    inbox.should.not.differentFrom(expected);
-    gitHubInboxId = inbox.inboxId;
-});
+const families = requireDir('../dependencies/families', {recurse:true});
+
+for(let t of families.GitHub.tests.inboxCommits(base, context)) {		
+	test.serial(t.name, t.test);
+	inbox = context.inbox;
+	gitHubInboxId = context.gitHubInboxId;
+};
 
 test.serial("Can I query all the inboxes for a Digest with one inbox created?", async t => {
     const response = await base.getDigestInboxes({instanceId, digestId, apiKey});
@@ -126,6 +121,7 @@ test.serial("Can I query all the inboxes for a Digest with one inbox created?", 
     digestInboxes.should.not.differentFrom(expected);
 });
 
+/*
 test.serial("Can I make a commit to GitHub inbox?", async t => {
     let response = await base.pushGitHubCommit({instanceId, apiKey, inboxId: gitHubInboxId, validPayload: true});
     t.is(response.status, 201, "Uh oh...");
@@ -137,6 +133,7 @@ test.serial("Can I make a commit to GitHub inbox?", async t => {
     });
     commit.should.not.differentFrom(expected);
 });
+*/
 
 test.serial("Expect 400 response and error message for invalid commit headers to GitHub inbox", async t=> {
     try {

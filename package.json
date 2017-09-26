@@ -36,6 +36,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-2": "^6.18.0",
     "babel-register": "^6.18.0",
+    "babel-runtime": "^6.26.0",
     "chai": "^3.5.0",
     "chai-diff": "^1.0.1",
     "glance-webdriver": "^0.6.2",
@@ -59,16 +60,5 @@
       "babel-register"
     ],
     "babel": "inherit"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-0"
-    ],
-    "plugins": [
-      "espower",
-      "add-module-exports",
-      "transform-runtime"
-    ]
   }
 }
