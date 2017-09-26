@@ -36,7 +36,6 @@ let deveoWebdavInboxId;
 let ctfGitInboxId;
 let ctfSvnInboxId;
 
-
 test.after.always('savePerformanceData', t => {
     console.log("All vars have values? apiKey: " + apiKey + ", instanceId: " + instanceId + ", digestId: " + digestId + ", githubIndoxId: " + gitHubInboxId);
     const data =
@@ -107,19 +106,19 @@ test.serial("Can I query digest for 0 commits?", async t => {
 
 const families = requireDir('../dependencies/families', {recurse:true});
 
-for(let t of families.GitHub.tests.inboxCommits(base, context)) {		
-	test.serial(t.name, t.test);
-	inbox = context.inbox;
-	gitHubInboxId = context.gitHubInboxId;
+for(let famTest of families.GitHub.tests.inboxCommits(base, context)) {
+	test.serial(famTest.name, famTest.test);
 };
 
+/* TODO: how to handle this one?
 test.serial("Can I query all the inboxes for a Digest with one inbox created?", async t => {
     const response = await base.getDigestInboxes({instanceId, digestId, apiKey});
     t.is(response.status, 200, `What response status did I Get ${response.status}`);
     digestInboxes = response.data;
-    const expected = base.expectedDigestInboxes({instanceId, digest, inbox});
+    const expected = base.expectedDigestInboxes({instanceId, digest, context.inbox});
     digestInboxes.should.not.differentFrom(expected);
 });
+*/
 
 /*
 test.serial("Can I make a commit to GitHub inbox?", async t => {
@@ -134,35 +133,6 @@ test.serial("Can I make a commit to GitHub inbox?", async t => {
     commit.should.not.differentFrom(expected);
 });
 */
-
-test.serial("Expect 400 response and error message for invalid commit headers to GitHub inbox", async t=> {
-    try {
-        await base.pushCommitInvalidHeaders({instanceId, apiKey, inboxId: gitHubInboxId, validPayload: true});
-    }
-    catch(error) {
-        let response = error.response;
-        t.is(response.status, 400, "Uh oh...");
-        let commit = response.data;
-        let expected = base.expectedInvalidHeadersCommitResult();
-        commit.should.not.differentFrom(expected);
-    }
-});
-
-test.serial("Expect 400 response and error message for invalid commit payload to GitHub inbox", async t=> {
-    try {
-        await base.pushGitHubCommit({instanceId, apiKey, inboxId: gitHubInboxId, validPayload: false});
-    }
-    catch(error) {
-        let response = error.response;
-        t.is(response.status, 400, "Uh oh...");
-        let commit = response.data;
-        let expected = base.expectedInvalidPayloadCommitResult({
-            vcsType: 'GitHub',
-            isScriptBased: false
-        });
-        JSON.stringify(commit).should.not.differentFrom(JSON.stringify(expected));
-    }
-});
 
 test.serial("Can I create an inbox for a GitLab repo?", async t => {
     let response = await base.createInbox({instanceId, apiKey, digestId,
