@@ -124,7 +124,7 @@ This shows all of the CommitStream related environment variables
 
 #### switchUrl
 
-This changes the CS_ROOT_URL to point to the appropriate url
+This changes the `CS_ROOT_URL` to point to the appropriate url
 
 ##### Usage
 
