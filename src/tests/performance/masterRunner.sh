@@ -38,8 +38,8 @@ checkCommon
 switchUrl v1-cs-test
 
 #Runner Section
-buildUrl bitbucket
-./runner2.sh ${PROCESS_COUNTER} "./post-bitbucket-pull-request.sh ${ITERATION_COUNTER}"
+buildUrl invalidbitbucket
+./runner2.sh ${PROCESS_COUNTER} "./post-invalid-bitbucket-pull-request.sh ${ITERATION_COUNTER}"
 echo "**************************************************************"
 
 buildUrl github

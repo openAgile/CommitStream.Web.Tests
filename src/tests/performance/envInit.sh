@@ -110,8 +110,8 @@ function buildUrl {
 #TODO For example post-github-commits if
     echo "In build url scm=$1"
     case $1 in
-        "bitbucket")
-            echo "Processing Bitbucket!"
+        "invalidbitbucket")
+            echo "Processing Invalid Bitbucket Pull Request!"
             PRODUCTID="${BITBUCKETID}"
             echo BitbucketInboxId is "${BITBUCKETID}"
             export PRODUCTID
