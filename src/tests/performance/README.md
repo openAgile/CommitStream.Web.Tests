@@ -17,8 +17,7 @@ For example,
 ```export APIKEY=24494d0e-c4df-4fd5-bac1-a234c5c58224
 export INSTANCEID=ac977fd2-6515-4dd3-a6ee-020c79c881d8
 export DIGESTID=f6bb4a01-fd01-43a8-b34d-3817868f120e
-.
-.
+...
 ```
 
 This file is executed such that it becomes a part of the environment so that the need for hardcoding urls and values is
