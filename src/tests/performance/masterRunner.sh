@@ -58,10 +58,6 @@ buildUrl queryEsRealInstance
 ./runner2.sh ${PROCESS_COUNTER} "./query-es-real-instance.sh ${ITERATION_COUNTER}"
 echo "**************************************************************"
 
-buildUrl queryNonExistentInstance
-./runner2.sh ${PROCESS_COUNTER} "./query-es-non-existent-instance.sh ${ITERATION_COUNTER}"
-echo "**************************************************************"
-
 buildUrl queryRealInstance
  ./runner2.sh ${PROCESS_COUNTER} "./query-real-instance.sh ${ITERATION_COUNTER}"
 echo "**************************************************************"

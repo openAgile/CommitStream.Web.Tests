@@ -143,12 +143,6 @@ function buildUrl {
              export PRODUCTID
              url=`queryInstanceEs`
         ;;
-        "queryNonExistentInstance")
-             echo "Processing query-non-existent-instance!"
-             PRODUCTID="General"
-             export PRODUCTID
-             url=`queryInstance non`
-        ;;
         "queryRealInstance")
              echo "Processing query-real-instance!"
              PRODUCTID="General"
