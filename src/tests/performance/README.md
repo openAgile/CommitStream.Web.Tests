@@ -38,7 +38,7 @@ pScripts can be used in a batch fashion or with command line helper functions. H
 
 ### Batch approach
 
-Examine the masterRunner.sh file.  You will see two sections Prep and Runner.  Modify to fit your flavor.  As the
+Examine the `masterRunner.sh` file.  You will see two sections **Prep** and **Runner**.  Modify to fit your flavor.  As the
 batch script executes, it will create an environment, do all of the processing and running of the scripts then terminate.
 All you need to do is enter the following
 
@@ -50,8 +50,8 @@ executing your script ,then
 `bash -x ./masterRunner.sh`
 
 This execution is somewhat a closure in the sense that scope is the shell context where the script executes. Once this
-masterRunner.sh terminates, the environment variables will fall out of scope and disappear leaving your command
-environment non polluted.
+`masterRunner.sh` terminates, the environment variables will fall out of scope and disappear leaving your command
+environment non-polluted.
 
 **Note:** While executing masterRunner.sh, if you do not have all of the proper environment variables set, the script will
 terminate after encountering the variable.
@@ -63,7 +63,8 @@ up close and personal at the execution and results of an individual test.
 
 Here is a typical series of commands needed to run a single test manually.
 
-```source ./envInit.sh
+```
+source ./envInit.sh
 initx
 checkCommon
 
@@ -73,7 +74,7 @@ buildUrl bitbucket
 
 I will explain the role and goal of each line:
 
-#### 1) `source ./envInit.sh`
+#### 1: `source ./envInit.sh`
 
 This takes the contents of the script and loads it into your local environment.  This `envInit.sh` module contains the following functions:
 
@@ -82,51 +83,84 @@ b) clean
 c) checkCommon
 d) buildUrl
 
-#### 2) `initx`
+#### 2: `initx`
 
 This function's role is to:
 
 a) Copy the performanceData.txt to the working folder
 b) Initialize the environment with the environment variables needed to run tests against VCS and CS instances in general.
 
-#### `checkCommon`
+#### 3: `checkCommon`
 
 This confirms the existence of `INSTANCEID`, `APIKEY` AND `CS_ROOT_URL`
 
-#### `buildUrl bitbucket`
+#### 4: `buildUrl bitbucket`
 
 This builds a url when using Bitbucket.  This url gets pulled into each test that gets executed. In some cases we will have tests that are not vendor VCS specific but test instances.  These get built here as well.
 
 ### Helper Tools
 
 These are additional tools to help maintain the pscript environment
- 1) pserver - This gets your instance id
-    usage: pserver
 
- 2) pdelete - This removes an environment
-    usage: pdelete <environment variable>
+#### pserver
 
- 3) pshow - This shows all of the Commitstream related environment variables
-    usage: pshow
+This gets your instance id
+##### Usage
 
- 4) switchUrl - This changes the CS_ROOT_URL to point to the appropriate url
-    usage pSwitchRoot <v1-cs-test | localhost>
-    The argments represent https://v1-cs-test.azurewebsites.net, https://commitstream-staging.azurewebsites.net and http://localhost:6565
+`pserver`
+
+#### pdelete
+
+This removes an environment
+
+##### Usage
+
+`pdelete <environment variable>`
+
+#### pshow
+
+This shows all of the CommitStream related environment variables
+
+##### Usage
+`pshow`
+
+#### switchUrl
+
+This changes the CS_ROOT_URL to point to the appropriate url
+
+##### Usage
+
+`usage pSwitchRoot <v1-cs-test | localhost>`
+    
+The argments represent https://v1-cs-test.azurewebsites.net, https://commitstream-staging.azurewebsites.net and http://localhost:6565
     respectively.
- 5) pclean - This removes all of the environment variables
 
-How to run specific tests
+#### pclean
 
-The pattern is
-build a a test url
-run a test
+This removes all of the environment variables
 
-For example,
+##### Usage
+
+`pclean`
+
+
+### How to run individual tests
+
+The pattern is:
+
+```
+<build a a test url>
+<run a test>
+```
+
+For example:
+
+```
 buildUrl bitbucket
 ./runner.sh 1 "./post-bitbucket-pull-request.sh 1"
+```
 
-
- This will build the url accordingly and run the test.
+This will build the url accordingly and run the test.
 
 
 # Legacy style: runner.sh
