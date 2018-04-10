@@ -76,7 +76,7 @@ Here's an in-depth breakdown of each line from above:
 
 This takes the contents of the script and loads it into your local environment.  This `envInit.sh` module contains the following functions:
 
-* initx - This
+* initx
 * clean
 * checkCommon
 * buildUrl
