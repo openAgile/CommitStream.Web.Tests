@@ -8,7 +8,7 @@ parameters.  The scripts work together to create an execution environment that d
 to execute a particular test.  The tests can create extra processes and generate a flood of requests whereby simulating
 multiple computers sending and attempting to execute and test Commitstream functionality.
 
-When running the Commitstream tests via the `npm run ca` command a file `performanceData.txt` is generated in the folder
+When running the Commitstream tests via the `npm run ca` command a file named `performanceData.txt` is generated in the folder
 `CommitStream.Web.Tests/config`.  This file contains a list of the VCSs that Commitstream supports.  Each VCS is prepended
 with the bash command `export` and appended with `" '=SOME_IDENTIFIER' "`
 
