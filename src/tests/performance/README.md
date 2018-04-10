@@ -70,9 +70,9 @@ buildUrl bitbucket
 ./runner.sh 1 "./post-bitbucket-pull-request.sh 1"
 ```
 
-I will explain the role and goal of each line:
+Here's an in-depth breakdown of each line from above:
 
-#### 1: `source ./envInit.sh`
+#### `source ./envInit.sh`
 
 This takes the contents of the script and loads it into your local environment.  This `envInit.sh` module contains the following functions:
 
@@ -81,18 +81,18 @@ This takes the contents of the script and loads it into your local environment. 
 * checkCommon
 * buildUrl
 
-#### 2: `initx`
+#### `initx`
 
 This function's role is to:
 
 * Copy the performanceData.txt to the working folder
 * Initialize the environment with the environment variables needed to run tests against VCS and CS instances in general.
 
-#### 3: `checkCommon`
+#### `checkCommon`
 
 This confirms the existence of `INSTANCEID`, `APIKEY` AND `CS_ROOT_URL`
 
-#### 4: `buildUrl bitbucket`
+#### `buildUrl bitbucket`
 
 This builds a url when using Bitbucket.  This url gets pulled into each test that gets executed. In some cases we will have tests that are not vendor VCS specific but test instances.  These get built here as well.
 
