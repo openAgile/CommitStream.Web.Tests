@@ -156,7 +156,7 @@ function buildUrl {
              url=`queryInstance`
          ;;
          "queryVersion")
-             echo "Processing query-v1!"
+             echo "Processing query-version!"
              PRODUCTID="General"
              export PRODUCTID
              url=`queryVersion`
