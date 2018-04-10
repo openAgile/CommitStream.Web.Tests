@@ -10,7 +10,7 @@ multiple computers sending and attempting to execute and test Commitstream funct
 
 When running the Commitstream tests via the `npm run ca` command a file `performanceData.txt` is generated in the folder
 `CommitStream.Web.Tests/config`.  This file contains a list of the VCSs that Commitstream supports.  Each VCS is prepended
-with the bash command "export" and appended with " '=SOME_IDENTIFIER' "
+with the bash command `export` and appended with `" '=SOME_IDENTIFIER' "`
 
 For example,
 
@@ -26,7 +26,7 @@ reduced to the trivial case.
 
 ## Usage optoins
 
-pScripts can be used in a batch fashion or cmdline. Here is a list of all tests that can be run:
+pScripts can be used in a batch fashion or with command line helper functions. Here is a list of all tests that can be run:
 
 1) post-invalid-bitbucket-pull-request.sh
 2) post-github-commits.sh
@@ -75,12 +75,12 @@ I will explain the role and goal of each line:
 
 #### 1) `source ./envInit.sh`
 
-This takes the contents of the script and loads it into your local environment.  This module
-  envInit.sh contains the following functions
-  a) initx - This
-  b) clean
-  c) checkCommon
-  d) buildUrl
+This takes the contents of the script and loads it into your local environment.  This `envInit.sh` module contains the following functions:
+
+a) initx - This
+b) clean
+c) checkCommon
+d) buildUrl
 
 #### 2) `initx`
 
