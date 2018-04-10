@@ -12,7 +12,7 @@ When running the Commitstream tests via the `npm run ca` command a file `perform
 `CommitStream.Web.Tests/config`.  This file contains a list of the VCSs that Commitstream supports.  Each VCS is prepended
 with the bash command `export` and appended with `" '=SOME_IDENTIFIER' "`
 
-For example,
+For example:
 
 ```export APIKEY=24494d0e-c4df-4fd5-bac1-a234c5c58224
 export INSTANCEID=ac977fd2-6515-4dd3-a6ee-020c79c881d8
@@ -39,12 +39,12 @@ pScripts can be used in a batch fashion or with command line helper functions. H
 
 Examine the `masterRunner.sh` file.  You will see two sections **Prep** and **Runner**.  Modify to fit your flavor.  As the
 batch script executes, it will create an environment, do all of the processing and running of the scripts then terminate.
-All you need to do is enter the following
+All you need to do is enter the following:
 
 `./masterRunner.sh`
 
-If you would like to see more detail during your execution, to be precise, the what is going on with the shell that is
-executing your script ,then
+If you would like to see more detail during your execution, to see precisely what is going on with the shell that is
+executing your script, then do it like this:
 
 `bash -x ./masterRunner.sh`
 
@@ -52,15 +52,14 @@ This execution is somewhat a closure in the sense that scope is the shell contex
 `masterRunner.sh` terminates, the environment variables will fall out of scope and disappear leaving your command
 environment non-polluted.
 
-**Note:** While executing masterRunner.sh, if you do not have all of the proper environment variables set, the script will
+**Note:** While executing `masterRunner.sh`, if you do not have all of the proper environment variables set, the script will
 terminate after encountering the variable.
 
 ### Command Line approach
 
-This is a more manual testing technique.  The use case when using this methodology is when you need to look
-up close and personal at the execution and results of an individual test.
+This is a more manual testing technique.  The use case when using this methodology is when you need to look up close and personal at the execution and results of an individual test.
 
-Here is a typical series of commands needed to run a single test manually.
+Here is a typical series of commands needed to run a single test manually:
 
 ```
 source ./envInit.sh
@@ -77,17 +76,17 @@ I will explain the role and goal of each line:
 
 This takes the contents of the script and loads it into your local environment.  This `envInit.sh` module contains the following functions:
 
-a) initx - This
-b) clean
-c) checkCommon
-d) buildUrl
+* initx - This
+* clean
+* checkCommon
+* buildUrl
 
 #### 2: `initx`
 
 This function's role is to:
 
-a) Copy the performanceData.txt to the working folder
-b) Initialize the environment with the environment variables needed to run tests against VCS and CS instances in general.
+* Copy the performanceData.txt to the working folder
+* Initialize the environment with the environment variables needed to run tests against VCS and CS instances in general.
 
 #### 3: `checkCommon`
 
