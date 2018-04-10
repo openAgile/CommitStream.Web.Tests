@@ -50,13 +50,13 @@ buildUrl postNewDigest
 ./runner2.sh ${PROCESS_COUNTER} "./post-new-digest.sh ${ITERATION_COUNTER}"
 echo "**************************************************************"
 
-buildUrl queryEsNonExistentInstance
-./runner2.sh ${PROCESS_COUNTER} "./query-es-non-existent-instance.sh ${ITERATION_COUNTER}"
-echo "**************************************************************"
+# buildUrl queryEsNonExistentInstance
+# ./runner2.sh ${PROCESS_COUNTER} "./query-es-non-existent-instance.sh ${ITERATION_COUNTER}"
+# echo "**************************************************************"
 
-buildUrl queryEsRealInstance
-./runner2.sh ${PROCESS_COUNTER} "./query-es-real-instance.sh ${ITERATION_COUNTER}"
-echo "**************************************************************"
+# buildUrl queryEsRealInstance
+# ./runner2.sh ${PROCESS_COUNTER} "./query-es-real-instance.sh ${ITERATION_COUNTER}"
+# echo "**************************************************************"
 
 buildUrl queryRealInstance
  ./runner2.sh ${PROCESS_COUNTER} "./query-real-instance.sh ${ITERATION_COUNTER}"
