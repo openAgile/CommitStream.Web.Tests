@@ -17,6 +17,7 @@ let digestCommits;
 let digestInboxes;
 let inbox;
 let gitHubInboxId;
+let gitHubInboxHref;
 let gitLabInboxId;
 let bitbucketInboxId;
 let vsoGitInboxId;
@@ -117,6 +118,7 @@ test.serial("Can I create an inbox for a GitHub repo?", async t => {
     });
     inbox.should.not.differentFrom(expected);
     gitHubInboxId = inbox.inboxId;
+    gitHubInboxHref = inbox._links["add-commit"].href;
 });
 
 test.serial("Can I query all the inboxes for a Digest with one inbox created?", async t => {
@@ -976,12 +978,9 @@ test.serial("Can I query the digest for all commits?", async t => {
     digestCommits = response.data;
     let expected = base.expectedAllDigestCommits();
     let digestCommitsText = JSON.stringify(digestCommits);
-    let webhookString ="https://v1-cs-test.azurewebsites.net/api/" + instanceId + "&digestId" + digestId + "/inboxes/" + gitHubInboxId + "/commits?apiKey=" + apiKey + "\n";
     digestCommitsText = digestCommitsText.replace(/"commitDate":".*?"/g, '"commitDate":"1999-12-31"');
     digestCommitsText = digestCommitsText.replace(/"timeFormatted":".*?"/g, '"timeFormatted":"The end of time"');
-    console.log("\nWebhook: " + webhookString);
+    console.log("\nWebhook: " + gitHubInboxHref + `?apiKey=${apiKey}`);
     //console.log("Digest Commits output: " + JSON.stringify(digestCommitsText));
     JSON.parse(digestCommitsText).should.not.differentFrom(expected);
 });
-
-
